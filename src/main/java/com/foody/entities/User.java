@@ -168,4 +168,13 @@ public class User extends AuditEntity implements Serializable{
 	public void setFacebook(String facebook) {
 		this.facebook = facebook;
 	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
 }

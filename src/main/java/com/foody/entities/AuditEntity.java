@@ -42,6 +42,11 @@ public abstract class AuditEntity implements Serializable {
 	@LastModifiedDate
 	private Date updateAt;
 	
+	
+	public AuditEntity() {
+		super();
+	}
+
 	public void setCreateAt(Date createAt) {
 		this.createAt = createAt;
 	}
@@ -57,4 +62,13 @@ public abstract class AuditEntity implements Serializable {
 	public void setUpdateAt(Date updateAt) {
 		this.updateAt = updateAt;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
 }
