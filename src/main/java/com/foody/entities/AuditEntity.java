@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,7 +25,6 @@ public abstract class AuditEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@NotNull
 	@Id
 	@GeneratedValue(generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
