@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.foody.entities.Role;
-import com.foody.entities.User;
 import com.foody.payload.DataResponse;
 import com.foody.payload.JwtAuthenticationResponse;
 import com.foody.payload.LoginRequest;
