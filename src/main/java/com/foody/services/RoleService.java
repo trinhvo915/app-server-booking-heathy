@@ -1,17 +1,14 @@
 package com.foody.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.util.Map;
 
+import com.foody.dto.RoleRequest;
 import com.foody.entities.Role;
-import com.foody.repository.RoleRepository;
+import com.foody.payload.DataResponse;
 
-@Service
-public class RoleService {
-	@Autowired
-	RoleRepository roleRepository;
+public interface RoleService {
 	
-	public Role createRole(Role role) {
-		return roleRepository.save(role);
-	}
+	Map<Role, DataResponse> createRole(RoleRequest roleRequest);
+	
+	Role getRoleByName(String name);
 }

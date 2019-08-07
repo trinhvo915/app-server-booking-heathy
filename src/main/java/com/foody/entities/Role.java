@@ -8,13 +8,18 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "role")
 public class Role extends AuditEntity implements Serializable{
 
+
 	private static final long serialVersionUID = 1L;
 	
+	@NotNull
+    @Valid
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.LAZY,
@@ -24,12 +29,17 @@ public class Role extends AuditEntity implements Serializable{
 		},
 		mappedBy = "roles"
 	)
-	private Set<User> users = new HashSet<>();
 	
+	private Set<User> users = new HashSet<>();
+
 	public Role() {
-		
+
 	}
 
+	public Role(String name) {
+		this.name = name;
+	}
+	
 	public String getName() {
 		return name;
 	}

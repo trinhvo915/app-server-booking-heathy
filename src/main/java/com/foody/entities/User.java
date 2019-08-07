@@ -70,17 +70,18 @@ public class User extends AuditEntity implements Serializable{
 	Set<Role> roles = new HashSet<>();
 
 	public User() {
-		
+		super();
 	}
-
-	public User(String fistName, String lastName, String username, String email, String password) {
-		this.firstName = fistName;
-		this.lastName = lastName;
-		this.username = username;
-		this.email = email;
-		this.password = password;
+	
+	public User(@NotNull String username, @NotNull String password, String firstName,
+			String lastName, @Size(max = 100) String email) {
+			this.username = username;
+			this.password = password;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
 	}
-
+	
 	public String getPassword() {
 		return password;
 	}

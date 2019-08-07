@@ -40,7 +40,6 @@ public abstract class AuditEntity implements Serializable {
 	@LastModifiedDate
 	private Date updateAt;
 	
-	
 	public AuditEntity() {
 		super();
 	}

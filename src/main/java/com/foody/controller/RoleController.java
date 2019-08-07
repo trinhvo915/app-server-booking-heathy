@@ -1,5 +1,8 @@
 package com.foody.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foody.dto.RoleRequest;
 import com.foody.entities.Role;
+import com.foody.payload.DataResponse;
 import com.foody.services.RoleService;
 
 @RestController
@@ -22,13 +27,12 @@ public class RoleController {
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<?> createRole (@Valid @RequestBody Role role){
-		if(role != null) {
-			Role roleCreate = roleService.createRole(role);
-			return new ResponseEntity<Role>(roleCreate, HttpStatus.CREATED) ;
+	public Map<Role, DataResponse> createRole (@Valid @RequestBody RoleRequest roleRequest){
+		if(!roleRequest.getName().isEmpty()) {
+			Map<Role, DataResponse> roleCreate  = roleService.createRole(roleRequest);
+			return roleCreate ;
 		}
-		String message = "Create role unsuccessfull";
-		return new ResponseEntity(message,HttpStatus.NOT_FOUND);
+		return (Map<Role, DataResponse>) new HashMap<Role, DataResponse>().put(null, new DataResponse(false,"Add unsuccess"));
 	}
 	
 }
