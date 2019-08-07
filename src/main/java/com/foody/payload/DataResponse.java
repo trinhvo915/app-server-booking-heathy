@@ -4,13 +4,13 @@ public class DataResponse {
 	
 	private Boolean success;
 	
-	private String message;
+	private Data data;
 
-	public DataResponse(Boolean success, String message) {
+	public DataResponse(Boolean success,Data data) {
 		this.success = success;
-		this.message = message;
+		this.data = data;
 	}
-	
+
 	public Boolean getSuccess() {
 		return success;
 	}
@@ -19,13 +19,12 @@ public class DataResponse {
 		this.success = success;
 	}
 
-	public String getMessage() {
-		return message;
+	public Data getData() {
+		return data;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setData(Data data) {
+		this.data = data;
 	}
-	
-	
+
 }

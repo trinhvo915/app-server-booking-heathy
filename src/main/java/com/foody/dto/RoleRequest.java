@@ -2,9 +2,6 @@ package com.foody.dto;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import com.foody.entities.Role;
 
 public class RoleRequest implements Serializable{
@@ -15,8 +12,6 @@ public class RoleRequest implements Serializable{
 		
 	}
 	
-	@NotNull
-    @Valid
 	private String name;
 
 	public String getName() {

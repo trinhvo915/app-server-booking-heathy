@@ -40,33 +40,33 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 	    
-	@RequestMapping(value = "/signin", method = RequestMethod.POST)
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
-		Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsernameOrEmail(),
-                        loginRequest.getPassword()
-                )
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        String jwt = tokenProvider.generateToken(authentication);
-        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
-	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@RequestMapping(value="/signup", method = RequestMethod.POST)
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
-		if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity(new DataResponse(false, "Username is already taken!"),
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-            return new ResponseEntity(new DataResponse(false, "Email Address already in use!"),
-                    HttpStatus.BAD_REQUEST);
-        }
+//	@RequestMapping(value = "/signin", method = RequestMethod.POST)
+//	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
+//		Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getUsernameOrEmail(),
+//                        loginRequest.getPassword()
+//                )
+//        );
+//
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        String jwt = tokenProvider.generateToken(authentication);
+//        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
+//	}
+//	
+//	@SuppressWarnings({ "unchecked", "rawtypes" })
+//	@RequestMapping(value="/signup", method = RequestMethod.POST)
+//	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
+//		if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+//            return new ResponseEntity(new DataResponse(false, "Username is already taken!"),
+//                    HttpStatus.BAD_REQUEST);
+//        }
+//
+//        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+//            return new ResponseEntity(new DataResponse(false, "Email Address already in use!"),
+//                    HttpStatus.BAD_REQUEST);
+//        }
 
         // Creating user's account
 //        User user = new User(signUpRequest.getFistName(), signUpRequest.getFistName(),signUpRequest.getUsername(),
@@ -84,8 +84,8 @@ public class AuthController {
 //        URI location = ServletUriComponentsBuilder
 //                .fromCurrentContextPath().path("/api/users/{username}")
 //                .buildAndExpand(result.getUsername()).toUri();
-
-        return ResponseEntity.ok(new DataResponse(true, "User registered successfully"));
-    }
+//
+//        return ResponseEntity.ok(new DataResponse(true, "User registered successfully"));
+//    }
 	
 } 
