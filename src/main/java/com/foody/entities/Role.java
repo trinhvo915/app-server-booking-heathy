@@ -18,7 +18,7 @@ public class Role extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@NotNull
+	@NotNull(message = "Please provide a Role Name")
     @Valid
 	private String name;
 	

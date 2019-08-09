@@ -39,7 +39,7 @@ public class RoleController {
 			}
 			return new ResponseEntity<>(roleCreate,HttpStatus.BAD_REQUEST);
 		}
-		DataResponse roleCreateUnsucces = new DataResponse(false, new Data(Constant.ROLE_NAME_NOT_NULL,HttpStatus.BAD_REQUEST.toString(),null));
+		DataResponse roleCreateUnsucces = new DataResponse(false, new Data(Constant.ROLE_NAME_NOT_NULL,HttpStatus.BAD_REQUEST.value()));
 		return new ResponseEntity<>(roleCreateUnsucces,HttpStatus.BAD_REQUEST);
 	}
 	

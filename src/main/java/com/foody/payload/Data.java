@@ -3,17 +3,17 @@ package com.foody.payload;
 public class Data {
 	private String message;
 	
-	private String status;
+	private Integer status;
 	
 	private Object object;
 	
-	public Data(String message, String status) {
+	public Data(String message, Integer status) {
 		this.message = message;
 		this.status = status;
 	}
 
 
-	public Data(String message, String status, Object object) {
+	public Data(String message, Integer status, Object object) {
 		this.message = message;
 		this.status = status;
 		this.object = object;
@@ -27,11 +27,11 @@ public class Data {
 		this.message = message;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 

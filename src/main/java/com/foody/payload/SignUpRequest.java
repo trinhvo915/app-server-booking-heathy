@@ -14,12 +14,12 @@ public class SignUpRequest {
 	@Size(min = 1, max = 30)
 	private String lastName;
 	
-	@NotBlank
+	@NotBlank()
 	@Size(min = 6, max = 15)
 	private String username;
 	
 	@NotBlank
-	@Email
+	@Email(message = "The email is not properly formatted")
 	@Size(max = 40)
 	private String email;
 	

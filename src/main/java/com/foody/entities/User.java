@@ -23,18 +23,18 @@ public class User extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@NotNull
+	@NotNull(message = "Please provide a username")
     @Column(unique = true)
 	private String username;
 	
-	@NotNull
+	@NotNull(message = "Please provide a pasword")
     @Column(unique = true)
 	private String password;
 	
-	@Column(name = "firstname", unique = true)
+	@Column(name = "firstname")
 	private String firstName;
 	
-	@Column(name = "lastname" , unique = true)
+	@Column(name = "lastname")
 	private String lastName;
 	
 	private Date birthday;
@@ -45,6 +45,7 @@ public class User extends AuditEntity implements Serializable{
 	
 	@Size(max = 100)
 	@Column(unique = true)
+	@NotNull(message = "Please provide a email")
 	private String email;
 	
 	@Size(max = 100)

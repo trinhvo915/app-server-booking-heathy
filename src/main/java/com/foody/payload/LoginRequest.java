@@ -1,13 +1,15 @@
 package com.foody.payload;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class LoginRequest {
 	
-	@NotBlank
+	@NotBlank(message = "Please provide a username or email")
 	private String usernameOrEmail;
 	
-	@NotBlank
+	@NotBlank(message = "Please provide a pasword")
+	@Size(min = 6, max = 20)
 	private String password;
 
 	public String getUsernameOrEmail() {

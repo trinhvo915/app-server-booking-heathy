@@ -1,7 +1,7 @@
 package com.foody.controller;
 
-import java.net.URI;
 import java.util.Collections;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.foody.entities.Role;
 import com.foody.entities.User;
@@ -26,7 +25,6 @@ import com.foody.payload.DataResponse;
 import com.foody.payload.JwtAuthenticationResponse;
 import com.foody.payload.LoginRequest;
 import com.foody.payload.SignUpRequest;
-import com.foody.repository.RoleRepository;
 import com.foody.repository.UserRepository;
 import com.foody.security.JwtTokenProvider;
 import com.foody.services.RoleService;
@@ -42,9 +40,6 @@ public class AuthController {
     UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
 	RoleService roleService;
     
     @Autowired
@@ -53,9 +48,15 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 	    
+	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
-		System.out.println(loginRequest.getUsernameOrEmail());
+		Optional<User> user = userRepository.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail());
+		if(user.empty() != null) {
+            return new ResponseEntity(new DataResponse(false, new Data(Constant.USERNAME_OR_PASWORD_NO_EXIST,HttpStatus.BAD_REQUEST.value())),
+                    HttpStatus.BAD_REQUEST);
+        }
+
 		Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsernameOrEmail(),
@@ -71,14 +72,13 @@ public class AuthController {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
-		System.out.println(signUpRequest.getEmail());
 		if(userRepository.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity(new DataResponse(false, new Data(Constant.USERNAME_USER_EXIST,HttpStatus.BAD_REQUEST.toString())),
+            return new ResponseEntity(new DataResponse(false, new Data(Constant.USERNAME_USER_EXIST,HttpStatus.BAD_REQUEST.value())),
                     HttpStatus.BAD_REQUEST);
         }
 
         if(userRepository.existsByEmail(signUpRequest.getEmail())) {
-        	return new ResponseEntity(new DataResponse(false, new Data(Constant.EMAIL_USER_EXIST,HttpStatus.BAD_REQUEST.toString())),
+        	return new ResponseEntity(new DataResponse(false, new Data(Constant.EMAIL_USER_EXIST,HttpStatus.BAD_REQUEST.value())),
                     HttpStatus.BAD_REQUEST);
         }
 
@@ -94,11 +94,11 @@ public class AuthController {
 
         User result = userRepository.save(user);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{username}")
-                .buildAndExpand(result.getUsername()).toUri();
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentContextPath().path("/api/users/{username}")
+//                .buildAndExpand(result.getUsername()).toUri();
 
-        return new ResponseEntity<>(new DataResponse(true, new Data("User registered successfully", HttpStatus.CREATED.toString(), result)),HttpStatus.CREATED);
+        return new ResponseEntity<>(new DataResponse(true, new Data("User registered successfully", HttpStatus.CREATED.value(), result)),HttpStatus.CREATED);
     }
 	
 } 

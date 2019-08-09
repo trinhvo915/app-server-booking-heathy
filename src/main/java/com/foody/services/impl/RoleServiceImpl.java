@@ -26,11 +26,11 @@ public class RoleServiceImpl implements RoleService {
 		Role roleFindName =  getRoleByName(roleRequest.getName());
 		
 		if(roleFindName != null) {
-			return new DataResponse(false, new Data(Constant.NAME_ROLE_EXIST,HttpStatus.BAD_REQUEST.toString(),null));
+			return new DataResponse(false, new Data(Constant.NAME_ROLE_EXIST,HttpStatus.BAD_REQUEST.value(),null));
 		}else {
 			Role roleCreate = new RoleRequest().setRole(roleRequest);
 			roleRepository.save(roleCreate);
-			return new DataResponse(true, new Data(Constant.CREATE_ROLE_SUCCES,HttpStatus.CREATED.toString(),roleCreate));
+			return new DataResponse(true, new Data(Constant.CREATE_ROLE_SUCCES,HttpStatus.CREATED.value(),roleCreate));
 		}
 	}
 
@@ -49,12 +49,12 @@ public class RoleServiceImpl implements RoleService {
 			Role role = getRoleById(id);
 			if(role != null) {
 				roleRepository.deleteById(id);
-				return new DataResponse(true, new Data(Constant.DELETE_ROLE_SUCCES,HttpStatus.OK.toString()));
+				return new DataResponse(true, new Data(Constant.DELETE_ROLE_SUCCES,HttpStatus.OK.value()));
 			}else {
-				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.toString()));
+				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
 			}
 		}
-		return new DataResponse(false, new Data(Constant.ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.toString()));
+		return new DataResponse(false, new Data(Constant.ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.value()));
 	}
 
 	@Override
@@ -76,9 +76,9 @@ public class RoleServiceImpl implements RoleService {
 	public DataResponse getRoleAll() {
 		List<Role> roles = roleRepository.findAll();
 		if(roles!=null) {
-			return new DataResponse(true, new Data(Constant.GET_ALL_ROLE_CUCCES,HttpStatus.OK.toString(),roles));
+			return new DataResponse(true, new Data(Constant.GET_ALL_ROLE_CUCCES,HttpStatus.OK.value(),roles));
 		}
-		return new DataResponse(false, new Data(Constant.GET_ALL_ROLE_UNCESSES,HttpStatus.BAD_REQUEST.toString(),roles));
+		return new DataResponse(false, new Data(Constant.GET_ALL_ROLE_UNCESSES,HttpStatus.BAD_REQUEST.value(),roles));
 	}
 
 	@Override
@@ -88,12 +88,12 @@ public class RoleServiceImpl implements RoleService {
 			if(role != null) {
 				Role roleUpdate = new RoleRequest().setRole(id, roleRequest);
 				roleRepository.save(roleUpdate);
-				return new DataResponse(true, new Data(Constant.UPDATE_ROLE_SUCCES,HttpStatus.OK.toString(),roleUpdate));
+				return new DataResponse(true, new Data(Constant.UPDATE_ROLE_SUCCES,HttpStatus.OK.value(),roleUpdate));
 			}else {
-				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.toString()));
+				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
 			}
 		}
-		return new DataResponse(false, new Data(Constant.ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.toString()));
+		return new DataResponse(false, new Data(Constant.ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.value()));
 	}
 	
 }
