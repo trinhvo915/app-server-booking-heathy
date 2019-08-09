@@ -1,7 +1,6 @@
 package com.foody.services.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.foody.dto.RoleRequest;
 import com.foody.entities.Role;
+import com.foody.exception.ResourceNotFoundException;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.repository.RoleRepository;
@@ -46,16 +46,15 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public DataResponse deleteRole(String id) {
 		if(!"".equals(id)) {
-		
-			Optional<Role> role = getRoleById(id);
+			Role role = getRoleById(id);
 			if(role != null) {
 				roleRepository.deleteById(id);
 				return new DataResponse(true, new Data(Constant.DELETE_ROLE_SUCCES,HttpStatus.OK.toString()));
 			}else {
-				return new DataResponse(false, new Data(Constant.DELETE_ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.toString()));
+				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.toString()));
 			}
 		}
-		return new DataResponse(false, new Data(Constant.DELETE_ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.toString()));
+		return new DataResponse(false, new Data(Constant.ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.toString()));
 	}
 
 	@Override
@@ -65,9 +64,9 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Optional<Role> getRoleById(String id) {
+	public Role getRoleById(String id) {
 		if(!"".equals(id)) {
-			Optional<Role> role = roleRepository.findById(id);
+			Role role = roleRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Role", "id", id));
 			return role;
 		}
 		return null;
@@ -80,6 +79,21 @@ public class RoleServiceImpl implements RoleService {
 			return new DataResponse(true, new Data(Constant.GET_ALL_ROLE_CUCCES,HttpStatus.OK.toString(),roles));
 		}
 		return new DataResponse(false, new Data(Constant.GET_ALL_ROLE_UNCESSES,HttpStatus.BAD_REQUEST.toString(),roles));
+	}
+
+	@Override
+	public DataResponse updateRole(String id, RoleRequest roleRequest) {
+		if(!"".equals(id)) {
+			Role role = getRoleById(id);
+			if(role != null) {
+				Role roleUpdate = new RoleRequest().setRole(id, roleRequest);
+				roleRepository.save(roleUpdate);
+				return new DataResponse(true, new Data(Constant.UPDATE_ROLE_SUCCES,HttpStatus.OK.toString(),roleUpdate));
+			}else {
+				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.toString()));
+			}
+		}
+		return new DataResponse(false, new Data(Constant.ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.toString()));
 	}
 	
 }

@@ -32,9 +32,7 @@ public class RoleController {
 	
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<DataResponse> createRole (@Valid @RequestBody RoleRequest roleRequest){
-		System.out.println("check id 1");
 		if(!roleRequest.getName().isEmpty()) {
-			System.out.println("check id");
 			DataResponse roleCreate  = roleService.createRole(roleRequest);
 			if(roleCreate.getData().getObject() != null) {
 				return new ResponseEntity<>(roleCreate,HttpStatus.CREATED);
@@ -51,4 +49,9 @@ public class RoleController {
 		return deleteRole;
 	}
 	
+	@RequestMapping(value= "{id}", method = RequestMethod.PUT, produces = "application/json")
+	public DataResponse updateRole(@PathVariable("id") String id, @Valid @RequestBody RoleRequest roleRequest){
+		DataResponse updateRole = roleService.updateRole(id,roleRequest);
+		return updateRole;
+	}
 }

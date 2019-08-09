@@ -35,7 +35,10 @@ public class Role extends AuditEntity implements Serializable{
 	public Role() {
 
 	}
-
+	public Role(String id, String name) {
+		this.setId(id);
+		this.name = name;
+	}
 	public Role(String name) {
 		this.name = name;
 	}
