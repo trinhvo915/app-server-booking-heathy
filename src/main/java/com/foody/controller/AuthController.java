@@ -1,7 +1,6 @@
 package com.foody.controller;
 
 import java.util.Collections;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -48,11 +47,13 @@ public class AuthController {
     @Autowired
     JwtTokenProvider tokenProvider;
 	    
-	@SuppressWarnings({ "unchecked", "rawtypes", "static-access" })
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
-		Optional<User> user = userRepository.findByUsernameOrEmail(loginRequest.getUsernameOrEmail(), loginRequest.getUsernameOrEmail());
-		if(user.empty() != null) {
+		Boolean isAvailableUsername = userRepository.existsByUsername(loginRequest.getUsernameOrEmail());
+		Boolean isAvailableEmail = userRepository.existsByEmail(loginRequest.getUsernameOrEmail());
+		
+		if(!(isAvailableUsername || isAvailableEmail)) {
             return new ResponseEntity(new DataResponse(false, new Data(Constant.USERNAME_OR_PASWORD_NO_EXIST,HttpStatus.BAD_REQUEST.value())),
                     HttpStatus.BAD_REQUEST);
         }
@@ -63,6 +64,7 @@ public class AuthController {
                         loginRequest.getPassword()
                 )
         );
+		
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.generateToken(authentication);

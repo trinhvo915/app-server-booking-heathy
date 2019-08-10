@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -20,6 +21,7 @@ public class Role extends AuditEntity implements Serializable{
 	
 	@NotNull(message = "Please provide a Role Name")
     @Valid
+    @Column(unique = true)
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.LAZY,
