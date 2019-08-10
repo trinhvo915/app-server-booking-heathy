@@ -6,21 +6,17 @@ import javax.validation.constraints.Size;
 
 public class SignUpRequest {
 	
-	@NotBlank(message = "Fist name is not empty")
 	@Size(min = 1, max = 30)
 	private String fistName;
 	
-	@NotBlank(message = "Last name is not empty")
 	@Size(min = 1, max = 30)
 	private String lastName;
 	
-	@NotBlank(message = "Username is not empty")
 	@Size(min = 6, max = 15)
 	private String username;
 	
-	@NotBlank(message = "Email is not empty")
 	@Email(message = "The email is not properly formatted")
-	@Size(max = 40)
+	@Size(min = 1, max = 40)
 	private String email;
 	
 	@NotBlank

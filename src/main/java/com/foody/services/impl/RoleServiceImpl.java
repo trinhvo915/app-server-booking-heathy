@@ -26,7 +26,7 @@ public class RoleServiceImpl implements RoleService {
 		Role roleFindName =  getRoleByName(roleRequest.getName());
 		
 		if(roleFindName != null) {
-			return new DataResponse(false, new Data(Constant.NAME_ROLE_EXIST,HttpStatus.BAD_REQUEST.value(),null));
+			return new DataResponse(false, new Data(Constant.NAME_ROLE_EXIST,HttpStatus.BAD_REQUEST.value()));
 		}else {
 			Role roleCreate = new RoleRequest().setRole(roleRequest);
 			roleRepository.save(roleCreate);
