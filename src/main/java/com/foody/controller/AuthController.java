@@ -24,9 +24,9 @@ import com.foody.payload.DataResponse;
 import com.foody.payload.JwtAuthenticationResponse;
 import com.foody.payload.LoginRequest;
 import com.foody.payload.SignUpRequest;
-import com.foody.repository.UserRepository;
 import com.foody.security.JwtTokenProvider;
 import com.foody.services.RoleService;
+import com.foody.services.UserService;
 import com.foody.utils.Constant;
 
 @RestController
@@ -36,7 +36,7 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
 	RoleService roleService;
@@ -50,8 +50,8 @@ public class AuthController {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/signin", method = RequestMethod.POST)
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
-		Boolean isAvailableUsername = userRepository.existsByUsername(loginRequest.getUsernameOrEmail());
-		Boolean isAvailableEmail = userRepository.existsByEmail(loginRequest.getUsernameOrEmail());
+		Boolean isAvailableUsername = userService.existsByUsername(loginRequest.getUsernameOrEmail());
+		Boolean isAvailableEmail = userService.existsByEmail(loginRequest.getUsernameOrEmail());
 		
 		if(!(isAvailableUsername || isAvailableEmail)) {
             return new ResponseEntity(new DataResponse(false, new Data(Constant.USERNAME_OR_PASWORD_NO_EXIST,HttpStatus.BAD_REQUEST.value())),
@@ -74,12 +74,12 @@ public class AuthController {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
-		if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+		if(userService.existsByUsername(signUpRequest.getUsername())) {
             return new ResponseEntity(new DataResponse(false, new Data(Constant.USERNAME_USER_EXIST,HttpStatus.BAD_REQUEST.value())),
                     HttpStatus.BAD_REQUEST);
         }
 
-        if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+        if(userService.existsByEmail(signUpRequest.getEmail())) {
         	return new ResponseEntity(new DataResponse(false, new Data(Constant.EMAIL_USER_EXIST,HttpStatus.BAD_REQUEST.value())),
                     HttpStatus.BAD_REQUEST);
         }
@@ -94,7 +94,7 @@ public class AuthController {
                
         user.setRoles(Collections.singleton(userRole));
 
-        User result = userRepository.save(user);
+        User result = userService.save(user);
 
 //        URI location = ServletUriComponentsBuilder
 //                .fromCurrentContextPath().path("/api/users/{username}")
