@@ -31,10 +31,10 @@ public class User extends AuditEntity implements Serializable{
     @Column(unique = true)
 	private String password;
 	
-	@Column(name = "firstname")
+	@Column(name = "firstname", unique = false)
 	private String firstName;
 	
-	@Column(name = "lastname")
+	@Column(name = "lastname", unique = false)
 	private String lastName;
 	
 	private Date birthday;
