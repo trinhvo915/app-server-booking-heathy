@@ -59,6 +59,8 @@ public class User extends AuditEntity implements Serializable{
 	@Size(max = 100)
 	private String facebook;
 	
+	private String code;
+	
 	@ManyToMany(fetch = FetchType.LAZY,
 		cascade = {
 			CascadeType.PERSIST,
@@ -177,6 +179,14 @@ public class User extends AuditEntity implements Serializable{
 
 	public void setFacebook(String facebook) {
 		this.facebook = facebook;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 	public Set<Role> getRoles() {
