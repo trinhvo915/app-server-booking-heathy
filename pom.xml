@@ -111,6 +111,17 @@
 		   <artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 		
+		<dependency>
+	        <groupId>org.hibernate</groupId>
+	        <artifactId>hibernate-core</artifactId>
+	        <version>5.2.12.Final</version><!--$NO-MVN-MAN-VER$-->
+   		</dependency>
+
+	    <dependency>
+	        <groupId>org.hibernate</groupId>
+	        <artifactId>hibernate-entitymanager</artifactId>
+	        <version>5.2.12.Final</version><!--$NO-MVN-MAN-VER$-->
+	    </dependency>
 	</dependencies>
 
 	<build>

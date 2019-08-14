@@ -30,9 +30,9 @@ public class EmailServiceImpl implements EmailService{
 		String appUrl = httpRequest.getScheme() + "://" +httpRequest.getServerName()+":"+httpRequest.getServerPort();
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		
+		mailMessage.setSubject(Constant.TEXT_CHANGE_PASSWORD);
 		mailMessage.setFrom(Constant.EMAIL);
 		mailMessage.setTo(user.getEmail());
-		System.out.println("************** : "+ user.getEmail());
 
 		mailMessage.setText("To reset your password, click the link below:\n" + appUrl + "/reset?token=" + user.getCode());
 		
