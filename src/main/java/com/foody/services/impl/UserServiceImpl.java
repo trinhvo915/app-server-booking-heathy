@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findByCode(String code) {
-		return userRepository.findByCode(code);
+		User user = userRepository.findByCode(code);
+		System.out.println("**************** : "+user);
+		if(user != null) {
+			return user;
+		}
+		return null;
 	}
 }
