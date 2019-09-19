@@ -25,7 +25,7 @@ import com.foody.payload.UploadFileResponse;
 import com.foody.services.AttachmentService;
 
 @RestController
-
+@RequestMapping("/api")
 public class AttachmentController {
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(AttachmentController.class);
@@ -34,7 +34,7 @@ public class AttachmentController {
 	AttachmentService attachmentService;
 	
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+	public UploadFileResponse uploadFile(@RequestParam("/") MultipartFile file) {
 		
         Attachment attachmentFile = attachmentService.storeFile(file);
 
