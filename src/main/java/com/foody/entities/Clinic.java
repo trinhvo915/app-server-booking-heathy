@@ -1,5 +1,6 @@
 package com.foody.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,11 +8,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "clinic")
-public class Clinic extends AuditEntity{
+public class Clinic extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -31,10 +33,20 @@ public class Clinic extends AuditEntity{
         mappedBy = "roles"
     )
     private Set<User> users = new HashSet<>();
+    
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "clinic")
+    private Set<Post> posts = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "clinic")
+    private Set<Faculty> faculties = new HashSet<>();
+    
 	// list User
-		// list post  - > // attachment
-		// Faculty
+	// list post  - > // attachment
+	// Faculty
 	
 	public String getName() {
 		return name;

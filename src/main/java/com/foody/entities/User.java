@@ -91,6 +91,11 @@ public class User extends AuditEntity implements Serializable{
             mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Faculty> faculties = new HashSet<>();
+	
 	public User() {
 		super();
 	}

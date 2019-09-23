@@ -1,5 +1,6 @@
 package com.foody.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "post")
-public class Post extends AuditEntity{
+public class Post extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -32,7 +33,6 @@ public class Post extends AuditEntity{
             fetch = FetchType.LAZY,
             mappedBy = "post")
     private Set<PostType> postTypes = new HashSet<>();
-	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
