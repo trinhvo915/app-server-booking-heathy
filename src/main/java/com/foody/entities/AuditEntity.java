@@ -39,6 +39,8 @@ public abstract class AuditEntity implements Serializable {
 	@Column(name = "update_at", nullable = false)
 	@LastModifiedDate
 	private Date updateAt;
+
+	private boolean isActive = true;
 	
 	public AuditEntity() {
 		super();
@@ -67,5 +69,13 @@ public abstract class AuditEntity implements Serializable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+	public boolean isActive() {
+		return isActive;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
+
 }

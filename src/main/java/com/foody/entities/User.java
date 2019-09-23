@@ -1,7 +1,6 @@
 package com.foody.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.*;
 
 import javax.persistence.CascadeType;
@@ -11,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -43,6 +43,9 @@ public class User extends AuditEntity implements Serializable{
 	
 	private Integer age;
 	
+	@Column(name="bad_point")
+	private Integer badPoint;
+	
 	@Size(max = 100)
 	@Column(unique = true)
 	@NotNull(message = "Please provide a email")
@@ -72,6 +75,22 @@ public class User extends AuditEntity implements Serializable{
 	)
 	Set<Role> roles = new HashSet<>();
 
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {
+				CascadeType.PERSIST,
+				CascadeType.MERGE
+		})
+	@JoinTable(name = "user_clinic",
+		joinColumns = { @JoinColumn(name = "id_user") },
+		inverseJoinColumns = { @JoinColumn(name = "id_clinic")}
+	)
+	Set<Clinic> clinics = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Post> posts = new HashSet<>();
+	
 	public User() {
 		super();
 	}
