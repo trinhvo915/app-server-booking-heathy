@@ -131,6 +131,10 @@ public class User extends AuditEntity implements Serializable{
             mappedBy = "user")
     private Set<Notification> notifications = new HashSet<>();
 	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Attachment> attachments = new HashSet<>();
 	
 	public User() {
 		super();
@@ -189,6 +193,14 @@ public class User extends AuditEntity implements Serializable{
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public Integer getBadPoint() {
+		return badPoint;
+	}
+
+	public void setBadPoint(Integer badPoint) {
+		this.badPoint = badPoint;
 	}
 
 	public String getAddress() {

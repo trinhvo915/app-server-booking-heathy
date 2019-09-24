@@ -2,11 +2,15 @@ package com.foody.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-public class TypeNotification extends AuditEntity implements Serializable{
+@Entity
+@Table(name = "notification_type")
+public class NotificationType extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

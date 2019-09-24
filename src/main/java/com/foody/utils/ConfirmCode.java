@@ -1,6 +1,4 @@
 package com.foody.utils;
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 
 import com.foody.entities.User;
@@ -11,7 +9,6 @@ public class ConfirmCode {
 	
 	private static UserService userService;
 
-	
 	public static Data checkConfirmCode(String token) {
 		User checkToken = ConfirmCode.userService.findByCode(token);
 		if(checkToken != null) {

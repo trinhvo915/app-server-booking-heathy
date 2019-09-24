@@ -30,7 +30,7 @@ public class Clinic extends AuditEntity implements Serializable{
                 CascadeType.PERSIST,
                 CascadeType.MERGE
         },
-        mappedBy = "roles"
+        mappedBy = "clinics"
     )
     private Set<User> users = new HashSet<>();
     
@@ -43,6 +43,11 @@ public class Clinic extends AuditEntity implements Serializable{
             fetch = FetchType.LAZY,
             mappedBy = "clinic")
     private Set<Faculty> faculties = new HashSet<>();
+    
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "clinic")
+    private Set<Price> prices = new HashSet<>();
     
 	// list User
 	// list post  - > // attachment

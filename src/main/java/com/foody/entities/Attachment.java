@@ -24,6 +24,14 @@ public class Attachment implements Serializable{
     @Lob
     private byte[] data;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_post")
+    private Post post;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private User user;
+    
     public Attachment() {
 
     }
