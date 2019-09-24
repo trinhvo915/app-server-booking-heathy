@@ -96,6 +96,42 @@ public class User extends AuditEntity implements Serializable{
             mappedBy = "user")
     private Set<Faculty> faculties = new HashSet<>();
 	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "expert")
+    private Set<Comment> commentExperts = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Comment> commentUsers = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Booking> bookingUsers = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "expert")
+    private Set<Booking> bookingExperts = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Rate> rateUsers = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "expert")
+    private Set<Rate> rateExperts = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Notification> notifications = new HashSet<>();
+	
+	
 	public User() {
 		super();
 	}

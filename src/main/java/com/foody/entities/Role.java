@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "role")
 public class Role extends AuditEntity implements Serializable{
 
-
 	private static final long serialVersionUID = 1L;
 	
 	@NotNull(message = "Please provide a Role Name")
