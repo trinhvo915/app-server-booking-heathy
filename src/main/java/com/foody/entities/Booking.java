@@ -2,10 +2,14 @@ package com.foody.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -42,10 +46,18 @@ public class Booking extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_expert")
-    private User expert;
-
+//	@ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "id_expert")
+//    private User expert;
+	@ManyToMany(fetch = FetchType.LAZY,
+        cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+        },
+        mappedBy = "bookingExperts"
+    )
+    private Set<User> experts = new HashSet<>();
+	
 	public Date getDateBooking() {
 		return dateBooking;
 	}
