@@ -171,14 +171,14 @@ public class User extends AuditEntity implements Serializable{
 	}
 	
 	public User(@NotNull String username, @NotNull String password, String firstName,
-			String lastName, @Size(max = 100) String email) {
+			String lastName, @Size(max = 100) String email, String mobile) {
 			this.username = username;
 			this.password = password;
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.email = email;
+			this.mobile = mobile;
 	}
-	
 	
 	public User(@NotNull(message = "Please provide a pasword") String password, String code) {
 		this.password = password;

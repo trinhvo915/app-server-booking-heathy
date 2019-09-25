@@ -19,6 +19,9 @@ public class SignUpRequest {
 	@Size(min = 1, max = 40)
 	private String email;
 	
+	@Size(min = 1, max = 20)
+	private String mobile;
+	
 	@NotBlank
 	@Size(min = 6, max = 20)
 	private String password;
@@ -61,5 +64,13 @@ public class SignUpRequest {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 }
