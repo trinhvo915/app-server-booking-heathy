@@ -40,6 +40,10 @@ public class Rate extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
 	
+	public Rate() {
+		
+	}
+
 	public NumberStar getNumberStar() {
 		return numberStar;
 	}

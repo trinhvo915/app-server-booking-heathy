@@ -42,6 +42,12 @@ public abstract class AuditEntity implements Serializable {
 
 	private boolean isActive = true;
 	
+	private String createdBy;
+	
+	private String updatedBy  ;
+	
+	private String deletedBy ;
+	
 	public AuditEntity() {
 		super();
 	}
@@ -76,6 +82,30 @@ public abstract class AuditEntity implements Serializable {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public String getDeletedBy() {
+		return deletedBy;
+	}
+
+	public void setDeletedBy(String deletedBy) {
+		this.deletedBy = deletedBy;
 	}
 
 }

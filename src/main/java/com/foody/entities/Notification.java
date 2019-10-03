@@ -29,6 +29,10 @@ public class Notification extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
 	
+	public Notification() {
+		
+	}
+
 	public String getContent() {
 		return content;
 	}

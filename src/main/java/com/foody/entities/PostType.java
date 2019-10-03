@@ -23,6 +23,10 @@ public class PostType extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_post")
     private Post post;
 	
+	public PostType() {
+		
+	}
+
 	public String getName() {
 		return name;
 	}

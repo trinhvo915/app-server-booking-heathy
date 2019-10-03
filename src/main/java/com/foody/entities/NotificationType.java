@@ -20,6 +20,10 @@ public class NotificationType extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_notification")
     private Notification notification;
 
+	public NotificationType() {
+		
+	}
+
 	public String getName() {
 		return name;
 	}

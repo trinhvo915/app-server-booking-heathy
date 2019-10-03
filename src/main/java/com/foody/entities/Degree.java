@@ -9,23 +9,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "faculty")
-public class Faculty extends AuditEntity implements Serializable{
+@Table(name ="degree")
+public class Degree extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	private String name;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_clinic")
-    private Clinic clinic;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private User user;
 	
-	public Faculty() {
-
+	public Degree() {
+		
 	}
 
 	public String getName() {

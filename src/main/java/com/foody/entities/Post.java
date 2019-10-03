@@ -38,6 +38,10 @@ public class Post extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
 	
+	public Post() {
+		
+	}
+
 	public String getContent() {
 		return content;
 	}

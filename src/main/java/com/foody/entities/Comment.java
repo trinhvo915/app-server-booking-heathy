@@ -33,6 +33,10 @@ public class Comment extends AuditEntity implements Serializable{
     )
     private Set<User> experts = new HashSet<>();
 	
+	public Comment() {
+
+	}
+
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private User user;

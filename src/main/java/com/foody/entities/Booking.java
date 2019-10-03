@@ -58,6 +58,10 @@ public class Booking extends AuditEntity implements Serializable{
     )
     private Set<User> experts = new HashSet<>();
 	
+	public Booking() {
+		
+	}
+
 	public Date getDateBooking() {
 		return dateBooking;
 	}

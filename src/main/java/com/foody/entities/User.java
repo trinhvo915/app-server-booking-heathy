@@ -166,8 +166,14 @@ public class User extends AuditEntity implements Serializable{
             mappedBy = "user")
     private Set<Attachment> attachments = new HashSet<>();
 	
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user")
+    private Set<Degree> degrees = new HashSet<>();
+	
 	public User() {
-		super();
+		 
 	}
 	
 	public User(@NotNull String username, @NotNull String password, String firstName,

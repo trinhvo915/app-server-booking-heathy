@@ -49,6 +49,10 @@ public class Clinic extends AuditEntity implements Serializable{
             mappedBy = "clinic")
     private Set<Price> prices = new HashSet<>();
     
+	public Clinic() {
+		
+	}
+
 	// list User
 	// list post  - > // attachment
 	// Faculty

@@ -22,6 +22,10 @@ public class Price extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_clinic")
     private Clinic clinic;
 	
+	public Price() {
+		
+	}
+
 	public String getTotalPrice() {
 		return totalPrice;
 	}
