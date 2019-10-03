@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.foody.entities.Clinic" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Clinic.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="927" y="460"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.foody.entities.PostType" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/PostType.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1000" y="-204"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.foody.entities.Role" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Role.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="257" y="16"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.foody.entities.Price" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Price.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1212" y="576"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.foody.entities.Booking" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Booking.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="88" y="257"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.foody.entities.Faculty" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Faculty.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="814" y="149"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.foody.entities.Post" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Post.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1160" y="-29"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.foody.entities.Rate" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Rate.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="282" y="793"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.foody.entities.Attachment" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Attachment.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="194" width="178" x="685" y="-260"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="com.foody.entities.Notification" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Notification.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="304" y="-183"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="com.foody.entities.NotificationType" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/NotificationType.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="69" y="-176"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="com.foody.entities.User" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/User.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="607" width="240" x="422" y="-258"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="com.foody.entities.Comment" project="BEAUTIFUL-HOUSE-JWT" 
+    file="/BEAUTIFUL-HOUSE-JWT/src/main/java/com/foody/entities/Comment.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="243" y="458"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="14">    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="15" name="notification"/>      
+      <multiplicity id="16" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="18" name="user"/>      
+      <multiplicity id="19" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="20">    
+    <bendpoint x="730" y="733"/>    
+    <bendpoint x="730" y="1412"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="21" name="clinics"/>      
+      <multiplicity id="22" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="23">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="24" name="attachments"/>      
+      <multiplicity id="25" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="26">    
+    <bendpoint x="709" y="1412"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="27" name="faculties"/>      
+      <multiplicity id="28" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="29">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="30" name="user"/>      
+      <multiplicity id="31" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="32">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="33" name="rateUsers"/>      
+      <multiplicity id="34" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="35">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="36" name="users"/>      
+      <multiplicity id="37" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="38">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="39" name="rateExperts"/>      
+      <multiplicity id="40" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="41">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="42" name="notifications"/>      
+      <multiplicity id="43" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="44">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="45" name="prices"/>      
+      <multiplicity id="46" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="47">    
+    <bendpoint x="688" y="1412"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="48" name="clinic"/>      
+      <multiplicity id="49" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="50">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="51" name="bookingUsers"/>      
+      <multiplicity id="52" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="53">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="54" name="experts"/>      
+      <multiplicity id="55" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="56">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="57" name="commentExperts"/>      
+      <multiplicity id="58" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="60" name="user"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="63" name="notificationsType"/>      
+      <multiplicity id="64" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="66" name="post"/>      
+      <multiplicity id="67" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="68">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="69" name="roles"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="71">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="72" name="postTypes"/>      
+      <multiplicity id="73" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="74">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="75" name="experts"/>      
+      <multiplicity id="76" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="77">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="78" name="user"/>      
+      <multiplicity id="79" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="80">    
+    <bendpoint x="751" y="1412"/>    
+    <bendpoint x="751" y="733"/>    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="81" name="users"/>      
+      <multiplicity id="82" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="83">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="84" name="user"/>      
+      <multiplicity id="85" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="86">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="87" name="commentUsers"/>      
+      <multiplicity id="88" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="90" name="posts"/>      
+      <multiplicity id="91" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="92">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="93" name="faculties"/>      
+      <multiplicity id="94" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="95">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="96" name="attachments"/>      
+      <multiplicity id="97" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="98">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="99" name="bookingExperts"/>      
+      <multiplicity id="100" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="101">    
+    <bendpoint x="1011" y="733"/>    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="102" name="user"/>      
+      <multiplicity id="103" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="104">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="105" name="clinic"/>      
+      <multiplicity id="106" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="107">    
+    <bendpoint x="990" y="733"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="108" name="posts"/>      
+      <multiplicity id="109" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="111" name="clinic"/>      
+      <multiplicity id="112" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="114" name="experts"/>      
+      <multiplicity id="115" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="117" name="user"/>      
+      <multiplicity id="118" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="119">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="120" name="post"/>      
+      <multiplicity id="121" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
