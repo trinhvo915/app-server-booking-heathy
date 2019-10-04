@@ -1,7 +1,5 @@
 package com.foody.services.impl;
 
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -28,11 +26,19 @@ public class ExpertCodeServiceImpl implements ExpertCodeService{
 		}
 		Integer len = Integer.parseInt(lenValue);
 		for(int i = 0; i < len; i++) {
-			UUID tokenCode = UUID.randomUUID();
-			ExpertCode expertCode = new ExpertCode(tokenCode);
+			ExpertCode expertCode = new ExpertCode();
 			expertCodeRepository.save(expertCode);
 		}
 		return new DataResponse(true, new Data(Constant.CREATE_TOKEN_CODE_SUCCESS,HttpStatus.CREATED.value(),null));
+	}
+
+	@Override
+	public DataResponse getTokenCode(String id) {
+		ExpertCode expertCode = expertCodeRepository.getExpertCode(id);
+		if(expertCode != null) {
+			return new DataResponse(true, new Data(Constant.GET_TOKEN_CODE_SUCCESS,HttpStatus.OK.value(),expertCode));
+		}
+		return new DataResponse(false, new Data(Constant.GET_TOKEN_CODE_UNSUCCESS,HttpStatus.BAD_REQUEST.value(),expertCode));
 	}
 
 }

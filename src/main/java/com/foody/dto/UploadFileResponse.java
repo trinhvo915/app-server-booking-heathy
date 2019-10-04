@@ -1,4 +1,4 @@
-package com.foody.payload;
+package com.foody.dto;
 
 public class UploadFileResponse {
 	

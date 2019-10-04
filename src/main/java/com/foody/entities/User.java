@@ -31,11 +31,8 @@ public class User extends AuditEntity implements Serializable{
     @Column(unique = true)
 	private String password;
 	
-	@Column(name = "firstname", unique = false)
-	private String firstName;
-	
-	@Column(name = "lastname", unique = false)
-	private String lastName;
+	@Column(name = "fullname", unique = false)
+	private String fullName;
 	
 	private Date birthday;
 	
@@ -176,12 +173,11 @@ public class User extends AuditEntity implements Serializable{
 		 
 	}
 	
-	public User(@NotNull String username, @NotNull String password, String firstName,
-			String lastName, @Size(max = 100) String email, String mobile) {
+	public User(@NotNull String username, @NotNull String password, String fullName,
+			@Size(max = 100) String email, String mobile) {
 			this.username = username;
 			this.password = password;
-			this.firstName = firstName;
-			this.lastName = lastName;
+			this.fullName = fullName;
 			this.email = email;
 			this.mobile = mobile;
 	}
@@ -215,20 +211,12 @@ public class User extends AuditEntity implements Serializable{
 		this.email = email;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
 	public Integer getBadPoint() {

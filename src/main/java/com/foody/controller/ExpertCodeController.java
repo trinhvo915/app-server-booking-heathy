@@ -29,4 +29,10 @@ public class ExpertCodeController {
 		}
 		return new ResponseEntity<Data>(new Data("false",HttpStatus.BAD_REQUEST.value()),HttpStatus.BAD_REQUEST);
 	}
+	
+	@RequestMapping(value= "{tokenCode}",method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getAllRoles(@PathVariable("tokenCode") String tokenCode){
+		DataResponse deleteRole = expertCodeService.getTokenCode(tokenCode);
+		return deleteRole;
+	}
 }

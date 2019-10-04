@@ -26,8 +26,8 @@ public class RoleController {
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllRoles(){
-		DataResponse deleteRole = roleService.getRoleAll();
-		return deleteRole;
+		DataResponse roles = roleService.getRoleAll();
+		return roles;
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")

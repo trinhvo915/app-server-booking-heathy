@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.foody.dto.UploadFileResponse;
 import com.foody.entities.Attachment;
-import com.foody.payload.UploadFileResponse;
 import com.foody.services.AttachmentService;
 
 @RestController

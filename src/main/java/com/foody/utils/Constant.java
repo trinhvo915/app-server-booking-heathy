@@ -22,4 +22,9 @@ public class Constant {
 	 
 	 public static final String CREATE_TOKEN_CODE_SUCCESS = "create token code success";
 	 public static final String CREATE_TOKEN_CODE_UNSUCCESS = "create token code unsuccess";
+	 public static final String GET_TOKEN_CODE_SUCCESS = "get token code success";
+	 public static final String GET_TOKEN_CODE_UNSUCCESS = "get token code unsuccess";
+	 
+	 public static final String GET_LIST_USER_SUCCESS = "get list user success";
+	 public static final String GET_LIST_USER_UNSUCCESS = "get list user unsuccess";
 }

@@ -3,7 +3,9 @@ package com.foody.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.foody.dto.DoctorRegisterRequest;
 import com.foody.entities.User;
+import com.foody.payload.DataResponse;
 
 public interface UserService{
 	Optional<User> findByEmail(String email);
@@ -21,4 +23,8 @@ public interface UserService{
 	User save(User user);
 	
 	User findByCode(String code);
+	
+	List<User> findByIds(List<String> ids);
+	
+	DataResponse updateRole(String id, DoctorRegisterRequest doctorRegisterRequest);
 }

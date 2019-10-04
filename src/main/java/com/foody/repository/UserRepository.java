@@ -24,6 +24,7 @@ public interface UserRepository extends JpaRepository<User,String>{
 	Boolean existsByUsername(String username);
 	
 	Boolean existsByEmail(String email);
+	
 	//SELECT e FROM Customer e WHERE e.name = :name
 	@Query(value ="SELECT u FROM User u WHERE u.code = :code")
 	User findByCode(@Param("code") String code);

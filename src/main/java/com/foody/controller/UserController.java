@@ -1,24 +1,31 @@
 package com.foody.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.EmailRequest;
 import com.foody.dto.UserRequestChangePassword;
 import com.foody.entities.User;
 import com.foody.payload.Data;
+import com.foody.payload.DataResponse;
 import com.foody.services.EmailService;
 import com.foody.services.UserService;
 import com.foody.utils.ConfirmCode;
+import com.foody.utils.Constant;
 
 @RestController
 @RequestMapping("/api/user")
@@ -59,5 +66,21 @@ public class UserController {
 			return new ResponseEntity<>(data, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value= "{ids}",method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getAllRoles(@PathVariable("ids") List<String> ids){
+		List<User> users = userservice.findByIdIn(ids);
+		if(users.size() != 0) {
+			System.out.println("sdasdfsd");
+			return new DataResponse(true, new Data(Constant.GET_LIST_USER_SUCCESS,HttpStatus.OK.value(),users));
+		}
+		return new DataResponse(false, new Data(Constant.GET_LIST_USER_UNSUCCESS,HttpStatus.BAD_REQUEST.value(),users));
+	}
+	
+	@RequestMapping(value= "{id}", method = RequestMethod.PUT, produces = "application/json")
+	public DataResponse registerDoctor(@PathVariable("id") String id, @Valid @RequestBody DoctorRegisterRequest doctorRegisterRequest){
+//		DataResponse updateRole = roleService.updateRole(id,roleRequest);
+		return null;
 	}
 }

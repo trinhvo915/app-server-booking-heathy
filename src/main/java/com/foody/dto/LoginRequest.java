@@ -1,4 +1,4 @@
-package com.foody.payload;
+package com.foody.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

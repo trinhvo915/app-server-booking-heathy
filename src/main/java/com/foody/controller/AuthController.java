@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foody.dto.LoginRequest;
+import com.foody.dto.SignUpRequest;
 import com.foody.entities.Role;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.payload.JwtAuthenticationResponse;
-import com.foody.payload.LoginRequest;
-import com.foody.payload.SignUpRequest;
 import com.foody.security.JwtTokenProvider;
 import com.foody.services.RoleService;
 import com.foody.services.UserService;
@@ -85,8 +85,8 @@ public class AuthController {
         }
 
         // Creating user's account
-        User user = new User(signUpRequest.getUsername(), signUpRequest.getPassword(),signUpRequest.getFistName(),
-                signUpRequest.getLastName(), signUpRequest.getEmail(), signUpRequest.getMobile());
+        User user = new User(signUpRequest.getUsername(), signUpRequest.getPassword(),signUpRequest.getFullName(),
+                signUpRequest.getEmail(), signUpRequest.getMobile());
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

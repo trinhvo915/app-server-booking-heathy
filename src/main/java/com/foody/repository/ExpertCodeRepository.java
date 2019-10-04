@@ -8,6 +8,6 @@ import com.foody.entities.ExpertCode;
 
 public interface ExpertCodeRepository extends JpaRepository<ExpertCode,String>{
 	
-	@Query(value ="Select * from expert_code e where e.token_code = :tokenCode", nativeQuery=true)
-	ExpertCode getExpertCode(@Param("tokenCode") Integer tokenCode);
+	@Query(value ="Select * from expert_code e where e.id = :id", nativeQuery=true)
+	ExpertCode getExpertCode(@Param("id") String id);
 }
