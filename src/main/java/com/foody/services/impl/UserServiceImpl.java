@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.DoctorRegisterRequest;
-import com.foody.dto.RoleRequest;
-import com.foody.entities.Role;
+import com.foody.entities.ExpertCode;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
+import com.foody.repository.ExpertCodeRepository;
 import com.foody.repository.UserRepository;
 import com.foody.services.UserService;
 import com.foody.utils.Constant;
@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	ExpertCodeRepository expertCodeRepository;
 	
 	@Override
 	public Optional<User> findByEmail(String email) {
@@ -79,20 +82,33 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public DataResponse updateRole(String id, DoctorRegisterRequest doctorRegisterRequest) {
+	public DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest) {
+		String token = doctorRegisterRequest.getTokenCode();
+		System.out.println("token : "+token);
+		ExpertCode checkToken = expertCodeRepository.getExpertCode(token,true);
+		if(checkToken == null) {
+			System.out.println("kakakakak");
+			return new DataResponse(false, new Data(Constant.TOKEN_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
+		}
 		
 		if(!"".equals(id)) {
 			List<String> ids = new ArrayList<String>() ;
 			ids.add(id);
 			List<User> users = findByIds(ids);
 			if(users.size() != 0) {
-//				Role roleUpdate = new RoleRequest().setRole(id, roleRequest);
-//				roleRepository.save(roleUpdate);
-				return new DataResponse(true, new Data(Constant.UPDATE_ROLE_SUCCES,HttpStatus.OK.value()));
+				System.out.println("hehehehehe");
+				User user = new DoctorRegisterRequest().setUser(id, doctorRegisterRequest);
+				userRepository.save(user);
+				System.out.println("********************");
+				ExpertCode expertCode = expertCodeRepository.getExpertCode(token,true);
+				expertCode.setActive(false);
+				expertCodeRepository.save(expertCode);
+				return new DataResponse(true, new Data(Constant.REGISTER_DOCTOR_SUCCESS,HttpStatus.OK.value(),user));
 			}else {
-				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
+				System.out.println("hahahaha");
+				return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
 			}
 		}
-		return new DataResponse(false, new Data(Constant.ROLE_NOT_NULL_ID,HttpStatus.BAD_REQUEST.value()));
+		return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
 	}
 }

@@ -52,7 +52,6 @@ public class UserController {
 	
 	@RequestMapping(value ="confirm", method = RequestMethod.POST, produces = "application/json")
 	public Data confirmCodeChangePassword(@RequestParam("token") String token){
-		System.out.println("888888888888888888 : "+token);
 		Data data = ConfirmCode.checkConfirmCode(token);
 		return data;
 	}
@@ -72,15 +71,15 @@ public class UserController {
 	public DataResponse getAllRoles(@PathVariable("ids") List<String> ids){
 		List<User> users = userservice.findByIdIn(ids);
 		if(users.size() != 0) {
-			System.out.println("sdasdfsd");
 			return new DataResponse(true, new Data(Constant.GET_LIST_USER_SUCCESS,HttpStatus.OK.value(),users));
 		}
 		return new DataResponse(false, new Data(Constant.GET_LIST_USER_UNSUCCESS,HttpStatus.BAD_REQUEST.value(),users));
 	}
 	
-	@RequestMapping(value= "{id}", method = RequestMethod.PUT, produces = "application/json")
+	@RequestMapping(value= "doctor/{id}", method = RequestMethod.PUT, produces = "application/json")
 	public DataResponse registerDoctor(@PathVariable("id") String id, @Valid @RequestBody DoctorRegisterRequest doctorRegisterRequest){
-//		DataResponse updateRole = roleService.updateRole(id,roleRequest);
-		return null;
+		System.out.println("sdasdfsd");
+		DataResponse data = userservice.updateUser(id, doctorRegisterRequest);
+		return data;
 	}
 }

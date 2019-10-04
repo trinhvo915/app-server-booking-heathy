@@ -32,7 +32,7 @@ public class ExpertCodeController {
 	
 	@RequestMapping(value= "{tokenCode}",method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllRoles(@PathVariable("tokenCode") String tokenCode){
-		DataResponse deleteRole = expertCodeService.getTokenCode(tokenCode);
-		return deleteRole;
+		DataResponse token = expertCodeService.getTokenCode(tokenCode);
+		return token;
 	}
 }

@@ -12,7 +12,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.foody.entities.enums.UserGender;
@@ -23,15 +22,15 @@ public class User extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@NotNull(message = "Please provide a username")
-    @Column(unique = true)
+//	@NotNull(message = "Please provide a username")
+//    @Column(unique = true)
 	private String username;
 	
-	@NotNull(message = "Please provide a pasword")
-    @Column(unique = true)
+//	@NotNull(message = "Please provide a pasword")
+//    @Column(unique = true)
 	private String password;
 	
-	@Column(name = "fullname", unique = false)
+	@Column(name = "fullname")
 	private String fullName;
 	
 	private Date birthday;
@@ -43,9 +42,9 @@ public class User extends AuditEntity implements Serializable{
 	@Column(name="bad_point")
 	private Integer badPoint;
 	
-	@Size(max = 100)
-	@Column(unique = true)
-	@NotNull(message = "Please provide a email")
+//	@Size(max = 100)
+//	@Column(unique = true)
+//	@NotNull(message = "Please provide a email")
 	private String email;
 	
 	@Size(max = 100)
@@ -173,8 +172,8 @@ public class User extends AuditEntity implements Serializable{
 		 
 	}
 	
-	public User(@NotNull String username, @NotNull String password, String fullName,
-			@Size(max = 100) String email, String mobile) {
+	public User(String username, String password, String fullName,
+			String email, String mobile) {
 			this.username = username;
 			this.password = password;
 			this.fullName = fullName;
@@ -182,9 +181,24 @@ public class User extends AuditEntity implements Serializable{
 			this.mobile = mobile;
 	}
 	
-	public User(@NotNull(message = "Please provide a pasword") String password, String code) {
+	public User(String password, String code) {
 		this.password = password;
 		this.code = code;
+	}
+
+	public User(String id, String fullName, Date birthday, UserGender gender, Integer age,String address,
+			String email, String mobile,String about, Set<Faculty> faculties, Set<Degree> degrees) {
+		this.setId(id);
+		this.fullName = fullName;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.age = age;
+		this.address = address;
+		this.email = email;
+		this.mobile = mobile;
+		this.about = about;
+		this.faculties = faculties;
+		this.degrees = degrees;
 	}
 
 	public String getPassword() {

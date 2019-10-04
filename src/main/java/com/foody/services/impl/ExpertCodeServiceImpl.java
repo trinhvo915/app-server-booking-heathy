@@ -34,11 +34,10 @@ public class ExpertCodeServiceImpl implements ExpertCodeService{
 
 	@Override
 	public DataResponse getTokenCode(String id) {
-		ExpertCode expertCode = expertCodeRepository.getExpertCode(id);
+		ExpertCode expertCode = expertCodeRepository.getExpertCode(id,true);
 		if(expertCode != null) {
 			return new DataResponse(true, new Data(Constant.GET_TOKEN_CODE_SUCCESS,HttpStatus.OK.value(),expertCode));
 		}
 		return new DataResponse(false, new Data(Constant.GET_TOKEN_CODE_UNSUCCESS,HttpStatus.BAD_REQUEST.value(),expertCode));
 	}
-
 }

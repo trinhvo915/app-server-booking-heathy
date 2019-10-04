@@ -1,7 +1,9 @@
 package com.foody.dto;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SignUpRequest {
@@ -9,6 +11,9 @@ public class SignUpRequest {
 	@Size(min = 1, max = 30)
 	private String fullName;
 	
+	
+	@NotNull(message = "Please provide a username")
+    @Column(unique = true)
 	@Size(min = 6, max = 15)
 	private String username;
 	
@@ -19,6 +24,8 @@ public class SignUpRequest {
 	@Size(min = 1, max = 20)
 	private String mobile;
 	
+	@NotNull(message = "Please provide a pasword")
+    @Column(unique = true)
 	@NotBlank
 	@Size(min = 6, max = 20)
 	private String password;

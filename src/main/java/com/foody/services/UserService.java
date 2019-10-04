@@ -26,5 +26,5 @@ public interface UserService{
 	
 	List<User> findByIds(List<String> ids);
 	
-	DataResponse updateRole(String id, DoctorRegisterRequest doctorRegisterRequest);
+	DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest);
 }

@@ -27,4 +27,9 @@ public class Constant {
 	 
 	 public static final String GET_LIST_USER_SUCCESS = "get list user success";
 	 public static final String GET_LIST_USER_UNSUCCESS = "get list user unsuccess";
+	 
+	 public static final String REGISTER_DOCTOR_SUCCESS = "register doctor success";
+	 public static final String REGISTER_DOCTOR_UNSUCCESS = "register doctor unsuccess";
+	 
+	 public static final String TOKEN_NO_FIND_ID = "Token is not exists system";
 }

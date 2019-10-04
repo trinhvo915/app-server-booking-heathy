@@ -6,3 +6,7 @@ INSERT INTO `degree` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (
 INSERT INTO `degree` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','TIẾN SỸ');
 INSERT INTO `degree` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','PHÓ GIÁO SƯ');
 INSERT INTO `degree` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','GIÁO SƯ');
+
+INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','NGOẠI');
+INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','ĐÔNG Y');
+INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','TÂY Y');
