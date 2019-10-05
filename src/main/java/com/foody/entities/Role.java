@@ -52,13 +52,20 @@ public class Role extends AuditEntity implements Serializable{
 		this.name = name;
 	}
 	
-	public boolean equals(Object obj) {
-        if (obj instanceof Role) {
-        	Role another = (Role) obj;
-            if (this.getId().equals(another.getId())) {
-                return true;
-            }
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(this.getId(), role.getId());
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
+
+	@Override
+	public String toString() {
+		return "Role [name=" + name + ", id=" + getId() + "]";
+	}
 }

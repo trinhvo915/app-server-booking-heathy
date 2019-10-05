@@ -325,13 +325,15 @@ public class User extends AuditEntity implements Serializable{
 		this.degrees = degrees;
 	}
 	
-	 public boolean equals(Object obj) {
-        if (obj instanceof User) {
-            User another = (User) obj;
-            if (this.getId().equals(another.getId())) {
-                return true;
-            }
-        }
-        return false;
+	public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(this.getId(), user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
     }
 }

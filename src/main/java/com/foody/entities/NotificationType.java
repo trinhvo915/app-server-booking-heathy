@@ -1,6 +1,7 @@
 package com.foody.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,13 +33,16 @@ public class NotificationType extends AuditEntity implements Serializable{
 		this.name = name;
 	}
 	
-	public boolean equals(Object obj) {
-        if (obj instanceof NotificationType) {
-        	NotificationType another = (NotificationType) obj;
-            if (this.getId().equals(another.getId())) {
-                return true;
-            }
-        }
-        return false;
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NotificationType notificationType = (NotificationType) o;
+        return Objects.equals(this.getId(), notificationType.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
     }
 }

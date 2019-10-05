@@ -4,6 +4,7 @@ public class Constant {
 	 public static final String EMAIL = "vovantrinhdhbkdn@gmail.com";
 	 public static final String TEXT_CHANGE_PASSWORD = "Password Reset Request";
 	 public static final String USER = "USER";
+	 public static final String EXPERT = "EXPERT";
 	 
 	 public static final String GET_ALL_ROLE_CUCCES = "get all role succes";
 	 public static final String GET_ALL_ROLE_UNCESSES = "get all role unsucces";

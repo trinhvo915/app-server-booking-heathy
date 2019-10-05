@@ -1,6 +1,7 @@
 package com.foody.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,13 +43,16 @@ public class Price extends AuditEntity implements Serializable{
 		this.description = description;
 	}
 	
-	public boolean equals(Object obj) {
-        if (obj instanceof Price) {
-        	Price another = (Price) obj;
-            if (this.getId().equals(another.getId())) {
-                return true;
-            }
-        }
-        return false;
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Price price = (Price) o;
+        return Objects.equals(this.getId(), price.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
     }
 }

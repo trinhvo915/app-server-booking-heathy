@@ -2,6 +2,7 @@ package com.foody.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -49,13 +50,16 @@ public class Comment extends AuditEntity implements Serializable{
 		this.content = content;
 	}
 	
-	public boolean equals(Object obj) {
-        if (obj instanceof Comment) {
-        	Comment another = (Comment) obj;
-            if (this.getId().equals(another.getId())) {
-                return true;
-            }
-        }
-        return false;
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Comment comment = (Comment) o;
+        return Objects.equals(this.getId(), comment.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
     }
 }

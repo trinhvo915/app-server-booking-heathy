@@ -31,7 +31,7 @@ public class ExpertCodeController {
 	}
 	
 	@RequestMapping(value= "{tokenCode}",method = RequestMethod.GET, produces = "application/json")
-	public DataResponse getAllRoles(@PathVariable("tokenCode") String tokenCode){
+	public DataResponse getAllExperts(@PathVariable("tokenCode") String tokenCode){
 		DataResponse token = expertCodeService.getTokenCode(tokenCode);
 		return token;
 	}

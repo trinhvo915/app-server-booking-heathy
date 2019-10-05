@@ -1,20 +1,28 @@
 package com.foody.services.impl;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.DoctorRegisterRequest;
+import com.foody.entities.Degree;
 import com.foody.entities.ExpertCode;
+import com.foody.entities.Faculty;
+import com.foody.entities.Role;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
+import com.foody.repository.DegreeRepository;
 import com.foody.repository.ExpertCodeRepository;
+import com.foody.repository.FacultyRepository;
 import com.foody.repository.UserRepository;
+import com.foody.services.RoleService;
 import com.foody.services.UserService;
 import com.foody.utils.Constant;
 
@@ -26,6 +34,15 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	ExpertCodeRepository expertCodeRepository;
+	
+	@Autowired
+	FacultyRepository facultyRepository;
+	
+	@Autowired
+	DegreeRepository degreeRepository;
+	
+	@Autowired
+	RoleService roleService;
 	
 	@Override
 	public Optional<User> findByEmail(String email) {
@@ -83,7 +100,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest) {
 		String token = doctorRegisterRequest.getTokenCode();
-		System.out.println("token : "+token);
 		ExpertCode checkToken = expertCodeRepository.getExpertCode(token,true);
 		if(checkToken == null) {
 			System.out.println("kakakakak");
@@ -96,16 +112,7 @@ public class UserServiceImpl implements UserService {
 			List<User> users = findByIds(ids);
 			if(users.size() != 0) {
 				User user = users.get(0);
-//				user = new User(doctorRegisterRequest.getFullName(),
-//						doctorRegisterRequest.getBirthday(),
-//						doctorRegisterRequest.getGender(),
-//						doctorRegisterRequest.getAge(),
-//						doctorRegisterRequest.getAddress(),
-//						doctorRegisterRequest.getEmail()
-//						,doctorRegisterRequest.getMobile(),
-//						doctorRegisterRequest.getAbout(),
-//						doctorRegisterRequest.getFaculties(),
-//						doctorRegisterRequest.getDegrees());
+				
 				user.setFullName(doctorRegisterRequest.getFullName());
 				user.setBirthday(doctorRegisterRequest.getBirthday());
 				user.setGender(doctorRegisterRequest.getGender());
@@ -114,9 +121,30 @@ public class UserServiceImpl implements UserService {
 				user.setEmail(doctorRegisterRequest.getEmail());
 				user.setMobile(doctorRegisterRequest.getMobile());
 				user.setAbout(doctorRegisterRequest.getAbout());
-				user.setFaculties(doctorRegisterRequest.getFaculties());
-				user.setDegrees(doctorRegisterRequest.getDegrees());
+				
+				List<String> idFaculties = new ArrayList<String>();
+				for (Faculty faculty : doctorRegisterRequest.getFaculties()) {
+					idFaculties.add(faculty.getId());
+				}
+				Set<Faculty>  faculties = facultyRepository.findByIdIn(idFaculties);
+				user.setFaculties(faculties);
+				
+				List<String> idDegrees = new ArrayList<String>();
+				for (Degree degree : doctorRegisterRequest.getDegrees()) {
+					idDegrees.add(degree.getId());
+				}
+				Set<Degree>  degrees = degreeRepository.findByIdIn(idDegrees);
+				user.setDegrees(degrees);
+				
+				Set<Role> roles = new HashSet<>();
+				Role userRole = roleService.getRoleByName(Constant.USER);
+				Role expertRole = roleService.getRoleByName(Constant.EXPERT);
+				roles.add(userRole);
+				roles.add(expertRole);
+				user.setRoles(roles);
+				
 				userRepository.save(user);
+				
 				ExpertCode expertCode = expertCodeRepository.getExpertCode(token,true);
 				expertCode.setActive(false);
 				expertCodeRepository.save(expertCode);

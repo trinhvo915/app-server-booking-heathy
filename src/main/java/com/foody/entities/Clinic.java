@@ -2,6 +2,7 @@ package com.foody.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -89,13 +90,16 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.longitude = longitude;
 	}
 	
-	public boolean equals(Object obj) {
-        if (obj instanceof Clinic) {
-        	Clinic another = (Clinic) obj;
-            if (this.getId().equals(another.getId())) {
-                return true;
-            }
-        }
-        return false;
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clinic clinic = (Clinic) o;
+        return Objects.equals(this.getId(), clinic.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
     }
 }

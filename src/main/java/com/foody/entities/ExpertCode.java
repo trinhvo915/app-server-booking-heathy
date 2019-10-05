@@ -1,6 +1,7 @@
 package com.foody.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -14,4 +15,17 @@ public class ExpertCode extends AuditEntity implements Serializable{
 	public ExpertCode() {
 		
 	}
+	
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ExpertCode expertCode = (ExpertCode) o;
+        return Objects.equals(this.getId(), expertCode.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
 }
