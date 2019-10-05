@@ -25,8 +25,5 @@ public class RoleRequest implements Serializable{
 	public Role setRole(RoleRequest roleRequest) {
 		return new Role(roleRequest.getName());
 	}
-	
-	public Role setRole(String id, RoleRequest roleRequest) {
-		return new Role(id, roleRequest.getName());
-	}
+
 }

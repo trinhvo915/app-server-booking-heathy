@@ -89,4 +89,13 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.longitude = longitude;
 	}
 	
+	public boolean equals(Object obj) {
+        if (obj instanceof Clinic) {
+        	Clinic another = (Clinic) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

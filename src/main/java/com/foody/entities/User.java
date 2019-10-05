@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Type;
+
 import com.foody.entities.enums.UserGender;
 
 @Entity
@@ -22,12 +24,8 @@ public class User extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-//	@NotNull(message = "Please provide a username")
-//    @Column(unique = true)
 	private String username;
 	
-//	@NotNull(message = "Please provide a pasword")
-//    @Column(unique = true)
 	private String password;
 	
 	@Column(name = "fullname")
@@ -42,9 +40,6 @@ public class User extends AuditEntity implements Serializable{
 	@Column(name="bad_point")
 	private Integer badPoint;
 	
-//	@Size(max = 100)
-//	@Column(unique = true)
-//	@NotNull(message = "Please provide a email")
 	private String email;
 	
 	@Size(max = 100)
@@ -53,6 +48,7 @@ public class User extends AuditEntity implements Serializable{
 	@Size(max = 20)
 	private String mobile;
 	
+	@Type(type="text")
 	private String about;
 	
 	@Size(max = 100)
@@ -87,15 +83,17 @@ public class User extends AuditEntity implements Serializable{
             mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 	
-	@OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "user")
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {
+				CascadeType.PERSIST,
+				CascadeType.MERGE
+		})
+	@JoinTable(name = "user_faculty",
+		joinColumns = { @JoinColumn(name = "id_user") },
+		inverseJoinColumns = { @JoinColumn(name = "id_faculty")}
+	)
     private Set<Faculty> faculties = new HashSet<>();
 	
-//	@OneToMany(cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY,
-//            mappedBy = "expert")
-//    private Set<Comment> commentExperts = new HashSet<>();
 	@ManyToMany(fetch = FetchType.LAZY,
 		cascade = {
 			CascadeType.PERSIST,
@@ -112,10 +110,6 @@ public class User extends AuditEntity implements Serializable{
             mappedBy = "user")
     private Set<Comment> commentUsers = new HashSet<>();
 	
-//	@OneToMany(cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY,
-//            mappedBy = "expert")
-//    private Set<Booking> bookingExperts = new HashSet<>();
 	@ManyToMany(fetch = FetchType.LAZY,
 		cascade = {
 			CascadeType.PERSIST,
@@ -130,12 +124,9 @@ public class User extends AuditEntity implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user")
+	
     private Set<Booking> bookingUsers = new HashSet<>();
 	
-//	@OneToMany(cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY,
-//            mappedBy = "expert")
-//    private Set<Rate> rateExperts = new HashSet<>();
 	@ManyToMany(fetch = FetchType.LAZY,
 		cascade = {
 			CascadeType.PERSIST,
@@ -163,9 +154,15 @@ public class User extends AuditEntity implements Serializable{
     private Set<Attachment> attachments = new HashSet<>();
 	
 	
-	@OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "user")
+	@ManyToMany(fetch = FetchType.LAZY,
+			cascade = {
+				CascadeType.PERSIST,
+				CascadeType.MERGE
+		})
+	@JoinTable(name = "user_degree",
+		joinColumns = { @JoinColumn(name = "id_user") },
+		inverseJoinColumns = { @JoinColumn(name = "id_degree")}
+	)
     private Set<Degree> degrees = new HashSet<>();
 	
 	public User() {
@@ -186,9 +183,8 @@ public class User extends AuditEntity implements Serializable{
 		this.code = code;
 	}
 
-	public User(String id, String fullName, Date birthday, UserGender gender, Integer age,String address,
+	public User(String fullName, Date birthday, UserGender gender, Integer age,String address,
 			String email, String mobile,String about, Set<Faculty> faculties, Set<Degree> degrees) {
-		this.setId(id);
 		this.fullName = fullName;
 		this.birthday = birthday;
 		this.gender = gender;
@@ -312,5 +308,30 @@ public class User extends AuditEntity implements Serializable{
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public Set<Faculty> getFaculties() {
+		return faculties;
+	}
+
+	public void setFaculties(Set<Faculty> faculties) {
+		this.faculties = faculties;
+	}
+
+	public Set<Degree> getDegrees() {
+		return degrees;
+	}
+
+	public void setDegrees(Set<Degree> degrees) {
+		this.degrees = degrees;
+	}
 	
+	 public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            User another = (User) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

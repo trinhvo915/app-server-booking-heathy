@@ -24,12 +24,12 @@ public class Role extends AuditEntity implements Serializable{
 	private String name;
 	
     @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "roles"
-        )
+        cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+        },
+        mappedBy = "roles"
+    )
     private Set<User> users = new HashSet<>();
     
 	public Role() {
@@ -51,4 +51,14 @@ public class Role extends AuditEntity implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public boolean equals(Object obj) {
+        if (obj instanceof Role) {
+        	Role another = (Role) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -41,4 +41,13 @@ public class Notification extends AuditEntity implements Serializable{
 		this.content = content;
 	}
 	
+	public boolean equals(Object obj) {
+        if (obj instanceof Notification) {
+        	Notification another = (Notification) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -65,7 +65,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByCode(String code) {
 		User user = userRepository.findByCode(code);
-		System.out.println("**************** : "+user);
 		if(user != null) {
 			return user;
 		}
@@ -96,17 +95,34 @@ public class UserServiceImpl implements UserService {
 			ids.add(id);
 			List<User> users = findByIds(ids);
 			if(users.size() != 0) {
-				System.out.println("hehehehehe");
-				User user = new DoctorRegisterRequest().setUser(id, doctorRegisterRequest);
+				User user = users.get(0);
+//				user = new User(doctorRegisterRequest.getFullName(),
+//						doctorRegisterRequest.getBirthday(),
+//						doctorRegisterRequest.getGender(),
+//						doctorRegisterRequest.getAge(),
+//						doctorRegisterRequest.getAddress(),
+//						doctorRegisterRequest.getEmail()
+//						,doctorRegisterRequest.getMobile(),
+//						doctorRegisterRequest.getAbout(),
+//						doctorRegisterRequest.getFaculties(),
+//						doctorRegisterRequest.getDegrees());
+				user.setFullName(doctorRegisterRequest.getFullName());
+				user.setBirthday(doctorRegisterRequest.getBirthday());
+				user.setGender(doctorRegisterRequest.getGender());
+				user.setAge(doctorRegisterRequest.getAge());
+				user.setAddress(doctorRegisterRequest.getAddress());
+				user.setEmail(doctorRegisterRequest.getEmail());
+				user.setMobile(doctorRegisterRequest.getMobile());
+				user.setAbout(doctorRegisterRequest.getAbout());
+				user.setFaculties(doctorRegisterRequest.getFaculties());
+				user.setDegrees(doctorRegisterRequest.getDegrees());
 				userRepository.save(user);
-				System.out.println("********************");
 				ExpertCode expertCode = expertCodeRepository.getExpertCode(token,true);
 				expertCode.setActive(false);
 				expertCodeRepository.save(expertCode);
 				return new DataResponse(true, new Data(Constant.REGISTER_DOCTOR_SUCCESS,HttpStatus.OK.value(),user));
 			}else {
-				System.out.println("hahahaha");
-				return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
+				return new DataResponse(false, new Data(Constant.USER_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
 			}
 		}
 		return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));

@@ -49,4 +49,13 @@ public class Comment extends AuditEntity implements Serializable{
 		this.content = content;
 	}
 	
+	public boolean equals(Object obj) {
+        if (obj instanceof Comment) {
+        	Comment another = (Comment) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

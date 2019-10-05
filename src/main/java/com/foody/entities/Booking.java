@@ -141,5 +141,14 @@ public class Booking extends AuditEntity implements Serializable{
 	public void setGender(UserGender gender) {
 		this.gender = gender;
 	}
-
+	
+	public boolean equals(Object obj) {
+        if (obj instanceof Booking) {
+        	Booking another = (Booking) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

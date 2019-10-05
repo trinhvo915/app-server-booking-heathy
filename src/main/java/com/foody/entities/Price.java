@@ -42,4 +42,13 @@ public class Price extends AuditEntity implements Serializable{
 		this.description = description;
 	}
 	
+	public boolean equals(Object obj) {
+        if (obj instanceof Price) {
+        	Price another = (Price) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

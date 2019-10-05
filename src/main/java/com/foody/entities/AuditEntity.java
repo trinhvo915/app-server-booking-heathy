@@ -107,5 +107,14 @@ public abstract class AuditEntity implements Serializable {
 	public void setDeletedBy(String deletedBy) {
 		this.deletedBy = deletedBy;
 	}
-
+	
+	public boolean equals(Object obj) {
+        if (obj instanceof AuditEntity) {
+        	AuditEntity another = (AuditEntity) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

@@ -128,7 +128,7 @@ public class DoctorRegisterRequest {
 	}
 
 	public User setUser(String id, DoctorRegisterRequest doctorRegisterRequest) {
-		User user = new User(id,doctorRegisterRequest.getFullName(),doctorRegisterRequest.getBirthday(),
+		User user = new User(doctorRegisterRequest.getFullName(),doctorRegisterRequest.getBirthday(),
 				doctorRegisterRequest.getGender(),doctorRegisterRequest.getAge(),doctorRegisterRequest.getAddress(),doctorRegisterRequest.getEmail()
 				,doctorRegisterRequest.getMobile(),doctorRegisterRequest.getAbout(),doctorRegisterRequest.getFaculties(),doctorRegisterRequest.degrees);
 		return user;

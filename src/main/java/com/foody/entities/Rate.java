@@ -60,4 +60,13 @@ public class Rate extends AuditEntity implements Serializable{
 		this.value = value;
 	}
 	
+	public boolean equals(Object obj) {
+        if (obj instanceof Rate) {
+        	Rate another = (Rate) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

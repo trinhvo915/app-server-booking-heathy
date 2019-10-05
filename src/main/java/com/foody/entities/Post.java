@@ -50,4 +50,13 @@ public class Post extends AuditEntity implements Serializable{
 		this.content = content;
 	}
 	
+	public boolean equals(Object obj) {
+        if (obj instanceof Post) {
+        	Post another = (Post) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

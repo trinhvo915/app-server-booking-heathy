@@ -86,9 +86,9 @@ public class RoleServiceImpl implements RoleService {
 		if(!"".equals(id)) {
 			Role role = getRoleById(id);
 			if(role != null) {
-				Role roleUpdate = new RoleRequest().setRole(id, roleRequest);
-				roleRepository.save(roleUpdate);
-				return new DataResponse(true, new Data(Constant.UPDATE_ROLE_SUCCES,HttpStatus.OK.value(),roleUpdate));
+				role.setName(roleRequest.getName());
+				roleRepository.saveAndFlush(role);
+				return new DataResponse(true, new Data(Constant.UPDATE_ROLE_SUCCES,HttpStatus.OK.value(),role));
 			}else {
 				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
 			}

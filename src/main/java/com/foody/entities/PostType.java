@@ -35,5 +35,13 @@ public class PostType extends AuditEntity implements Serializable{
 		this.name = name;
 	}
 	
-	
+	public boolean equals(Object obj) {
+        if (obj instanceof PostType) {
+        	PostType another = (PostType) obj;
+            if (this.getId().equals(another.getId())) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
