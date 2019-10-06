@@ -3,6 +3,7 @@ package com.foody.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,8 @@ public class ExpertCodeController {
 	@Autowired
 	ExpertCodeService expertCodeService;
 	
+	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value= "{lenValue}",method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Data> createToken (@PathVariable("lenValue") String lenValue){
 		
@@ -30,6 +33,7 @@ public class ExpertCodeController {
 		return new ResponseEntity<Data>(new Data("false",HttpStatus.BAD_REQUEST.value()),HttpStatus.BAD_REQUEST);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value= "{tokenCode}",method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllExperts(@PathVariable("tokenCode") String tokenCode){
 		DataResponse token = expertCodeService.getTokenCode(tokenCode);
