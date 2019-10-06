@@ -83,8 +83,8 @@ public class UserController {
 		return data;
 	}
 	
-	@RequestMapping(value= "role/{id_user},{id_role}", method = RequestMethod.GET, produces = "application/json")
-	public UserResponse getUserByIdAndCheckRole(@PathVariable("id_user") String id_user,@PathVariable("id_role") String id_role){
-		return userservice.getUserByIdAndCheckRole(id_user,id_role);
+	@RequestMapping(value= "role/{id_user},{name_ole}", method = RequestMethod.GET, produces = "application/json")
+	public UserResponse getUserByIdAndCheckRole(@PathVariable("id_user") String id_user,@PathVariable("nameRole") String nameRole){
+		return userservice.getUserByIdAndCheckRole(id_user,nameRole);
 	}
 }

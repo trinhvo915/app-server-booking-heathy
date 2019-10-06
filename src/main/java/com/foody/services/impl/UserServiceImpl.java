@@ -157,8 +157,8 @@ public class UserServiceImpl implements UserService {
 		return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
 	}
 	@Override
-	public UserResponse getUserByIdAndCheckRole(String id_user, String id_role) {
-		User user = userRepository.findByIdAndCheckRole(id_user, true,id_role);
+	public UserResponse getUserByIdAndCheckRole(String id_user, String nameRole) {
+		User user = userRepository.findByIdAndCheckRole(id_user, true,nameRole);
 		return new UserResponse(user);
 	}
 }

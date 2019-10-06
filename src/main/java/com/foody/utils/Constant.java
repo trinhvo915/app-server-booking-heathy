@@ -35,4 +35,10 @@ public class Constant {
 	 
 	 public static final String TOKEN_NO_FIND_ID = "Token is not exists system";
 	 public static final String USER_NO_FIND_ID = "User is not exists system";
+	 
+	 public static final String REGISTER_CLINIC_SUCCESS = "register clinic success";
+	 public static final String REGISTER_CLINIC_UNSUCCESS = "register clinic unsuccess";
+	 
+	 public static final String NO_EXPERT = "you are not doctor";
+	 
 }

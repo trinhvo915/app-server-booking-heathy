@@ -8,6 +8,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,9 +42,15 @@ public class Clinic extends AuditEntity implements Serializable{
             mappedBy = "clinic")
     private Set<Post> posts = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "clinic")
+    @ManyToMany(fetch = FetchType.LAZY,
+			cascade = {
+				CascadeType.PERSIST,
+				CascadeType.MERGE
+		})
+	@JoinTable(name = "clinic_faculty",
+		joinColumns = { @JoinColumn(name = "id_clinic") },
+		inverseJoinColumns = { @JoinColumn(name = "id_faculty")}
+	)
     private Set<Faculty> faculties = new HashSet<>();
     
     @OneToMany(cascade = CascadeType.ALL,
@@ -58,6 +66,14 @@ public class Clinic extends AuditEntity implements Serializable{
 	// list post  - > // attachment
 	// Faculty
 	
+	public Clinic(String name, String address, String latitude, String longitude) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -102,4 +118,21 @@ public class Clinic extends AuditEntity implements Serializable{
     public int hashCode() {
         return Objects.hash(this.getId());
     }
+
+	public Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+
+	public Set<Faculty> getFaculties() {
+		return faculties;
+	}
+
+	public void setFaculties(Set<Faculty> faculties) {
+		this.faculties = faculties;
+	}
+    
 }
