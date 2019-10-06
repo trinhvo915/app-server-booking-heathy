@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.DoctorRegisterRequest;
+import com.foody.dto.UserResponse;
 import com.foody.entities.Degree;
 import com.foody.entities.ExpertCode;
 import com.foody.entities.Faculty;
@@ -154,5 +155,10 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
+	}
+	@Override
+	public UserResponse getUserByIdAndCheckRole(String id_user, String id_role) {
+		User user = userRepository.findByIdAndCheckRole(id_user, true,id_role);
+		return new UserResponse(user);
 	}
 }

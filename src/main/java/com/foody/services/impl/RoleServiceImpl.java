@@ -34,6 +34,7 @@ public class RoleServiceImpl implements RoleService {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public Role getRoleByName(String name) {
 		Role roles = roleRepository.findByName(name);
@@ -75,7 +76,7 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public DataResponse getRoleAll() {
-		List<Role> roles = roleRepository.findAll();
+		List<Role> roles = (List<Role>) roleRepository.findAll();
 		if(roles!=null) {
 			return new DataResponse(true, new Data(Constant.GET_ALL_ROLE_CUCCES,HttpStatus.OK.value(),roles));
 		}
@@ -88,7 +89,7 @@ public class RoleServiceImpl implements RoleService {
 			Role role = getRoleById(id);
 			if(role != null) {
 				role.setName(roleRequest.getName());
-				roleRepository.saveAndFlush(role);
+				roleRepository.save(role);
 				return new DataResponse(true, new Data(Constant.UPDATE_ROLE_SUCCES,HttpStatus.OK.value(),role));
 			}else {
 				return new DataResponse(false, new Data(Constant.ROLE_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));

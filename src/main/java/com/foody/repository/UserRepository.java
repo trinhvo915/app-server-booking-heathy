@@ -3,15 +3,15 @@ package com.foody.repository;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.foody.entities.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,String>{
+public interface UserRepository extends CrudRepository<User,String>{
 	
 	Optional<User> findByEmail(String email);
 	
@@ -28,4 +28,8 @@ public interface UserRepository extends JpaRepository<User,String>{
 	//SELECT e FROM Customer e WHERE e.name = :name
 	@Query(value ="SELECT u FROM User u WHERE u.code = :code")
 	User findByCode(@Param("code") String code);
+	
+	@Query(value ="Select *  from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.id = :id_user and user.is_active = :is_active and role.id = :id_role", nativeQuery=true)
+	User findByIdAndCheckRole(@Param("id_user") String id_user, @Param("is_active")boolean is_active,@Param("id_role") String id_role);
 }
+//user.id, user.fullname, user.username, user.created_at, user.created_by ,user.deleted_by ,user.update_at,user.update_by,

@@ -177,7 +177,15 @@ public class User extends AuditEntity implements Serializable{
 			this.email = email;
 			this.mobile = mobile;
 	}
-	
+
+	public User(String username, String fullName, Date birthday, UserGender gender, Integer age) {
+		this.username = username;
+		this.fullName = fullName;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.age = age;
+	}
+
 	public User(String password, String code) {
 		this.password = password;
 		this.code = code;

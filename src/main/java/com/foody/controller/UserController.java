@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.EmailRequest;
 import com.foody.dto.UserRequestChangePassword;
+import com.foody.dto.UserResponse;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
@@ -78,8 +79,12 @@ public class UserController {
 	
 	@RequestMapping(value= "doctor/{id}", method = RequestMethod.PUT, produces = "application/json")
 	public DataResponse registerDoctor(@PathVariable("id") String id, @Valid @RequestBody DoctorRegisterRequest doctorRegisterRequest){
-		System.out.println("sdasdfsd");
 		DataResponse data = userservice.updateUser(id, doctorRegisterRequest);
 		return data;
+	}
+	
+	@RequestMapping(value= "role/{id_user},{id_role}", method = RequestMethod.GET, produces = "application/json")
+	public UserResponse getUserByIdAndCheckRole(@PathVariable("id_user") String id_user,@PathVariable("id_role") String id_role){
+		return userservice.getUserByIdAndCheckRole(id_user,id_role);
 	}
 }

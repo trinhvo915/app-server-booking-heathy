@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name ="price")
 public class Price extends AuditEntity implements Serializable{
@@ -17,6 +19,7 @@ public class Price extends AuditEntity implements Serializable{
 
 	private String totalPrice;
 	
+	@Type(type="text")
 	private String description;
 
 	@ManyToOne(fetch = FetchType.LAZY)

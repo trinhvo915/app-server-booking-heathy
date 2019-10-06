@@ -3,14 +3,17 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import com.foody.entities.Degree;
 import com.foody.entities.Faculty;
-import com.foody.entities.User;
 import com.foody.entities.enums.UserGender;
 
 public class DoctorRegisterRequest {
 
+	@Size(min = 1, max = 30)
+	@NotNull(message = "Please provide a fullname")
 	private String fullName;
 	
 	private String tokenCode;
@@ -29,6 +32,8 @@ public class DoctorRegisterRequest {
 	
 	private String about;
 	
+	@Email(message = "The email is not properly formatted")
+	@Size(min = 1, max = 40)
 	private String email;
 	
 	private Set<Faculty> faculties = new HashSet<>();
@@ -125,13 +130,6 @@ public class DoctorRegisterRequest {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public User setUser(String id, DoctorRegisterRequest doctorRegisterRequest) {
-		User user = new User(doctorRegisterRequest.getFullName(),doctorRegisterRequest.getBirthday(),
-				doctorRegisterRequest.getGender(),doctorRegisterRequest.getAge(),doctorRegisterRequest.getAddress(),doctorRegisterRequest.getEmail()
-				,doctorRegisterRequest.getMobile(),doctorRegisterRequest.getAbout(),doctorRegisterRequest.getFaculties(),doctorRegisterRequest.degrees);
-		return user;
 	}
 	
 }

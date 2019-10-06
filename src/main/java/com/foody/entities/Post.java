@@ -13,12 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "post")
 public class Post extends AuditEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
+	@Type(type="text")
 	private String content;
 
 	@ManyToOne(fetch = FetchType.LAZY)

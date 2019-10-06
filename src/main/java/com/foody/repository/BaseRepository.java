@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 //https://www.petrikainulainen.net/programming/spring-framework/spring-data-jpa-tutorial-part-two-crud/
 @NoRepositoryBean
-interface BaseRepository<T, ID extends Serializable> extends JpaRepository<T, ID> {
+interface BaseRepository<T, ID extends Serializable> extends CrudRepository<T, ID> {
  
     void delete(T deleted);
  

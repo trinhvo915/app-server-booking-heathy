@@ -3,9 +3,9 @@ package com.foody.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.foody.entities.Role;
+import com.foody.entities.Clinic;
 
 @Repository
-public interface RoleRepository extends CrudRepository<Role,String>{
-	Role findByName(String name);
+public interface ClinicRepository extends CrudRepository<Clinic, String>{
+
 }
