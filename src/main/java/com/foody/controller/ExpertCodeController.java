@@ -21,7 +21,7 @@ public class ExpertCodeController {
 	ExpertCodeService expertCodeService;
 	
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
+//	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value= "{lenValue}",method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Data> createToken (@PathVariable("lenValue") String lenValue){
 		

@@ -2,8 +2,9 @@ package com.foody.services;
 
 import com.foody.dto.ClinicRequest;
 import com.foody.payload.DataResponse;
+import com.foody.security.UserPrincipal;
 
 public interface ClinicService {
 
-	DataResponse addClinicCurrentDoctor(String idUser,ClinicRequest clinicRequest);
+	DataResponse addClinicCurrentDoctor(UserPrincipal currentUser,ClinicRequest clinicRequest);
 }

@@ -1,49 +1,35 @@
 package com.foody;
 
-import java.util.HashSet;
-import java.util.Set;
+//import java.util.HashSet;
+//import java.util.Set;
+import java.util.TimeZone;
+
+import javax.annotation.PostConstruct;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.foody.repository.UserRepository;
-import com.foody.services.RoleService;
-//import com.foody.entities.Role;
-//import com.foody.entities.User;
-//import com.foody.utils.Constant;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 @SpringBootApplication
-public class FoodyJwtApplication implements CommandLineRunner{
+@EntityScan(basePackageClasses = {
+		FoodyJwtApplication.class,
+		Jsr310JpaConverters.class
+})
+public class FoodyJwtApplication{
 	@SuppressWarnings("unused")
 	private static final Logger logger = LogManager.getLogger(FoodyJwtApplication.class);
 	
-	@Autowired
-	RoleService roleService;
-	
-	@Autowired
-	UserRepository userRepository;
+	@PostConstruct
+	void init() {
+		TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+	}
 	
 	public static void main(String[] args) {
 		SpringApplication.run(FoodyJwtApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-//		User user = new User("admin12345", "123456789", "admin12345","admin12345@gmail.com","0974076085");
-//		
-//		Role admintRole = roleService.getRoleByName(Constant.ADMIN);
-//		Role userRole = roleService.getRoleByName(Constant.USER);
-//		Role expertRole = roleService.getRoleByName(Constant.EXPERT);
-//		Set<Role> roles = new HashSet<>();
-//		roles.add(admintRole);
-//		roles.add(userRole);
-//		roles.add(expertRole);
-//		user.setRoles(roles);
-//		
-//		userRepository.save(user);
-	}
-
+	
 }

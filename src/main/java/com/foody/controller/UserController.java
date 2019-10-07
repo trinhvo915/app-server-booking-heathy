@@ -8,7 +8,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +22,12 @@ import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.EmailRequest;
 import com.foody.dto.UserRequestChangePassword;
 import com.foody.dto.UserResponse;
+import com.foody.dto.UserSummary;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
+import com.foody.security.CurrentUser;
+import com.foody.security.UserPrincipal;
 import com.foody.services.EmailService;
 import com.foody.services.UserService;
 import com.foody.utils.ConfirmCode;
@@ -37,6 +42,13 @@ public class UserController {
 	
 	@Autowired
 	EmailService emailService;
+	
+	@GetMapping("/me")
+    @PreAuthorize("hasRole('USER')")
+    public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
+        UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getFullName());
+        return userSummary;
+    }
 	
 	@RequestMapping(value ="forgot", method = RequestMethod.POST, produces = "application/json")
 	public ResponseEntity<Data> forgotPassword(@RequestBody EmailRequest emailRequest, HttpServletRequest httpRequest){

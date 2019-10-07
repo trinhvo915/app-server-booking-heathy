@@ -43,10 +43,10 @@ public class Clinic extends AuditEntity implements Serializable{
     private Set<Post> posts = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-				CascadeType.PERSIST,
-				CascadeType.MERGE
-		})
+		cascade = {
+			CascadeType.PERSIST,
+			CascadeType.MERGE
+	})
 	@JoinTable(name = "clinic_faculty",
 		joinColumns = { @JoinColumn(name = "id_clinic") },
 		inverseJoinColumns = { @JoinColumn(name = "id_faculty")}
@@ -72,6 +72,15 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
+	}
+
+	public Clinic(String name, String address, String latitude, String longitude, Set<Faculty> faculties) {
+		super();
+		this.name = name;
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.faculties = faculties;
 	}
 
 	public String getName() {

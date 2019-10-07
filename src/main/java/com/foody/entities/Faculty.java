@@ -62,4 +62,10 @@ public class Faculty extends AuditEntity implements Serializable{
     public int hashCode() {
         return Objects.hash(this.getId());
     }
+
+	@Override
+	public String toString() {
+		return "Faculty [name=" + name + "]";
+	}
+    
 }
