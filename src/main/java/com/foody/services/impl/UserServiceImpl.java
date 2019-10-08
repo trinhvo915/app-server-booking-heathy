@@ -103,7 +103,6 @@ public class UserServiceImpl implements UserService {
 		String token = doctorRegisterRequest.getTokenCode();
 		ExpertCode checkToken = expertCodeRepository.getExpertCode(token,true);
 		if(checkToken == null) {
-			System.out.println("kakakakak");
 			return new DataResponse(false, new Data(Constant.TOKEN_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
 		}
 		

@@ -27,7 +27,6 @@ public class AttachmentServiceImpl implements AttachmentService{
             if(fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            System.out.println("8888888888888 : "+file.getBytes());
             Attachment dbFile = new Attachment(fileName, file.getContentType(), file.getBytes());
 
             return attachmentRepository.save(dbFile);

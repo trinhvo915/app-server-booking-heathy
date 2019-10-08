@@ -16,6 +16,7 @@ public class DoctorRegisterRequest {
 	@NotNull(message = "Please provide a fullname")
 	private String fullName;
 	
+	@NotNull(message = "Please provide a TokenCode")
 	private String tokenCode;
 
 	private Date birthday;
