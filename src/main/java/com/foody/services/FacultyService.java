@@ -7,4 +7,5 @@ import com.foody.entities.Faculty;
 
 public interface FacultyService {
 	Set<Faculty> getById(List<String> ids);
+	Set<Faculty> getAll();
 }
