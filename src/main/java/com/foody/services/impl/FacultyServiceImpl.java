@@ -21,10 +21,9 @@ public class FacultyServiceImpl implements FacultyService{
 		return facultyRepository.findByIdIn(ids);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Faculty> getAll() {
-		return (Set<Faculty>) facultyRepository.findAll();
+	public List<Faculty> getAll() {
+		return facultyRepository.findAll();
 	}
 
 }

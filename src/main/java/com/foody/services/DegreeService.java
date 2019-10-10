@@ -8,5 +8,5 @@ import com.foody.entities.Degree;
 public interface DegreeService {
 	Set<Degree> getById(List<String> ids);
 	
-	Set<Degree> getAll();
+	List<Degree> getAll();
 }

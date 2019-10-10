@@ -1,7 +1,6 @@
 package com.foody.controller;
 
-import java.util.Set;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +21,7 @@ public class FacultyController {
 	
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllFaculty(){
-		Set<Faculty> faculties =   facultyService.getAll();
+		List<Faculty> faculties =   facultyService.getAll();
 		if(!faculties.isEmpty()) {
 			return new DataResponse(true, new Data("Get faculty success",HttpStatus.OK.value(),faculties));
 		}

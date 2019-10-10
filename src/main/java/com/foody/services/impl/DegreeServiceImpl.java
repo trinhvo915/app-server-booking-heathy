@@ -21,10 +21,9 @@ public class DegreeServiceImpl implements DegreeService{
 		return degreeRepository.findByIdIn(ids);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public Set<Degree> getAll() {
-		return (Set<Degree>) degreeRepository.findAll();
+	public List<Degree> getAll() {
+		return  degreeRepository.findAll();
 	}
 
 }
