@@ -41,4 +41,7 @@ public class Constant {
 	 
 	 public static final String NO_EXPERT = "you are not doctor";
 	 
+	 public static final String REGISTER_COMMENT_SUCCESS = "comment success";
+	 public static final String REGISTER_COMMENT_UNSUCCESS = "comment unsuccess";
+	 
 }

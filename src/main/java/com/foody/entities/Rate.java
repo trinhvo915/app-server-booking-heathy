@@ -1,15 +1,11 @@
 package com.foody.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -25,17 +21,17 @@ public class Rate extends AuditEntity implements Serializable{
 	
 	private Double value;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_expert")
-//    private User expert;
-	@ManyToMany(fetch = FetchType.LAZY,
-        cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-        },
-        mappedBy = "rateExperts"
-    )
-    private Set<User> experts = new HashSet<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_expert")
+    private User expert;
+//	@ManyToMany(fetch = FetchType.LAZY,
+//        cascade = {
+//                CascadeType.PERSIST,
+//                CascadeType.MERGE
+//        },
+//        mappedBy = "rateExperts"
+//    )
+//    private Set<User> experts = new HashSet<>();
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")

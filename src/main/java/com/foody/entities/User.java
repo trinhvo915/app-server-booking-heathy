@@ -94,16 +94,21 @@ public class User extends AuditEntity implements Serializable{
 	)
     private Set<Faculty> faculties = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-		cascade = {
-			CascadeType.PERSIST,
-			CascadeType.MERGE
-	})
-	@JoinTable(name = "expert_comment",
-		joinColumns = { @JoinColumn(name = "id_expert") },
-		inverseJoinColumns = { @JoinColumn(name = "id_commnet")}
-	)
-	private Set<Comment> commentExperts = new HashSet<>();
+//	@ManyToMany(fetch = FetchType.LAZY,
+//		cascade = {
+//			CascadeType.PERSIST,
+//			CascadeType.MERGE
+//	})
+//	@JoinTable(name = "expert_comment",
+//		joinColumns = { @JoinColumn(name = "id_expert") },
+//		inverseJoinColumns = { @JoinColumn(name = "id_commnet")}
+//	)
+//	private Set<Comment> commentExperts = new HashSet<>();
+	
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "expert")
+    private Set<Comment> commentExperts = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -124,19 +129,22 @@ public class User extends AuditEntity implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user")
-	
     private Set<Booking> bookingUsers = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-		cascade = {
-			CascadeType.PERSIST,
-			CascadeType.MERGE
-	})
-	@JoinTable(name = "expert_rate",
-		joinColumns = { @JoinColumn(name = "id_expert") },
-		inverseJoinColumns = { @JoinColumn(name = "id_rate")}
-	)
-	private Set<Rate> rateExperts = new HashSet<>();
+//	@ManyToMany(fetch = FetchType.LAZY,
+//		cascade = {
+//			CascadeType.PERSIST,
+//			CascadeType.MERGE
+//	})
+//	@JoinTable(name = "expert_rate",
+//		joinColumns = { @JoinColumn(name = "id_expert") },
+//		inverseJoinColumns = { @JoinColumn(name = "id_rate")}
+//	)
+//	private Set<Rate> rateExperts = new HashSet<>();
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "expert")
+    private Set<Rate> rateExperts = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
@@ -203,6 +211,14 @@ public class User extends AuditEntity implements Serializable{
 		this.about = about;
 		this.faculties = faculties;
 		this.degrees = degrees;
+	}
+
+	public Set<Comment> getCommentExperts() {
+		return commentExperts;
+	}
+
+	public void setCommentExperts(Set<Comment> commentExperts) {
+		this.commentExperts = commentExperts;
 	}
 
 	public String getPassword() {
