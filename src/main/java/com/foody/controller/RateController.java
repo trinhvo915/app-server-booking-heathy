@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foody.dto.CommentRequest;
+import com.foody.dto.RateRequest;
 import com.foody.payload.DataResponse;
 import com.foody.security.CurrentUser;
 import com.foody.security.UserPrincipal;
-import com.foody.services.CommentService;
+import com.foody.services.RateService;
 
 @RestController
-@RequestMapping("api/comments")
-public class CommentController {
+@RequestMapping("api/rates")
+public class RateController {
 	
 	@Autowired
-	CommentService commentService;
+	RateService rateService;
 	
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
-	public DataResponse CommentToDoctor(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody CommentRequest commentRequest){
-		return commentService.addComment(currentUser,commentRequest);
+	public DataResponse RateToDoctor(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody RateRequest rateRequest){
+		return rateService.addRate(currentUser, rateRequest);
 	}
 }

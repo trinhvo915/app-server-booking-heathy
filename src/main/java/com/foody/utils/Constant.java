@@ -44,4 +44,7 @@ public class Constant {
 	 public static final String REGISTER_COMMENT_SUCCESS = "comment success";
 	 public static final String REGISTER_COMMENT_UNSUCCESS = "comment unsuccess";
 	 
+	 public static final String ADD_RATE_SUCCESS = "rate success";
+	 public static final String ADD_RATE_UNSUCCESS = "rate unsuccess";
+	 
 }
