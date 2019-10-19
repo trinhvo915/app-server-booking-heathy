@@ -32,4 +32,7 @@ public interface UserRepository extends JpaRepository<User, String>, CrudReposit
 	
 	@Query(value ="Select *  from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.id = :id_user and user.is_active = :is_active and role.name = :name_role", nativeQuery=true)
 	User findByIdAndCheckRole(@Param("id_user") String id_user, @Param("is_active")boolean is_active,@Param("name_role") String name_role);
+
+	@Query(value ="Select *  from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.email = :email and user.is_active = :is_active and role.name = :name_role", nativeQuery=true)
+	User findByEmailAndCheckRole(@Param("email") String email, @Param("is_active")boolean is_active,@Param("name_role") String name_role);
 }

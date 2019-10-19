@@ -27,14 +27,16 @@ public class Clinic extends AuditEntity implements Serializable{
 	private String latitude;
 	
 	private String longitude;
-	
+	  
     @ManyToMany(fetch = FetchType.LAZY,
-        cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-        },
-        mappedBy = "clinics"
-    )
+			cascade = {
+				CascadeType.PERSIST,
+				CascadeType.MERGE
+		})
+	@JoinTable(name = "user_clinic",
+		joinColumns = { @JoinColumn(name = "id_clinic") },
+		inverseJoinColumns = { @JoinColumn(name = "id_user")}
+	)
     private Set<User> users = new HashSet<>();
     
     @OneToMany(cascade = CascadeType.ALL,
@@ -62,25 +64,12 @@ public class Clinic extends AuditEntity implements Serializable{
 		
 	}
 
-	// list User
-	// list post  - > // attachment
-	// Faculty
-	
 	public Clinic(String name, String address, String latitude, String longitude) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
-	}
-
-	public Clinic(String name, String address, String latitude, String longitude, Set<Faculty> faculties) {
-		super();
-		this.name = name;
-		this.address = address;
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.faculties = faculties;
 	}
 
 	public String getName() {
@@ -115,19 +104,6 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.longitude = longitude;
 	}
 	
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Clinic clinic = (Clinic) o;
-        return Objects.equals(this.getId(), clinic.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.getId());
-    }
-
 	public Set<User> getUsers() {
 		return users;
 	}
@@ -144,4 +120,17 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.faculties = faculties;
 	}
     
+	@Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Clinic clinic = (Clinic) o;
+        return Objects.equals(this.getId(), clinic.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getId());
+    }
+
 }

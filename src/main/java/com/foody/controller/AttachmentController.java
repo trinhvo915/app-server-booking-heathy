@@ -34,7 +34,7 @@ public class AttachmentController {
 	AttachmentService attachmentService;
 	
 	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public UploadFileResponse uploadFile(@RequestParam("/") MultipartFile file) {
+	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 		
         Attachment attachmentFile = attachmentService.storeFile(file);
 

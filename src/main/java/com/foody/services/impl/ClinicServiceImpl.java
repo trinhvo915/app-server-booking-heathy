@@ -47,7 +47,6 @@ public class ClinicServiceImpl implements ClinicService{
 		if(!"".equals(currentUser.getId())) {
 			Clinic clinic = new Clinic(clinicRequest.getName(), clinicRequest.getAddress(), clinicRequest.getLatitude(), clinicRequest.getLongitude());
 			
-			
 			List<String> idFaculties = new ArrayList<String>();
 			clinicRequest.getFaculties().stream().forEach( x -> idFaculties.add(x.getId()));
 			
@@ -63,6 +62,27 @@ public class ClinicServiceImpl implements ClinicService{
 			return new DataResponse(true, new Data(Constant.REGISTER_CLINIC_SUCCESS,HttpStatus.OK.value(),clinicResponse));
 		}else {
 			return new DataResponse(false, new Data(Constant.USER_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
+		}
+	}
+
+	@Override
+	public DataResponse addDoctorIntoClinic(UserPrincipal currentUser, String idClinic, String usernameOrEmail) {
+		User user = userRepository.findByIdAndCheckRole(currentUser.getId(), true, "EXPERT");
+		Clinic clinic = clinicRepository.findByIdClinicAndIdUser(idClinic,user.getId());
+		User userAdd = userRepository.findByEmailAndCheckRole(usernameOrEmail, true, "EXPERT");
+		
+		if(clinic != null && userAdd != null){
+			Set<User> users = new HashSet<>();
+			for (User item : clinic.getUsers()) {
+				users.add(item);
+			}
+			users.add(userAdd);
+			clinic.setUsers(users);
+			
+			clinicRepository.save(clinic);
+			return new DataResponse(true, new Data(Constant.ADD_DOCTOR_SUCCESS,HttpStatus.OK.value(),clinic));
+		}else {
+			return new DataResponse(false, new Data(Constant.ADD_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
 		}
 	}
 	

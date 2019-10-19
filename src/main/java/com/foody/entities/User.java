@@ -67,15 +67,13 @@ public class User extends AuditEntity implements Serializable{
 	)
 	Set<Role> roles = new HashSet<>();
 
-	@ManyToMany(fetch = FetchType.LAZY,
-			cascade = {
-				CascadeType.PERSIST,
-				CascadeType.MERGE
-		})
-	@JoinTable(name = "user_clinic",
-		joinColumns = { @JoinColumn(name = "id_user") },
-		inverseJoinColumns = { @JoinColumn(name = "id_clinic")}
-	)
+    @ManyToMany(fetch = FetchType.LAZY,
+        cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+        },
+        mappedBy = "users"
+    )
 	Set<Clinic> clinics = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL,

@@ -7,4 +7,6 @@ import com.foody.security.UserPrincipal;
 public interface ClinicService {
 
 	DataResponse addClinicCurrentDoctor(UserPrincipal currentUser,ClinicRequest clinicRequest);
+
+	DataResponse addDoctorIntoClinic(UserPrincipal currentUser, String idClinic, String usernameOrEmail);
 }
