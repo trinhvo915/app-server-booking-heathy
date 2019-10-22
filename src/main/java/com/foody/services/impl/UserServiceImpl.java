@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.DoctorRegisterRequest;
+import com.foody.dto.DoctorResponse;
 import com.foody.dto.UserResponse;
+import com.foody.entities.Clinic;
 import com.foody.entities.Degree;
 import com.foody.entities.ExpertCode;
 import com.foody.entities.Faculty;
@@ -155,9 +157,30 @@ public class UserServiceImpl implements UserService {
 		}
 		return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
 	}
+	
 	@Override
 	public UserResponse getUserByIdAndCheckRole(String id_user, String nameRole) {
 		User user = userRepository.findByIdAndCheckRole(id_user, true,nameRole);
 		return new UserResponse(user);
+	}
+
+	@Override
+	public DataResponse getAllDoctor() {
+		List<User> users = userRepository.getAllDoctor(true, "EXPERT");
+		List<DoctorResponse> doctorResponses = new ArrayList<DoctorResponse>();
+		for (User item : users) {
+			for (Clinic clinic : item.getClinics()) {
+				DoctorResponse doctorResponse = new DoctorResponse(item.getId(), item.getCreateAt(), 
+						item.getUpdateAt(), item.getCreatedBy(), item.getUpdatedBy(), item.getDeletedBy(),
+						item.getFullName(), item.getBirthday(), item.getGender(), item.getAge(), 
+						item.getEmail(), item.getAddress(), item.getMobile(), item.getAbout(), 
+						item.getFacebook(), clinic, item.getFaculties(), item.getDegrees());
+				doctorResponses.add(doctorResponse);
+			}
+		}
+		if(users == null) {
+			return new DataResponse(false, new Data("Không tìm thấy bác sỹ !!",HttpStatus.BAD_REQUEST.value()));
+		}
+		return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));
 	}
 }

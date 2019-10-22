@@ -72,10 +72,7 @@ public class ClinicServiceImpl implements ClinicService{
 		User userAdd = userRepository.findByEmailAndCheckRole(usernameOrEmail, true, "EXPERT");
 		
 		if(clinic != null && userAdd != null){
-			Set<User> users = new HashSet<>();
-			for (User item : clinic.getUsers()) {
-				users.add(item);
-			}
+			Set<User> users = userRepository.getUserByIdClinic(idClinic, true);
 			users.add(userAdd);
 			clinic.setUsers(users);
 			

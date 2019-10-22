@@ -48,5 +48,5 @@ public class Constant {
 	 public static final String ADD_RATE_UNSUCCESS = "rate unsuccess";
 //	 Người bạn thêm không phải bác sỹ !!
 	 public static final String ADD_DOCTOR_SUCCESS = "Thêm bác sỹ thành công !!";
-	 public static final String ADD_DOCTOR_UNSUCCESS = "Người bạn thêm không phải bác sỹ !!";
+	 public static final String ADD_DOCTOR_UNSUCCESS = "Thêm bác sỹ không thành công!!";
 }

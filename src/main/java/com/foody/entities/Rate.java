@@ -29,8 +29,16 @@ public class Rate extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_clinic")
+    private Clinic clinic;
+	
 	public Rate() {
 		
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
 	}
 
 	public NumberStar getNumberStar() {

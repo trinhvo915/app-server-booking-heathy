@@ -4,10 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.CommentRequest;
+import com.foody.entities.Clinic;
 import com.foody.entities.Comment;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
+import com.foody.repository.ClinicRepository;
 import com.foody.repository.CommentRepositiry;
 import com.foody.repository.UserRepository;
 import com.foody.security.UserPrincipal;
@@ -23,6 +25,9 @@ public class CommentServiceImpl implements CommentService{
 	@Autowired
 	CommentRepositiry commentRepositiry;
 	
+	@Autowired
+	ClinicRepository clinicRepository;
+	
 	@Override
 	public DataResponse addComment(UserPrincipal currentUser, CommentRequest commentRequest) {
 		User user = userRepository.getOne(currentUser.getId());
@@ -33,6 +38,9 @@ public class CommentServiceImpl implements CommentService{
 			
 			User expert = userRepository.getOne(commentRequest.getExpert().getId());
 			comment.setExpert(expert);
+			
+			Clinic clinic = clinicRepository.getOne(commentRequest.getClinic().getId());
+			comment.setClinic(clinic);
 			
 			comment.setUser(user);
 			commentRepositiry.save(comment);		

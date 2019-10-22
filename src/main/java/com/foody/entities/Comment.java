@@ -37,10 +37,18 @@ public class Comment extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_clinic")
+    private Clinic clinic;
+	
 	public Comment() {
 
 	}
-	
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
 	public String getContent() {
 		return content;
 	}

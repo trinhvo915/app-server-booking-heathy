@@ -5,12 +5,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.RateRequest;
+import com.foody.entities.Clinic;
 import com.foody.entities.Rate;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.repository.RateRepository;
 import com.foody.repository.UserRepository;
+import com.foody.repository.ClinicRepository;
 import com.foody.security.UserPrincipal;
 import com.foody.services.RateService;
 import com.foody.utils.Constant;
@@ -24,6 +26,9 @@ public class RateServiceImpl implements RateService{
 	@Autowired
 	RateRepository rateRepository;
 	
+	@Autowired
+	ClinicRepository clinicRepository;
+	 
 	@Override
 	public DataResponse addRate(UserPrincipal currentUser, RateRequest rateRequest) {
 		
@@ -41,6 +46,9 @@ public class RateServiceImpl implements RateService{
 				User expert = userRepository.getOne(rateRequest.getExpert().getId());
 				rate.setExpert(expert);
 				
+				Clinic clinic = clinicRepository.getOne(rateRequest.getClinic().getId());
+				rate.setClinic(clinic);
+				
 				rateRepository.save(rate);
 				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),rateRequest));
 			}
@@ -53,6 +61,9 @@ public class RateServiceImpl implements RateService{
 				
 				User expert = userRepository.getOne(rateRequest.getExpert().getId());
 				rate.setExpert(expert);
+				
+				Clinic clinic = clinicRepository.getOne(rateRequest.getClinic().getId());
+				rate.setClinic(clinic);
 				
 				rateRepository.save(rate);
 				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),rateRequest));

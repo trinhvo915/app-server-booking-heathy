@@ -2,6 +2,7 @@ package com.foody.repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,9 +31,15 @@ public interface UserRepository extends JpaRepository<User, String>, CrudReposit
 	@Query(value ="SELECT u FROM User u WHERE u.code = :code")
 	User findByCode(@Param("code") String code);
 	
-	@Query(value ="Select *  from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.id = :id_user and user.is_active = :is_active and role.name = :name_role", nativeQuery=true)
+	@Query(value ="Select * from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.id = :id_user and user.is_active = :is_active and role.name = :name_role", nativeQuery=true)
 	User findByIdAndCheckRole(@Param("id_user") String id_user, @Param("is_active")boolean is_active,@Param("name_role") String name_role);
 
-	@Query(value ="Select *  from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.email = :email and user.is_active = :is_active and role.name = :name_role", nativeQuery=true)
+	@Query(value ="Select * from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.email = :email and user.is_active = :is_active and role.name = :name_role", nativeQuery=true)
 	User findByEmailAndCheckRole(@Param("email") String email, @Param("is_active")boolean is_active,@Param("name_role") String name_role);
+
+	@Query(value ="Select * from user LEFT JOIN user_role ON user.id = user_role.id_user LEFT JOIN role ON user_role.id_role = role.id  where user.is_active = :is_active and role.name = :name_role", nativeQuery=true)
+	List<User> getAllDoctor(@Param("is_active")boolean is_active, @Param("name_role") String name_role);
+
+	@Query(value ="Select * from user LEFT JOIN user_clinic ON user.id = user_clinic.id_user LEFT JOIN clinic ON user_clinic.id_clinic = clinic.id  where clinic.id = :id_clinic and user.is_active = :is_active", nativeQuery=true)
+	Set<User> getUserByIdClinic(@Param("id_clinic") String id_clinic, @Param("is_active")boolean is_active);
 }

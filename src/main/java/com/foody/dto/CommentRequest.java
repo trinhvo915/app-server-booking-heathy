@@ -2,6 +2,7 @@ package com.foody.dto;
 
 import org.hibernate.annotations.Type;
 
+import com.foody.entities.Clinic;
 import com.foody.entities.User;
 
 public class CommentRequest {
@@ -9,8 +10,17 @@ public class CommentRequest {
 	@Type(type="text")
 	private String content;
 	
-//	private Set<User> experts = new HashSet<>();
 	private User expert;
+
+	private Clinic clinic;
+	
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
 
 	public String getContent() {
 		return content;

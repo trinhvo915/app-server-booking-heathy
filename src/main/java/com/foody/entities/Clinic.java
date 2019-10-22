@@ -60,6 +60,16 @@ public class Clinic extends AuditEntity implements Serializable{
             mappedBy = "clinic")
     private Set<Price> prices = new HashSet<>();
     
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "clinic")
+    private Set<Rate> rateUsers = new HashSet<>();
+    
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "clinic")
+    private Set<Comment> commentUsers = new HashSet<>();
+    
 	public Clinic() {
 		
 	}
@@ -104,9 +114,9 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.longitude = longitude;
 	}
 	
-	public Set<User> getUsers() {
-		return users;
-	}
+//	public Set<User> getUsers() {
+//		return users;
+//	}
 
 	public void setUsers(Set<User> users) {
 		this.users = users;

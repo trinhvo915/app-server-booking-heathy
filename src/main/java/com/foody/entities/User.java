@@ -190,6 +190,14 @@ public class User extends AuditEntity implements Serializable{
 		this.degrees = degrees;
 	}
 
+	public Set<Clinic> getClinics() {
+		return clinics;
+	}
+
+	public void setClinics(Set<Clinic> clinics) {
+		this.clinics = clinics;
+	}
+
 	public Set<Comment> getCommentExperts() {
 		return commentExperts;
 	}
