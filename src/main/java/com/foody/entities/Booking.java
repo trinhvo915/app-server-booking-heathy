@@ -38,7 +38,6 @@ public class Booking extends AuditEntity implements Serializable{
 	
 	private UserGender gender;
 	
-	// nho lich su cac benh cua benh nhan hien tai cua benh nha
 	private Boolean isExit;
 	
 	private Boolean isActive;
@@ -47,9 +46,6 @@ public class Booking extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_expert")
-//    private User expert;
 	@ManyToMany(fetch = FetchType.LAZY,
         cascade = {
                 CascadeType.PERSIST,

@@ -17,9 +17,6 @@ public class PostType extends AuditEntity implements Serializable{
 	
 	private String name;
 
-	// Gioi Thieu Chung
-	// Gioi Thieu Co So vat chat
-	// Thong tin gia kham
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_post")
     private Post post;

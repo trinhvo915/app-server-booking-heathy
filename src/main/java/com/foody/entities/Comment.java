@@ -19,15 +19,6 @@ public class Comment extends AuditEntity implements Serializable{
 	
 	@Type(type="text")
 	private String content;
-	
-//	@ManyToMany(fetch = FetchType.LAZY,
-//        cascade = {
-//                CascadeType.PERSIST,
-//                CascadeType.MERGE
-//        },
-//        mappedBy = "commentExperts"
-//    )
-//    private Set<User> experts = new HashSet<>();
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_expert")
