@@ -159,8 +159,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserResponse getUserByIdAndCheckRole(String id_user, String nameRole) {
-		User user = userRepository.findByIdAndCheckRole(id_user, true,nameRole);
+	public UserResponse getUserByIdAndCheckRole(String id_user) {
+		User user = userRepository.getUserAndRole(id_user, true);
 		return new UserResponse(user);
 	}
 

@@ -29,7 +29,7 @@ public interface UserService{
 	
 	DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest);
 	
-	UserResponse getUserByIdAndCheckRole(String id_user, String id_role);
+	UserResponse getUserByIdAndCheckRole(String id_user);
 	
 	DataResponse getAllDoctor();
 }

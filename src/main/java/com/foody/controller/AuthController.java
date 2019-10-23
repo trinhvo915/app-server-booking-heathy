@@ -1,5 +1,6 @@
 package com.foody.controller;
 
+import java.net.URI;
 import java.util.Collections;
 
 import javax.validation.Valid;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.foody.dto.LoginRequest;
 import com.foody.dto.SignUpRequest;
 import com.foody.entities.Role;
 import com.foody.entities.User;
+import com.foody.payload.ApiResponse;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.payload.JwtAuthenticationResponse;
@@ -71,17 +74,18 @@ public class AuthController {
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
+		URI locationerror = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/signup/error")
+                .buildAndExpand().toUri();
+		
 		if(userService.existsByUsername(signUpRequest.getUsername())) {
-            return new ResponseEntity(new DataResponse(false, new Data(Constant.USERNAME_USER_EXIST,HttpStatus.BAD_REQUEST.value())),
-                    HttpStatus.BAD_REQUEST);
+            return ResponseEntity.created(locationerror).body(new ApiResponse(false, Constant.USERNAME_USER_EXIST));
         }
 
         if(userService.existsByEmail(signUpRequest.getEmail())) {
-        	return new ResponseEntity(new DataResponse(false, new Data(Constant.EMAIL_USER_EXIST,HttpStatus.BAD_REQUEST.value())),
-                    HttpStatus.BAD_REQUEST);
+        	return ResponseEntity.created(locationerror).body(new ApiResponse(false, Constant.EMAIL_USER_EXIST));
         }
 
         // Creating user's account
@@ -96,11 +100,11 @@ public class AuthController {
 
         User result = userService.save(user);
 
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentContextPath().path("/api/users/{username}")
-//                .buildAndExpand(result.getUsername()).toUri();
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/users/{username}")
+                .buildAndExpand(result.getUsername()).toUri();
 
-        return new ResponseEntity<>(new DataResponse(true, new Data("User registered successfully", HttpStatus.CREATED.value(), result)),HttpStatus.CREATED);
+        return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }
 	
 } 

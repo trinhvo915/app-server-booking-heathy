@@ -1,7 +1,10 @@
 package com.foody.dto;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import com.foody.entities.Role;
 import com.foody.entities.User;
 import com.foody.entities.enums.UserGender;
 
@@ -17,6 +20,8 @@ public class UserResponse {
 	
 	private Integer age;
 
+	Set<Role> roles = new HashSet<>();
+	
 	public UserResponse() {
 		super();
 	}
@@ -27,6 +32,7 @@ public class UserResponse {
 		this.birthday = user.getBirthday();
 		this.gender = user.getGender();
 		this.age = user.getAge();
+		this.roles = user.getRoles();
 	}
 	
 	public String getUsername() {
@@ -67,6 +73,14 @@ public class UserResponse {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 	
 }
