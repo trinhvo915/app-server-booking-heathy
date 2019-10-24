@@ -39,7 +39,6 @@ public class ClinicServiceImpl implements ClinicService{
 	@Override
 	public DataResponse addClinicCurrentDoctor(UserPrincipal currentUser, ClinicRequest clinicRequest) {
 		User user = userRepository.findByIdAndCheckRole(currentUser.getId(), true, Constant.EXPERT);
-		
 		if(user ==null) {
 			return new DataResponse(false, new Data(Constant.NO_EXPERT,HttpStatus.BAD_REQUEST.value()));
 		}

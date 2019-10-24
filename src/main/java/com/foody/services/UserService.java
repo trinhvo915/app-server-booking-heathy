@@ -3,8 +3,6 @@ package com.foody.services;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.ResponseEntity;
-
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.UserResponse;
 import com.foody.entities.User;
