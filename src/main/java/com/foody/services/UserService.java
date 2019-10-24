@@ -29,7 +29,7 @@ public interface UserService{
 	
 	List<User> findByIds(List<String> ids);
 	
-	ResponseEntity<?> updateUser(String id, DoctorRegisterRequest doctorRegisterRequest);
+	DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest);
 	
 	UserResponse getUserByIdAndCheckRole(String id_user);
 	

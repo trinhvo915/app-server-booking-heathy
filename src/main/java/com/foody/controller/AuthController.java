@@ -76,16 +76,13 @@ public class AuthController {
 
 	@RequestMapping(value="/signup", method = RequestMethod.POST)
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest){
-		URI locationerror = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/signup/error")
-                .buildAndExpand().toUri();
 		
 		if(userService.existsByUsername(signUpRequest.getUsername())) {
-            return ResponseEntity.created(locationerror).body(new ApiResponse(false, Constant.USERNAME_USER_EXIST));
+            return ResponseEntity.badRequest().body(new ApiResponse(false, Constant.USERNAME_USER_EXIST));
         }
 
         if(userService.existsByEmail(signUpRequest.getEmail())) {
-        	return ResponseEntity.created(locationerror).body(new ApiResponse(false, Constant.EMAIL_USER_EXIST));
+        	return ResponseEntity.badRequest().body(new ApiResponse(false, Constant.EMAIL_USER_EXIST));
         }
 
         // Creating user's account

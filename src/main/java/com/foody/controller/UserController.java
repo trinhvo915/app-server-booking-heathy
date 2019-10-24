@@ -1,5 +1,6 @@
 package com.foody.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.EmailRequest;
@@ -24,6 +26,7 @@ import com.foody.dto.UserRequestChangePassword;
 import com.foody.dto.UserResponse;
 import com.foody.dto.UserSummary;
 import com.foody.entities.User;
+import com.foody.payload.ApiResponse;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.security.CurrentUser;
@@ -91,7 +94,16 @@ public class UserController {
 	
 	@RequestMapping(value= "doctor", method = RequestMethod.PUT, produces = "application/json")
 	public ResponseEntity<?> registerDoctor(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody DoctorRegisterRequest doctorRegisterRequest){
-		return userservice.updateUser(currentUser.getId(), doctorRegisterRequest);
+		DataResponse data =  userservice.updateUser(currentUser.getId(), doctorRegisterRequest);
+		
+		if(data.getSuccess() == false) {
+			return ResponseEntity.badRequest().body(new ApiResponse(false, data.getData().getMessage()));
+		}
+		
+		URI location = ServletUriComponentsBuilder
+	                .fromCurrentContextPath().path("/users")
+	                .buildAndExpand(data.getData().getObject()).toUri();
+		return ResponseEntity.created(location).body(new ApiResponse(true, data.getData().getMessage()));
 	}
 	
 	@RequestMapping(value= "role/{id_user}", method = RequestMethod.GET, produces = "application/json")

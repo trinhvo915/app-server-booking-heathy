@@ -33,10 +33,6 @@ public class DoctorRegisterRequest {
 	
 	private String about;
 	
-	@Email(message = "The email is not properly formatted")
-	@Size(min = 1, max = 40)
-	private String email;
-	
 	private Set<Faculty> faculties = new HashSet<>();
 	
 	private Set<Degree> degrees = new HashSet<>();
@@ -124,13 +120,4 @@ public class DoctorRegisterRequest {
 	public void setDegrees(Set<Degree> degrees) {
 		this.degrees = degrees;
 	}
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 }
