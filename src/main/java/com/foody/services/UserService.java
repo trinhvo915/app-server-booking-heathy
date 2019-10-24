@@ -3,6 +3,8 @@ package com.foody.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
+
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.UserResponse;
 import com.foody.entities.User;
@@ -27,7 +29,7 @@ public interface UserService{
 	
 	List<User> findByIds(List<String> ids);
 	
-	DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest);
+	ResponseEntity<?> updateUser(String id, DoctorRegisterRequest doctorRegisterRequest);
 	
 	UserResponse getUserByIdAndCheckRole(String id_user);
 	

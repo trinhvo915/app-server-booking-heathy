@@ -1,5 +1,6 @@
 package com.foody.services.impl;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -8,7 +9,9 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.DoctorResponse;
@@ -19,6 +22,7 @@ import com.foody.entities.ExpertCode;
 import com.foody.entities.Faculty;
 import com.foody.entities.Role;
 import com.foody.entities.User;
+import com.foody.payload.ApiResponse;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.repository.DegreeRepository;
@@ -101,11 +105,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest) {
+	public ResponseEntity<?> updateUser(String id, DoctorRegisterRequest doctorRegisterRequest) {
 		String token = doctorRegisterRequest.getTokenCode();
+		
 		ExpertCode checkToken = expertCodeRepository.getExpertCode(token,true);
+		
+		 System.out.println("token L "+checkToken);
 		if(checkToken == null) {
-			return new DataResponse(false, new Data(Constant.TOKEN_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
+			return ResponseEntity.badRequest()
+	                .body(new ApiResponse(false, Constant.TOKEN_NO_FIND_ID));
 		}
 		
 		if(!"".equals(id)) {
@@ -150,12 +158,21 @@ public class UserServiceImpl implements UserService {
 				ExpertCode expertCode = expertCodeRepository.getExpertCode(token,true);
 				expertCode.setActive(false);
 				expertCodeRepository.save(expertCode);
-				return new DataResponse(true, new Data(Constant.REGISTER_DOCTOR_SUCCESS,HttpStatus.OK.value(),user));
+				
+				URI location = ServletUriComponentsBuilder
+		                .fromCurrentRequest().path("/register/doctor")
+		                .buildAndExpand(user).toUri();
+
+		        return ResponseEntity.created(location)
+		                .body(new ApiResponse(true, Constant.REGISTER_DOCTOR_SUCCESS));
+			        
 			}else {
-				return new DataResponse(false, new Data(Constant.USER_NO_FIND_ID,HttpStatus.BAD_REQUEST.value()));
+				return ResponseEntity.badRequest()
+		                .body(new ApiResponse(false, Constant.USER_NO_FIND_ID));
 			}
 		}
-		return new DataResponse(false, new Data(Constant.REGISTER_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
+		return ResponseEntity.badRequest()
+                .body(new ApiResponse(false, Constant.REGISTER_DOCTOR_UNSUCCESS));
 	}
 	
 	@Override

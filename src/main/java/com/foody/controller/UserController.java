@@ -90,9 +90,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value= "doctor", method = RequestMethod.PUT, produces = "application/json")
-	public DataResponse registerDoctor(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody DoctorRegisterRequest doctorRegisterRequest){
-		DataResponse data = userservice.updateUser(currentUser.getId(), doctorRegisterRequest);
-		return data;
+	public ResponseEntity<?> registerDoctor(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody DoctorRegisterRequest doctorRegisterRequest){
+		return userservice.updateUser(currentUser.getId(), doctorRegisterRequest);
 	}
 	
 	@RequestMapping(value= "role/{id_user}", method = RequestMethod.GET, produces = "application/json")

@@ -33,7 +33,7 @@ public class Constant {
 	 public static final String REGISTER_DOCTOR_SUCCESS = "register doctor success";
 	 public static final String REGISTER_DOCTOR_UNSUCCESS = "register doctor unsuccess";
 	 
-	 public static final String TOKEN_NO_FIND_ID = "Token is not exists system";
+	 public static final String TOKEN_NO_FIND_ID = "Mã Token không tồn tại !!";
 	 public static final String USER_NO_FIND_ID = "User is not exists system";
 	 
 	 public static final String REGISTER_CLINIC_SUCCESS = "register clinic success";
