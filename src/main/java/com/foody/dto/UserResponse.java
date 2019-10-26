@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.foody.entities.Clinic;
 import com.foody.entities.Role;
 import com.foody.entities.User;
 import com.foody.entities.enums.UserGender;
@@ -19,8 +20,12 @@ public class UserResponse {
 	private UserGender gender;
 	
 	private Integer age;
-
+	
+	private String check;
+	
 	Set<Role> roles = new HashSet<>();
+	
+	Set<Clinic> clinic = new HashSet<>();
 	
 	public UserResponse() {
 		super();
@@ -33,8 +38,25 @@ public class UserResponse {
 		this.gender = user.getGender();
 		this.age = user.getAge();
 		this.roles = user.getRoles();
+		this.clinic = user.getClinics();
 	}
 	
+	public String getCheck() {
+		return check;
+	}
+
+	public void setCheck(String check) {
+		this.check = check;
+	}
+
+	public Set<Clinic> getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Set<Clinic> clinic) {
+		this.clinic = clinic;
+	}
+
 	public String getUsername() {
 		return username;
 	}

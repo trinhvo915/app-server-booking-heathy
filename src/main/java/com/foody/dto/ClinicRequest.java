@@ -3,12 +3,16 @@ package com.foody.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.validation.constraints.NotNull;
+
 import com.foody.entities.Faculty;
 
 public class ClinicRequest {
 	
+	@NotNull(message = "Hãy Nhập nhập tên phòng khám !")
 	private String name;
 	
+	@NotNull(message = "Hãy Nhập nhập địa chỉ phòng khám !")
 	private String address;
 	
 	private String latitude;

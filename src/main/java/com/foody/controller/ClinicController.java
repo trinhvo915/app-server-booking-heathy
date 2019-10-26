@@ -26,7 +26,6 @@ public class ClinicController {
 	@PreAuthorize("hasRole('EXPERT')")
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	public DataResponse registerDoctor(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody ClinicRequest clinicRequest){
-		System.out.println("skakka : "+currentUser.getId());
 		return ClinicService.addClinicCurrentDoctor(currentUser, clinicRequest);
 	}
 	

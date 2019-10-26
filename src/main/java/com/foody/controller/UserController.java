@@ -84,12 +84,12 @@ public class UserController {
 	}
 	
 	@RequestMapping(value= "{ids}",method = RequestMethod.GET, produces = "application/json")
-	public DataResponse getAllRoles(@PathVariable("ids") List<String> ids){
+	public Data getAllRoles(@PathVariable("ids") List<String> ids){
 		List<User> users = userservice.findByIdIn(ids);
 		if(users.size() != 0) {
-			return new DataResponse(true, new Data(Constant.GET_LIST_USER_SUCCESS,HttpStatus.OK.value(),users));
+			return new Data(Constant.GET_LIST_USER_SUCCESS,HttpStatus.OK.value(),users);
 		}
-		return new DataResponse(false, new Data(Constant.GET_LIST_USER_UNSUCCESS,HttpStatus.BAD_REQUEST.value(),users));
+		return new Data(Constant.GET_LIST_USER_UNSUCCESS,HttpStatus.BAD_REQUEST.value(),users);
 	}
 	
 	@RequestMapping(value= "doctor", method = RequestMethod.PUT, produces = "application/json")
@@ -106,8 +106,33 @@ public class UserController {
 		return ResponseEntity.created(location).body(new ApiResponse(true, data.getData().getMessage()));
 	}
 	
-	@RequestMapping(value= "role/{id_user}", method = RequestMethod.GET, produces = "application/json")
-	public UserResponse getUserByIdAndCheckRole(@PathVariable("id_user") String id_user){
-		return userservice.getUserByIdAndCheckRole(id_user);
+	@RequestMapping(value= "role", method = RequestMethod.GET, produces = "application/json")
+	public UserResponse getUserByIdAndCheckRole(@CurrentUser UserPrincipal currentUser){
+		String check ="";
+		UserResponse userResponse =  userservice.getUserByIdAndCheckRole(currentUser.getId());
+		if(userResponse.getRoles().size()==1) {
+			check = "USER";
+		}else if(userResponse.getRoles().size()==2 && userResponse.getClinic().size() == 0) {
+			check = "USER_EXPERT";
+		}else if(userResponse.getRoles().size()==2 && userResponse.getClinic().size() > 0) {
+			check = "USER_CLINIC";
+		}
+		userResponse.setCheck(check);
+		return userResponse;
 	}
+	
+//	@RequestMapping(value= "expertclinic/{id_user}", method = RequestMethod.GET, produces = "application/json")
+//	public UserResponse Checkexpertclinic(@PathVariable("id_user") String id_user){
+//		String check ="";
+//		UserResponse userResponse =  userservice.getUserByIdAndCheckRole(id_user);
+//		if(userResponse.getRoles().size()==1) {
+//			check = "USER";
+//		}else if(userResponse.getRoles().size()==2 && userResponse.getClinic().size() == 0) {
+//			check = "USER_EXPERT";
+//		}else if(userResponse.getRoles().size()==2 && userResponse.getClinic().size() > 0) {
+//			check = "USER_CLINIC";
+//		}
+//		userResponse.setCheck(check);
+//		return userResponse;
+//	}
 }
