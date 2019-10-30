@@ -17,6 +17,12 @@ public class UploadFileResponse {
         this.size = size;
     }
 
+    public UploadFileResponse(String fileName, String fileType, long size) {
+        this.fileName = fileName;
+        this.fileType = fileType;
+        this.size = size;
+    }
+    
     public String getFileName() {
         return fileName;
     }

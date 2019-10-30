@@ -1,8 +1,7 @@
 package com.foody.controller;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +21,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.foody.dto.UploadFileResponse;
 import com.foody.entities.Attachment;
+import com.foody.security.CurrentUser;
+import com.foody.security.UserPrincipal;
 import com.foody.services.AttachmentService;
 
 @RestController
@@ -33,10 +34,10 @@ public class AttachmentController {
 	@Autowired
 	AttachmentService attachmentService;
 	
-	@RequestMapping(value = "/uploadFile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+	@RequestMapping(value = "user/uploadFile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public UploadFileResponse uploadFile(@CurrentUser UserPrincipal currentUser, @RequestParam("file") MultipartFile file, String attachmentType) {
 		
-        Attachment attachmentFile = attachmentService.storeFile(file);
+        Attachment attachmentFile = attachmentService.storeFile(currentUser,file,attachmentType);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/downloadFile/")
@@ -47,16 +48,19 @@ public class AttachmentController {
                 file.getContentType(), file.getSize());
     }
 	
-	@RequestMapping(value = "/uploadMultipleFiles", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-		return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
-    }
+	@RequestMapping(value = "user/uploadMultipleFiles", method = RequestMethod.POST)
+    public List<UploadFileResponse> uploadMultipleFiles(@CurrentUser UserPrincipal currentUser, @RequestParam("files") MultipartFile[] files,String attachmentType) {
+		List<UploadFileResponse> list = new ArrayList<UploadFileResponse>();
+		for (MultipartFile multipartFile : files) {
+			System.out.println("multipartFile : "+multipartFile);
+			 Attachment attachmentFile = attachmentService.storeFile(currentUser,multipartFile,attachmentType);
+			list.add(new UploadFileResponse(attachmentFile.getFileName(), attachmentFile.getFileType(), multipartFile.getSize()));
+		}
+		return list;
+	}
 	
-	@RequestMapping(value = "/downloadFile/{fileId}", method = RequestMethod.GET)
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileId) {
+	@RequestMapping(value = "downloadFile/{fileId}", method = RequestMethod.GET)
+    public ResponseEntity<Resource> downloadFile(@CurrentUser UserPrincipal currentUser, @PathVariable String fileId) {
         // Load file from database
 		Attachment dbFile = attachmentService.getFile(fileId);
 

@@ -1,28 +1,23 @@
 package com.foody.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.GenericGenerator;
-
 @Entity
 @Table(name = "attachment")
-public class Attachment implements Serializable{
+public class Attachment  extends AuditEntity implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
 
     private String fileName;
 
     private String fileType;
 
     @Lob
-    private byte[] data;
+    private byte [] data;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_post")
@@ -32,23 +27,28 @@ public class Attachment implements Serializable{
     @JoinColumn(name = "id_user")
     private User user;
     
+    @ManyToMany(fetch = FetchType.LAZY,
+		cascade = {
+			CascadeType.PERSIST,
+			CascadeType.MERGE
+	})
+	@JoinTable(name = "attachment_attachmenttype",
+		joinColumns = { @JoinColumn(name = "id_attachment") },
+		inverseJoinColumns = { @JoinColumn(name = "id_attachmenttype")}
+	)
+	Set<AttachmentType> attachmentTypes = new HashSet<>();
+    
     public Attachment() {
 
     }
 
-    public Attachment(String fileName, String fileType, byte[] data) {
+    public Attachment(String fileName, String fileType, byte[] data,User user,Set<AttachmentType> attachmentTypes) {
         this.fileName = fileName;
         this.fileType = fileType;
         this.data = data;
+        this.user = user;
+        this.attachmentTypes = attachmentTypes;
     }
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getFileName() {
 		return fileName;

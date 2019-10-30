@@ -12,3 +12,7 @@ INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES 
 INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','TIÊU HÓA');
 INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','SẢN PHỤ KHOA');
 INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','DA LIỄU');
+
+INSERT INTO `attachmentt_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','ĐẠI DIỆN');
+INSERT INTO `attachmentt_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','POST');
+INSERT INTO `attachmentt_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','CLINIC');
