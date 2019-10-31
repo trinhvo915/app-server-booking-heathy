@@ -190,13 +190,13 @@ public class User extends AuditEntity implements Serializable{
 		this.degrees = degrees;
 	}
 
-	public Set<Clinic> getClinics() {
-		return clinics;
-	}
-
-	public void setClinics(Set<Clinic> clinics) {
-		this.clinics = clinics;
-	}
+//	public Set<Clinic> getClinics() {
+//		return clinics;
+//	}
+//
+//	public void setClinics(Set<Clinic> clinics) {
+//		this.clinics = clinics;
+//	}
 
 	public Set<Comment> getCommentExperts() {
 		return commentExperts;
@@ -334,6 +334,14 @@ public class User extends AuditEntity implements Serializable{
 		this.degrees = degrees;
 	}
 	
+	public Set<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public void setAttachments(Set<Attachment> attachments) {
+		this.attachments = attachments;
+	}
+
 	public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

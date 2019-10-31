@@ -38,7 +38,7 @@ public class UserResponse {
 		this.gender = user.getGender();
 		this.age = user.getAge();
 		this.roles = user.getRoles();
-		this.clinic = user.getClinics();
+//		this.clinic = user.getClinics();
 	}
 	
 	public String getCheck() {

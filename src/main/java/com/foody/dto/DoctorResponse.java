@@ -3,13 +3,10 @@ package com.foody.dto;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.Column;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.Type;
-
-import com.foody.entities.Clinic;
+import com.foody.entities.Attachment;
 import com.foody.entities.Degree;
 import com.foody.entities.Faculty;
 import com.foody.entities.enums.UserGender;
@@ -28,7 +25,6 @@ public class DoctorResponse {
 	
 	private String deletedBy ;
 	
-	@Column(name = "fullname")
 	private String fullName;
 	
 	private Date birthday;
@@ -51,16 +47,18 @@ public class DoctorResponse {
 	@Size(max = 100)
 	private String facebook;
 	
-	private Clinic clinic ;
-	
 	private Set<Faculty> faculties = new HashSet<>();
 	
 	private Set<Degree> degrees = new HashSet<>();
 
+	private ClinicResponse clinicResponse;
+	
+    private Attachment attachment;
+    
 	public DoctorResponse(String id, Date createAt, Date updateAt, String createdBy, String updatedBy, String deletedBy, 
 			String fullName, Date birthday, UserGender gender, Integer age,
 			String email, @Size(max = 100) String address, @Size(max = 20) String mobile, String about,
-			@Size(max = 100) String facebook, Clinic clinic, Set<Faculty> faculties, Set<Degree> degrees) {
+			@Size(max = 100) String facebook, ClinicResponse clinicResponse, Set<Faculty> faculties, Set<Degree> degrees, Attachment attachment) {
 		super();
 		this.id = id;
 		this.createAt = createAt;
@@ -77,9 +75,10 @@ public class DoctorResponse {
 		this.mobile = mobile;
 		this.about = about;
 		this.facebook = facebook;
-		this.clinic = clinic;
+		this.clinicResponse = clinicResponse;
 		this.faculties = faculties;
 		this.degrees = degrees;
+		this.attachment = attachment;
 	}
 
 	public String getId() {
@@ -88,6 +87,14 @@ public class DoctorResponse {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Attachment getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
 	}
 
 	public Date getCreateAt() {
@@ -202,12 +209,12 @@ public class DoctorResponse {
 		this.facebook = facebook;
 	}
 
-	public Clinic getClinic() {
-		return clinic;
+	public ClinicResponse getClinicResponse() {
+		return clinicResponse;
 	}
 
-	public void setClinic(Clinic clinic) {
-		this.clinic = clinic;
+	public void setClinicResponse(ClinicResponse clinicResponse) {
+		this.clinicResponse = clinicResponse;
 	}
 
 	public Set<Faculty> getFaculties() {

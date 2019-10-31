@@ -50,6 +50,14 @@ public class Attachment  extends AuditEntity implements Serializable{
         this.attachmentTypes = attachmentTypes;
     }
 
+	public Set<AttachmentType> getAttachmentTypes() {
+		return attachmentTypes;
+	}
+
+	public void setAttachmentTypes(Set<AttachmentType> attachmentTypes) {
+		this.attachmentTypes = attachmentTypes;
+	}
+
 	public String getFileName() {
 		return fileName;
 	}

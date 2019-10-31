@@ -9,10 +9,12 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
+import com.foody.dto.ClinicResponse;
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.DoctorResponse;
 import com.foody.dto.UserResponse;
+import com.foody.entities.Attachment;
+import com.foody.entities.AttachmentType;
 import com.foody.entities.Clinic;
 import com.foody.entities.Degree;
 import com.foody.entities.ExpertCode;
@@ -25,6 +27,7 @@ import com.foody.repository.DegreeRepository;
 import com.foody.repository.ExpertCodeRepository;
 import com.foody.repository.FacultyRepository;
 import com.foody.repository.UserRepository;
+import com.foody.repository.ClinicRepository;
 import com.foody.services.RoleService;
 import com.foody.services.UserService;
 import com.foody.utils.Constant;
@@ -46,6 +49,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	RoleService roleService;
+	
+	@Autowired
+	ClinicRepository clinicRepository;
 	
 	@Override
 	public Optional<User> findByEmail(String email) {
@@ -170,19 +176,39 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public DataResponse getAllDoctor() {
-		List<User> users = userRepository.getAllDoctor(true, "EXPERT");
 		List<DoctorResponse> doctorResponses = new ArrayList<DoctorResponse>();
-		for (User item : users) {
-			for (Clinic clinic : item.getClinics()) {
+		List<Clinic> clinics = clinicRepository.findAll();
+		for (Clinic clinic : clinics) {
+			for (User item : clinic.getUsers()) {
+				Attachment attachmentp = new Attachment();
+				int flag = 0;
+				for (Attachment attachment : item.getAttachments()) {
+					for (AttachmentType attachmentType : attachment.getAttachmentTypes()) {
+						if(attachmentType.getName().equals("DAIDIEN")) {
+							attachmentp.setId(attachment.getId());
+							attachmentp.setData(attachment.getData());
+							attachmentp.setCreatedBy(attachment.getCreatedBy());
+							attachmentp.setFileName(attachment.getFileName());
+							attachmentp.setAttachmentTypes(attachment.getAttachmentTypes());
+							flag++;
+							break;
+						}
+						if(flag>0) {
+							break;
+						}
+					}
+				}
+				
 				DoctorResponse doctorResponse = new DoctorResponse(item.getId(), item.getCreateAt(), 
 						item.getUpdateAt(), item.getCreatedBy(), item.getUpdatedBy(), item.getDeletedBy(),
 						item.getFullName(), item.getBirthday(), item.getGender(), item.getAge(), 
 						item.getEmail(), item.getAddress(), item.getMobile(), item.getAbout(), 
-						item.getFacebook(), clinic, item.getFaculties(), item.getDegrees());
+						item.getFacebook(), new ClinicResponse(clinic), item.getFaculties(), item.getDegrees(),attachmentp);
 				doctorResponses.add(doctorResponse);
 			}
 		}
-		if(users == null) {
+		
+		if(clinics == null) {
 			return new DataResponse(false, new Data("Không tìm thấy bác sỹ !!",HttpStatus.BAD_REQUEST.value()));
 		}
 		return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));

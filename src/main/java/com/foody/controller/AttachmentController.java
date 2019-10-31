@@ -1,7 +1,8 @@
 package com.foody.controller;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class AttachmentController {
 	@Autowired
 	AttachmentService attachmentService;
 	
-	@RequestMapping(value = "user/uploadFile", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	@RequestMapping(value = "user/uploadFile", method = RequestMethod.POST)
 	public UploadFileResponse uploadFile(@CurrentUser UserPrincipal currentUser, @RequestParam("file") MultipartFile file, String attachmentType) {
 		
         Attachment attachmentFile = attachmentService.storeFile(currentUser,file,attachmentType);
@@ -50,13 +51,10 @@ public class AttachmentController {
 	
 	@RequestMapping(value = "user/uploadMultipleFiles", method = RequestMethod.POST)
     public List<UploadFileResponse> uploadMultipleFiles(@CurrentUser UserPrincipal currentUser, @RequestParam("files") MultipartFile[] files,String attachmentType) {
-		List<UploadFileResponse> list = new ArrayList<UploadFileResponse>();
-		for (MultipartFile multipartFile : files) {
-			System.out.println("multipartFile : "+multipartFile);
-			 Attachment attachmentFile = attachmentService.storeFile(currentUser,multipartFile,attachmentType);
-			list.add(new UploadFileResponse(attachmentFile.getFileName(), attachmentFile.getFileType(), multipartFile.getSize()));
-		}
-		return list;
+		return Arrays.asList(files)
+                .stream()
+                .map(file -> uploadFile(currentUser,file,attachmentType))
+                .collect(Collectors.toList());
 	}
 	
 	@RequestMapping(value = "downloadFile/{fileId}", method = RequestMethod.GET)
