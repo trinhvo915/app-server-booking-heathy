@@ -55,10 +55,17 @@ public class DoctorResponse {
 	
     private Attachment attachment;
     
+    private Integer countComment;
+	
+	private Integer countBooking;
+	
+	private Double countRate;
+	
 	public DoctorResponse(String id, Date createAt, Date updateAt, String createdBy, String updatedBy, String deletedBy, 
 			String fullName, Date birthday, UserGender gender, Integer age,
 			String email, @Size(max = 100) String address, @Size(max = 20) String mobile, String about,
-			@Size(max = 100) String facebook, ClinicResponse clinicResponse, Set<Faculty> faculties, Set<Degree> degrees, Attachment attachment) {
+			@Size(max = 100) String facebook, ClinicResponse clinicResponse, 
+			Set<Faculty> faculties, Set<Degree> degrees, Attachment attachment,Integer countComment,Integer countBooking,Double countRate) {
 		super();
 		this.id = id;
 		this.createAt = createAt;
@@ -79,6 +86,9 @@ public class DoctorResponse {
 		this.faculties = faculties;
 		this.degrees = degrees;
 		this.attachment = attachment;
+		this.countComment= countComment;
+		this.countBooking=countBooking;
+		this.countRate = countRate;
 	}
 
 	public String getId() {
@@ -87,6 +97,30 @@ public class DoctorResponse {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public Double getCountRate() {
+		return countRate;
+	}
+
+	public void setCountRate(Double countRate) {
+		this.countRate = countRate;
+	}
+
+	public Integer getCountComment() {
+		return countComment;
+	}
+
+	public void setCountComment(Integer countComment) {
+		this.countComment = countComment;
+	}
+
+	public Integer getCountBooking() {
+		return countBooking;
+	}
+
+	public void setCountBooking(Integer countBooking) {
+		this.countBooking = countBooking;
 	}
 
 	public Attachment getAttachment() {
