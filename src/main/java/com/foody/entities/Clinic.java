@@ -70,6 +70,11 @@ public class Clinic extends AuditEntity implements Serializable{
             mappedBy = "clinic")
     private Set<Comment> commentUsers = new HashSet<>();
     
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "clinic")
+    private Set<Booking> bookingUsers = new HashSet<>();
+    
 	public Clinic() {
 		
 	}

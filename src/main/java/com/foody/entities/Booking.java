@@ -2,18 +2,13 @@ package com.foody.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 import com.foody.entities.enums.UserGender;
 
 @Entity
@@ -38,25 +33,64 @@ public class Booking extends AuditEntity implements Serializable{
 	
 	private UserGender gender;
 	
-	private Boolean isExit;
+	private Boolean isExit = false;
 	
-	private Boolean isActive;
+	private Boolean isActive = false;
+
+	private String timeBooking;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_expert")
+    private User expert;
 
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private User user;
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-        cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-        },
-        mappedBy = "bookingExperts"
-    )
-    private Set<User> experts = new HashSet<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_clinic")
+    private Clinic clinic;
 	
+	public Booking(Date dateBooking, String timeBooking) {
+		super();
+		this.dateBooking = dateBooking;
+		this.timeBooking = timeBooking;
+	}
+
 	public Booking() {
 		
+	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+	public User getExpert() {
+		return expert;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setExpert(User expert) {
+		this.expert = expert;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getTimeBooking() {
+		return timeBooking;
+	}
+
+	public void setTimeBooking(String timeBooking) {
+		this.timeBooking = timeBooking;
 	}
 
 	public Date getDateBooking() {
