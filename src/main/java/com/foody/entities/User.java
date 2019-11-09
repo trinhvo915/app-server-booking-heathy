@@ -102,15 +102,9 @@ public class User extends AuditEntity implements Serializable{
             mappedBy = "user")
     private Set<Comment> commentUsers = new HashSet<>();
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-		cascade = {
-			CascadeType.PERSIST,
-			CascadeType.MERGE
-	})
-	@JoinTable(name = "expert_booking",
-		joinColumns = { @JoinColumn(name = "id_expert") },
-		inverseJoinColumns = { @JoinColumn(name = "id_booking")}
-	)
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "expert")
 	private Set<Booking> bookingExperts = new HashSet<>();
 	
 	@OneToMany(cascade = CascadeType.ALL,
@@ -190,25 +184,17 @@ public class User extends AuditEntity implements Serializable{
 		this.degrees = degrees;
 	}
 
-//	public Set<Clinic> getClinics() {
-//		return clinics;
+//	public Set<Comment> getCommentExperts() {
+//		return commentExperts;
 //	}
-//
-//	public void setClinics(Set<Clinic> clinics) {
-//		this.clinics = clinics;
-//	}
-
-	public Set<Comment> getCommentExperts() {
-		return commentExperts;
-	}
 
 	public void setCommentExperts(Set<Comment> commentExperts) {
 		this.commentExperts = commentExperts;
 	}
 
-	public Set<Booking> getBookingExperts() {
-		return bookingExperts;
-	}
+//	public Set<Booking> getBookingExperts() {
+//		return bookingExperts;
+//	}
 
 	public void setBookingExperts(Set<Booking> bookingExperts) {
 		this.bookingExperts = bookingExperts;

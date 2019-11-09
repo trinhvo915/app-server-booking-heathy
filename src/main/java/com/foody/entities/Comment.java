@@ -48,16 +48,8 @@ public class Comment extends AuditEntity implements Serializable{
 		this.content = content;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public User getExpert() {
-		return expert;
 	}
 
 	public void setExpert(User expert) {

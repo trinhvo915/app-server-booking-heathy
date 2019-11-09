@@ -51,24 +51,19 @@ public class Booking extends AuditEntity implements Serializable{
     @JoinColumn(name = "id_clinic")
     private Clinic clinic;
 	
-	public Booking(Date dateBooking, String timeBooking) {
-		super();
-		this.dateBooking = dateBooking;
-		this.timeBooking = timeBooking;
-	}
-
 	public Booking() {
 		
 	}
 
-	public Clinic getClinic() {
-		return clinic;
+	public Booking(Date dateBooking, String timeBooking) {
+		this.dateBooking = dateBooking;
+		this.timeBooking = timeBooking;
 	}
 
 	public void setClinic(Clinic clinic) {
 		this.clinic = clinic;
 	}
-
+	
 	public User getExpert() {
 		return expert;
 	}

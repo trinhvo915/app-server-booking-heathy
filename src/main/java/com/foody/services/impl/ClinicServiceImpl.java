@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.foody.dto.ClinicRequest;
 import com.foody.dto.ClinicResponse;
+import com.foody.dto.ClinicsRequest;
 import com.foody.entities.Clinic;
 import com.foody.entities.User;
 import com.foody.payload.Data;
@@ -80,6 +81,15 @@ public class ClinicServiceImpl implements ClinicService{
 		}else {
 			return new DataResponse(false, new Data(Constant.ADD_DOCTOR_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
 		}
+	}
+
+	@Override
+	public DataResponse getDoctorInClinic(ClinicsRequest clinicsRequest) {
+		User user = userRepository.findByIdAndCheckRole(clinicsRequest.getIdDoctor(), true, "EXPERT");
+		Clinic clinic = clinicRepository.findByIdClinicAndIdUser(clinicsRequest.getIdClinic(),clinicsRequest.getIdDoctor());
+		
+		
+		return new DataResponse(true, new Data(Constant.ADD_DOCTOR_SUCCESS,HttpStatus.OK.value(),clinic));
 	}
 	
 }

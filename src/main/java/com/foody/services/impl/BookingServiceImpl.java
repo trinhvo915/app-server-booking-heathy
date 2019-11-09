@@ -47,7 +47,7 @@ public class BookingServiceImpl implements BookingService{
 				if (timeEnd.isAfter(timeStart)) {
 					 	Booking bookingStart = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
 					 	User userStart = userRepository.getOne(bookingRequest.getIdDoctor());
-					 	bookingStart.setUser(userStart);
+					 	bookingStart.setExpert(userStart);
 					 	Clinic clinicStart = clinicRepository.getOne(bookingRequest.getIdClinic());
 					 	bookingStart.setClinic(clinicStart);
 					 	
@@ -58,7 +58,7 @@ public class BookingServiceImpl implements BookingService{
 							timeStart =  timeStart.plusMinutes(Integer.parseInt(bookingRequest.getDistanceMorning()));
 							
 							Booking booking = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
-							booking.setUser(userStart);
+							booking.setExpert(userStart);
 							booking.setClinic(clinicStart);
 							bookings.add(booking);
 							if(timeStart.compareTo(timeEnd)==0) {
@@ -80,7 +80,7 @@ public class BookingServiceImpl implements BookingService{
 					 	Booking bookingStart = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
 					 	
 					 	User userStart = userRepository.getOne(bookingRequest.getIdDoctor());
-					 	bookingStart.setUser(userStart);
+					 	bookingStart.setExpert(userStart);
 					 	Clinic clinicStart = clinicRepository.getOne(bookingRequest.getIdClinic());
 					 	bookingStart.setClinic(clinicStart);
 					 	
@@ -90,7 +90,7 @@ public class BookingServiceImpl implements BookingService{
 						while (flag) {
 							timeStart =  timeStart.plusMinutes(Integer.parseInt(bookingRequest.getDistanceMorning()));
 							Booking booking = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
-							booking.setUser(userStart);
+							booking.setExpert(userStart);
 							booking.setClinic(clinicStart);
 							bookings.add(booking);
 							if(timeStart.compareTo(timeEnd)==0) {
@@ -111,7 +111,7 @@ public class BookingServiceImpl implements BookingService{
 				if (timeEnd.isAfter(timeStart)) {
 					 	Booking bookingStart = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
 					 	User userStart = userRepository.getOne(bookingRequest.getIdDoctor());
-					 	bookingStart.setUser(userStart);
+					 	bookingStart.setExpert(userStart);
 					 	Clinic clinicStart = clinicRepository.getOne(bookingRequest.getIdClinic());
 					 	bookingStart.setClinic(clinicStart);
 					 	
@@ -122,7 +122,7 @@ public class BookingServiceImpl implements BookingService{
 							timeStart =  timeStart.plusMinutes(Integer.parseInt(bookingRequest.getDistanceMorning()));
 							
 							Booking booking = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
-							booking.setUser(userStart);
+							booking.setExpert(userStart);
 							booking.setClinic(clinicStart);
 							
 							bookings.add(booking);

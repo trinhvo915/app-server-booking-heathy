@@ -41,6 +41,14 @@ public class Rate extends AuditEntity implements Serializable{
 		this.clinic = clinic;
 	}
 
+	public User getExpert() {
+		return expert;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
 	public NumberStar getNumberStar() {
 		return numberStar;
 	}
@@ -56,17 +64,9 @@ public class Rate extends AuditEntity implements Serializable{
 	public void setValue(Double value) {
 		this.value = value;
 	}
-	
-	public User getExpert() {
-		return expert;
-	}
 
 	public void setExpert(User expert) {
 		this.expert = expert;
-	}
-
-	public User getUser() {
-		return user;
 	}
 
 	public void setUser(User user) {
