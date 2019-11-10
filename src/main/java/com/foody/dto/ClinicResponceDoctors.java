@@ -30,4 +30,112 @@ public class ClinicResponceDoctors {
 	private Set<Attachment> photoClinics = new HashSet<>();
 	
 	private Set<UserResponceClinic> userResponceClinics = new HashSet<>();
+
+	public ClinicResponceDoctors() {
+		
+	}
+
+	public ClinicResponceDoctors(String id, String name, String address, String latitude, String longitude,
+			Date createAt, String createdBy, Set<Faculty> faculties, Set<Price> prices, Set<Attachment> photoClinics,
+			Set<UserResponceClinic> userResponceClinics) {
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.createAt = createAt;
+		this.createdBy = createdBy;
+		this.faculties = faculties;
+		this.prices = prices;
+		this.photoClinics = photoClinics;
+		this.userResponceClinics = userResponceClinics;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public Date getCreateAt() {
+		return createAt;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public Set<Faculty> getFaculties() {
+		return faculties;
+	}
+
+	public Set<Price> getPrices() {
+		return prices;
+	}
+
+	public Set<Attachment> getPhotoClinics() {
+		return photoClinics;
+	}
+
+	public Set<UserResponceClinic> getUserResponceClinics() {
+		return userResponceClinics;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public void setCreateAt(Date createAt) {
+		this.createAt = createAt;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public void setFaculties(Set<Faculty> faculties) {
+		this.faculties = faculties;
+	}
+
+	public void setPrices(Set<Price> prices) {
+		this.prices = prices;
+	}
+
+	public void setPhotoClinics(Set<Attachment> photoClinics) {
+		this.photoClinics = photoClinics;
+	}
+
+	public void setUserResponceClinics(Set<UserResponceClinic> userResponceClinics) {
+		this.userResponceClinics = userResponceClinics;
+	}
 }

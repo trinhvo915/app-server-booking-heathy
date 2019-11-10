@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foody.dto.ClinicRequest;
-import com.foody.dto.ClinicsRequest;
 import com.foody.payload.DataResponse;
 import com.foody.security.CurrentUser;
 import com.foody.security.UserPrincipal;
@@ -28,11 +27,6 @@ public class ClinicController {
 	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	public DataResponse registerDoctor(@CurrentUser UserPrincipal currentUser, @Valid @RequestBody ClinicRequest clinicRequest){
 		return ClinicService.addClinicCurrentDoctor(currentUser, clinicRequest);
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
-	public DataResponse registerDoctor(@Valid @RequestBody ClinicsRequest clinicsRequest){
-		return ClinicService.getDoctorInClinic(clinicsRequest);
 	}
 	
 	@PreAuthorize("hasRole('EXPERT')")

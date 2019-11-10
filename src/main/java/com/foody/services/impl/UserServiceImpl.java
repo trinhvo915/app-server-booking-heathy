@@ -15,14 +15,15 @@ import com.foody.dto.DoctorResponse;
 import com.foody.dto.UserResponse;
 import com.foody.entities.Attachment;
 import com.foody.entities.AttachmentType;
+import com.foody.entities.Booking;
 import com.foody.entities.Clinic;
+import com.foody.entities.Comment;
 import com.foody.entities.Degree;
 import com.foody.entities.ExpertCode;
 import com.foody.entities.Faculty;
 import com.foody.entities.Rate;
 import com.foody.entities.Role;
 import com.foody.entities.User;
-import com.foody.entities.enums.NumberStar;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.repository.DegreeRepository;
@@ -30,9 +31,13 @@ import com.foody.repository.ExpertCodeRepository;
 import com.foody.repository.FacultyRepository;
 import com.foody.repository.UserRepository;
 import com.foody.repository.ClinicRepository;
+import com.foody.repository.RateRepository;
+import com.foody.repository.CommentRepositiry;
+import com.foody.repository.BookingRepository;
 import com.foody.services.RoleService;
 import com.foody.services.UserService;
 import com.foody.utils.Constant;
+import com.foody.utils.RateFunction;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -54,6 +59,15 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	ClinicRepository clinicRepository;
+	
+	@Autowired
+	CommentRepositiry commentRepositiry;
+	
+	@Autowired
+	BookingRepository bookingRepository;
+	
+	@Autowired
+	RateRepository rateRepository;
 	
 	@Override
 	public Optional<User> findByEmail(String email) {
@@ -201,51 +215,18 @@ public class UserServiceImpl implements UserService {
 						}
 					}
 				}
+				Set<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),item.getId());
 				
-				Double countRate = 0.0; int fiveRate = 0 ; int fourRate = 0;
-				int threeRate = 0; int twoRate = 0; int oneRate = 0;
-				for (Rate rate : item.getRateExperts()) {
-					if(rate.getNumberStar() == NumberStar.FIVE) {
-						fiveRate++;
-					}
-					if(rate.getNumberStar() == NumberStar.FOUR) {
-						fourRate++;
-					}
-					if(rate.getNumberStar() == NumberStar.THREE) {
-						threeRate++;
-					}
-					if(rate.getNumberStar() == NumberStar.TWO) {
-						twoRate++;
-					}
-					if(rate.getNumberStar() == NumberStar.ONE) {
-						oneRate++;
-					}
-				}
+				Set<Booking> bookingExperts = bookingRepository.getBookedsByIdClincAndIdExpert(clinic.getId(),item.getId(),true);
 				
-				Double sumRate = (double) (fiveRate + fourRate + threeRate + twoRate + oneRate);
-				if(sumRate == 0) {
-					countRate = 1.0;
-				}else {
-					countRate = (5.0*fiveRate + 4.0*fourRate + 3.0*threeRate + 2.0*twoRate + 1.0*oneRate) / sumRate;
-				}
-				
-				if(countRate>= 0.5 && countRate <1) {
-					countRate = 0.5;
-				}else if(countRate >=1.5 && countRate < 2) {
-					countRate = 1.5;
-				}else if(countRate >=2.5 && countRate < 3) {
-					countRate = 2.5;
-				}else if(countRate >=3.5 && countRate < 4) {
-					countRate = 3.5;
-				}else if(countRate >=4.5 && countRate < 5) {
-					countRate = 4.5;
-				}
+				Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),item.getId());
+				Double countRate = RateFunction.getRateDoctor(rateExperts);
 				
 				DoctorResponse doctorResponse = new DoctorResponse(item.getId(), item.getCreateAt(), 
 						item.getUpdateAt(), item.getCreatedBy(), item.getUpdatedBy(), item.getDeletedBy(),
 						item.getFullName(), item.getBirthday(), item.getGender(), item.getAge(), 
 						item.getEmail(), item.getAddress(), item.getMobile(), item.getAbout(), 
-						item.getFacebook(), new ClinicResponse(clinic), item.getFaculties(), item.getDegrees(),attachmentp,item.getCommentExperts().size(),item.getBookingExperts().size(),countRate);
+						item.getFacebook(), new ClinicResponse(clinic), item.getFaculties(), item.getDegrees(),attachmentp,commentExperts.size(),bookingExperts.size(),countRate);
 				doctorResponses.add(doctorResponse);
 			}
 		}

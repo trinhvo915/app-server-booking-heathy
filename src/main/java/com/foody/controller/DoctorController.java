@@ -1,16 +1,21 @@
 package com.foody.controller;
 
+import javax.validation.Valid;
+
 //import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.foody.dto.ClinicsRequest;
 //import com.foody.entities.AttachmentType;
 import com.foody.payload.DataResponse;
 import com.foody.repository.AttachmentTypeRepository;
+import com.foody.services.ClinicService;
 import com.foody.services.UserService;
 
 @RestController
@@ -22,9 +27,17 @@ public class DoctorController {
 	@Autowired
 	AttachmentTypeRepository attachmentTypeResponsitory;
 	
+	@Autowired
+	ClinicService ClinicService;
+	
 	@RequestMapping(value= "all", method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllDoctor(){
 		return userservice.getAllDoctor();
+	}
+	
+	@RequestMapping(value= "all-clinic",method = RequestMethod.GET, produces = "application/json")
+	public DataResponse registerDoctor(@Valid @RequestBody ClinicsRequest clinicsRequest){
+		return ClinicService.getDoctorInClinic(clinicsRequest);
 	}
 	
 //	@RequestMapping(value= "img/{id_user}/{name}", method = RequestMethod.GET, produces = "application/json")

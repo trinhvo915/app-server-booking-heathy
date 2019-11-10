@@ -184,24 +184,12 @@ public class User extends AuditEntity implements Serializable{
 		this.degrees = degrees;
 	}
 
-//	public Set<Comment> getCommentExperts() {
-//		return commentExperts;
-//	}
-
 	public void setCommentExperts(Set<Comment> commentExperts) {
 		this.commentExperts = commentExperts;
 	}
 
-//	public Set<Booking> getBookingExperts() {
-//		return bookingExperts;
-//	}
-
 	public void setBookingExperts(Set<Booking> bookingExperts) {
 		this.bookingExperts = bookingExperts;
-	}
-
-	public Set<Rate> getRateExperts() {
-		return rateExperts;
 	}
 
 	public void setRateExperts(Set<Rate> rateExperts) {

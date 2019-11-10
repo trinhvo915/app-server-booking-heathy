@@ -135,6 +135,14 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.faculties = faculties;
 	}
     
+	public Set<Price> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Set<Price> prices) {
+		this.prices = prices;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
