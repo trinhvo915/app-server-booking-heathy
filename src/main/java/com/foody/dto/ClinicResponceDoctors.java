@@ -1,7 +1,9 @@
 package com.foody.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import com.foody.entities.Attachment;
 import com.foody.entities.Faculty;
@@ -29,7 +31,7 @@ public class ClinicResponceDoctors {
 	
 	private Set<Attachment> photoClinics = new HashSet<>();
 	
-	private Set<UserResponceClinic> userResponceClinics = new HashSet<>();
+	private List<UserResponceClinic> userResponceClinics = new ArrayList<UserResponceClinic>();
 
 	public ClinicResponceDoctors() {
 		
@@ -37,7 +39,7 @@ public class ClinicResponceDoctors {
 
 	public ClinicResponceDoctors(String id, String name, String address, String latitude, String longitude,
 			Date createAt, String createdBy, Set<Faculty> faculties, Set<Price> prices, Set<Attachment> photoClinics,
-			Set<UserResponceClinic> userResponceClinics) {
+			List<UserResponceClinic> userResponceClinics) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -91,7 +93,7 @@ public class ClinicResponceDoctors {
 		return photoClinics;
 	}
 
-	public Set<UserResponceClinic> getUserResponceClinics() {
+	public List<UserResponceClinic> getUserResponceClinics() {
 		return userResponceClinics;
 	}
 
@@ -135,7 +137,7 @@ public class ClinicResponceDoctors {
 		this.photoClinics = photoClinics;
 	}
 
-	public void setUserResponceClinics(Set<UserResponceClinic> userResponceClinics) {
+	public void setUserResponceClinics(List<UserResponceClinic> userResponceClinics) {
 		this.userResponceClinics = userResponceClinics;
 	}
 }

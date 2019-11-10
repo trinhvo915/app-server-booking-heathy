@@ -4,12 +4,15 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.foody.entities.Attachment;
 import com.foody.entities.Clinic;
 import com.foody.entities.Role;
 import com.foody.entities.User;
 import com.foody.entities.enums.UserGender;
+import com.foody.utils.AttacchmetFunction;
 
 public class UserResponse {
+	private String id;
 	
 	private String username;
 
@@ -23,6 +26,8 @@ public class UserResponse {
 	
 	private String check;
 	
+	private Attachment attachmentPerson ;
+	
 	Set<Role> roles = new HashSet<>();
 	
 	Set<Clinic> clinic = new HashSet<>();
@@ -32,15 +37,33 @@ public class UserResponse {
 	}
 
 	public UserResponse(User user) {
+		this.id = user.getId();
 		this.username = user.getUsername();
 		this.fullName = user.getFullName();
 		this.birthday = user.getBirthday();
 		this.gender = user.getGender();
 		this.age = user.getAge();
 		this.roles = user.getRoles();
-//		this.clinic = user.getClinics();
+		Attachment attachment = AttacchmetFunction.getAttachmentPerson(user.getAttachments(), "DAIDIEN");
+		this.attachmentPerson = attachment;
 	}
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Attachment getAttachmentPerson() {
+		return attachmentPerson;
+	}
+
+	public void setAttachmentPerson(Attachment attachmentPerson) {
+		this.attachmentPerson = attachmentPerson;
+	}
+
 	public String getCheck() {
 		return check;
 	}

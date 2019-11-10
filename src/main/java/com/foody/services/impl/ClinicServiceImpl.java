@@ -113,7 +113,7 @@ public class ClinicServiceImpl implements ClinicService{
 		Clinic clinic = clinicRepository.findByIdClinicAndIdUser(clinicsRequest.getIdClinic(),clinicsRequest.getIdDoctor());
 		
 		ClinicResponceDoctors clinicResponceDoctors = new ClinicResponceDoctors();
-		Set<UserResponceClinic> userResponceClinics = new HashSet<>();
+		List<UserResponceClinic> userResponceClinics = new ArrayList<UserResponceClinic>();
 		
 		List<User> users = new ArrayList<> (clinic.getUsers());
 		User userOwner = users.get(users.size()-1);
@@ -127,38 +127,6 @@ public class ClinicServiceImpl implements ClinicService{
 		
 		UserResponceClinic userResponceClinic = new UserResponceClinic();
 		
-		for (User userItem : clinic.getUsers()) {
-			if(!userItem.getId().equals(user.getId())) {
-				userResponceClinic.setId(userItem.getId()); userResponceClinic.setCreateAt(userItem.getCreateAt());
-				userResponceClinic.setUpdateAt(userItem.getUpdateAt()); userResponceClinic.setCreatedBy(userItem.getCreatedBy());
-				userResponceClinic.setUpdatedBy(userItem.getUpdatedBy()); userResponceClinic.setDeletedBy(userItem.getDeletedBy());
-				userResponceClinic.setUsername(userItem.getUsername()); userResponceClinic.setFullName(userItem.getFullName());
-				userResponceClinic.setBirthday(userItem.getBirthday()); userResponceClinic.setGender(userItem.getGender());
-				userResponceClinic.setAge(userItem.getAge()); userResponceClinic.setBadPoint(userItem.getBadPoint());
-				userResponceClinic.setEmail(userItem.getEmail()); userResponceClinic.setAddress(userItem.getEmail());
-				userResponceClinic.setMobile(userItem.getMobile()); userResponceClinic.setAbout(userItem.getAbout());
-				userResponceClinic.setFacebook(userItem.getFacebook()); userResponceClinic.setCode(userItem.getCode());
-				userResponceClinic.setFaculties(userItem.getFaculties()); userResponceClinic.setDegrees(userItem.getDegrees());
-				
-				Set<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),userItem.getId());
-				Set<CommentResponse> commentResponses = CommentFunction.getCommentDoctor(commentExperts);
-				userResponceClinic.setCommentExperts(commentResponses);
-				
-				Set<Booking> bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId());
-				Set<BookingResponse> bookingResponses = BookingFunction.getBookingDoctor(bookingExperts);
-				userResponceClinic.setBookingExperts(bookingResponses);
-				
-				Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),userItem.getId());
-				Double countRate = RateFunction.getRateDoctor(rateExperts);
-				userResponceClinic.setCountRate(countRate);
-				
-				Attachment attachmentp = AttacchmetFunction.getAttachmentPerson(userItem.getAttachments(), "DAIDIEN");
-				userResponceClinic.setAttachmentPerson(attachmentp);
-				
-				userResponceClinics.add(userResponceClinic);
-			}
-		}
-		
 		UserResponceClinic userClinic = new UserResponceClinic();
 		userClinic.setId(user.getId()); userClinic.setCreateAt(user.getCreateAt());
 		userClinic.setUpdateAt(user.getUpdateAt()); userClinic.setCreatedBy(user.getCreatedBy());
@@ -166,7 +134,7 @@ public class ClinicServiceImpl implements ClinicService{
 		userClinic.setUsername(user.getUsername()); userClinic.setFullName(user.getFullName());
 		userClinic.setBirthday(user.getBirthday()); userClinic.setGender(user.getGender());
 		userClinic.setAge(user.getAge()); userClinic.setBadPoint(user.getBadPoint());
-		userClinic.setEmail(user.getEmail()); userClinic.setAddress(user.getEmail());
+		userClinic.setEmail(user.getEmail()); userClinic.setAddress(user.getAddress());
 		userClinic.setMobile(user.getMobile()); userClinic.setAbout(user.getAbout());
 		userClinic.setFacebook(user.getFacebook()); userClinic.setCode(user.getCode());
 		userClinic.setFaculties(user.getFaculties()); userClinic.setDegrees(user.getDegrees());
@@ -188,9 +156,43 @@ public class ClinicServiceImpl implements ClinicService{
 		
 		userResponceClinics.add(userClinic);
 		
+		for (User userItem : clinic.getUsers()) {
+			if(!userItem.getId().equals(user.getId())) {
+				userResponceClinic.setId(userItem.getId()); userResponceClinic.setCreateAt(userItem.getCreateAt());
+				userResponceClinic.setUpdateAt(userItem.getUpdateAt()); userResponceClinic.setCreatedBy(userItem.getCreatedBy());
+				userResponceClinic.setUpdatedBy(userItem.getUpdatedBy()); userResponceClinic.setDeletedBy(userItem.getDeletedBy());
+				userResponceClinic.setUsername(userItem.getUsername()); userResponceClinic.setFullName(userItem.getFullName());
+				userResponceClinic.setBirthday(userItem.getBirthday()); userResponceClinic.setGender(userItem.getGender());
+				userResponceClinic.setAge(userItem.getAge()); userResponceClinic.setBadPoint(userItem.getBadPoint());
+				userResponceClinic.setEmail(userItem.getEmail()); userResponceClinic.setAddress(userItem.getAddress());
+				userResponceClinic.setMobile(userItem.getMobile()); userResponceClinic.setAbout(userItem.getAbout());
+				userResponceClinic.setFacebook(userItem.getFacebook()); userResponceClinic.setCode(userItem.getCode());
+				userResponceClinic.setFaculties(userItem.getFaculties()); userResponceClinic.setDegrees(userItem.getDegrees());
+				
+				Set<Comment> commentExpertsList = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),userItem.getId());
+				Set<CommentResponse> commentResponsesList = CommentFunction.getCommentDoctor(commentExpertsList);
+				userResponceClinic.setCommentExperts(commentResponsesList);
+				
+				Set<Booking> bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId());
+				Set<BookingResponse> bookingResponsesList = BookingFunction.getBookingDoctor(bookingExpertsList);
+				userResponceClinic.setBookingExperts(bookingResponsesList);
+				
+				Set<Rate> rateExpertsList = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),userItem.getId());
+				Double countRateList = RateFunction.getRateDoctor(rateExpertsList);
+				userResponceClinic.setCountRate(countRateList);
+				
+				Attachment attachmentpList = AttacchmetFunction.getAttachmentPerson(userItem.getAttachments(), "DAIDIEN");
+				userResponceClinic.setAttachmentPerson(attachmentpList);
+				
+				userResponceClinics.add(userResponceClinic);
+			}
+		}
+		
+		
+		
 		clinicResponceDoctors.setUserResponceClinics(userResponceClinics);
 		
-		return new DataResponse(true, new Data(Constant.ADD_DOCTOR_SUCCESS,HttpStatus.OK.value(),clinicResponceDoctors));
+		return new DataResponse(true, new Data("Lấy danh sách bác sỹ trong phòng khám thành công !",HttpStatus.OK.value(),clinicResponceDoctors));
 	}
 	
 }
