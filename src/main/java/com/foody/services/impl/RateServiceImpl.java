@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.foody.dto.ClinicsRequest;
 import com.foody.dto.RateRequest;
 import com.foody.entities.Clinic;
 import com.foody.entities.Rate;
@@ -28,7 +29,10 @@ public class RateServiceImpl implements RateService{
 	
 	@Autowired
 	ClinicRepository clinicRepository;
-	 
+	
+	@Autowired
+	ClinicServiceImpl clinicServiceImpl;
+	
 	@Override
 	public DataResponse addRate(UserPrincipal currentUser, RateRequest rateRequest) {
 		
@@ -49,8 +53,14 @@ public class RateServiceImpl implements RateService{
 				Clinic clinic = clinicRepository.getOne(rateRequest.getClinic().getId());
 				rate.setClinic(clinic);
 				
-				rateRepository.save(rate);
-				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),rateRequest));
+				Rate ratedata =  rateRepository.save(rate);
+				
+				DataResponse responsedata = new DataResponse();
+				if(ratedata != null) {
+					ClinicsRequest clinicsRequest = new ClinicsRequest(rateRequest.getClinic().getId(), rateRequest.getExpert().getId());
+					responsedata = clinicServiceImpl.getDoctorInClinic(clinicsRequest);
+				}
+				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),responsedata));
 			}
 		}else {
 			if(user != null) {
@@ -65,8 +75,15 @@ public class RateServiceImpl implements RateService{
 				Clinic clinic = clinicRepository.getOne(rateRequest.getClinic().getId());
 				rate.setClinic(clinic);
 				
-				rateRepository.save(rate);
-				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),rateRequest));
+				Rate ratedata =rateRepository.save(rate);
+				DataResponse responsedata = new DataResponse();
+				
+				if(ratedata != null) {
+					ClinicsRequest clinicsRequest = new ClinicsRequest(rateRequest.getClinic().getId(), rateRequest.getExpert().getId());
+					responsedata = clinicServiceImpl.getDoctorInClinic(clinicsRequest);
+				}
+				
+				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),responsedata.getData().getObject()));
 			}
 		}
 		

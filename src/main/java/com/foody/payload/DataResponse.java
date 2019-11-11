@@ -6,6 +6,10 @@ public class DataResponse {
 	
 	private Data data;
 
+	public DataResponse() {
+		super();
+	}
+
 	public DataResponse(Boolean success,Data data) {
 		this.success = success;
 		this.data = data;
