@@ -1,7 +1,10 @@
 package com.foody.utils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+import com.foody.dto.RateResponse;
 import com.foody.entities.Rate;
 import com.foody.entities.enums.NumberStar;
 
@@ -47,5 +50,19 @@ public class RateFunction {
 			countRate = 4.5;
 		}
 		return countRate;
+	}
+	
+	
+	public static List<RateResponse> getRateResponses(Set<Rate> rateExperts) {
+		List<RateResponse> rateResponses = new ArrayList<RateResponse>();
+		for (Rate rate : rateExperts) {
+			RateResponse response = new RateResponse();
+			response.setNumberStar(rate.getNumberStar());
+			response.setValue(rate.getValue());
+			response.setIdUser(rate.getUser().getId());
+			response.setIdDoctor(rate.getExpert().getId());
+			rateResponses.add(response);
+		}
+		return rateResponses;
 	}
 }

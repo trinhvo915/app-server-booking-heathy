@@ -1,7 +1,9 @@
 package com.foody.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.foody.entities.Attachment;
@@ -50,11 +52,13 @@ public class UserResponceClinic {
 	
 	private Set<Faculty> faculties = new HashSet<>();
 	
-	private Set<BookingResponse> bookingExperts = new HashSet<>();
+	private List<BookingResponse> bookingExperts = new ArrayList<BookingResponse>() ;
 	
-	private Set<CommentResponse> commentExperts = new HashSet<>();
+	private List<CommentResponse> commentExperts = new ArrayList<CommentResponse>();
 	
 	private Set<Degree> degrees = new HashSet<>();
+	
+	private List<RateResponse> rateResponses = new ArrayList<RateResponse>();
 	
 	private Double countRate;
 	
@@ -64,6 +68,14 @@ public class UserResponceClinic {
 
 	public String getId() {
 		return id;
+	}
+
+	public List<RateResponse> getRateResponses() {
+		return rateResponses;
+	}
+
+	public void setRateResponses(List<RateResponse> rateResponses) {
+		this.rateResponses = rateResponses;
 	}
 
 	public Double getCountRate() {
@@ -146,11 +158,11 @@ public class UserResponceClinic {
 		return faculties;
 	}
 
-	public Set<BookingResponse> getBookingExperts() {
+	public List<BookingResponse> getBookingExperts() {
 		return bookingExperts;
 	}
 
-	public Set<CommentResponse> getCommentExperts() {
+	public List<CommentResponse> getCommentExperts() {
 		return commentExperts;
 	}
 
@@ -234,11 +246,11 @@ public class UserResponceClinic {
 		this.faculties = faculties;
 	}
 
-	public void setBookingExperts(Set<BookingResponse> bookingExperts) {
+	public void setBookingExperts(List<BookingResponse> bookingExperts) {
 		this.bookingExperts = bookingExperts;
 	}
 
-	public void setCommentExperts(Set<CommentResponse> commentExperts) {
+	public void setCommentExperts(List<CommentResponse> commentExperts) {
 		this.commentExperts = commentExperts;
 	}
 

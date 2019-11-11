@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.foody.dto.ClinicsRequest;
 import com.foody.payload.DataResponse;
 import com.foody.repository.AttachmentTypeRepository;
+import com.foody.security.CurrentUser;
+import com.foody.security.UserPrincipal;
 import com.foody.services.ClinicService;
 import com.foody.services.UserService;
 
@@ -30,7 +32,7 @@ public class DoctorController {
 	}
 	
 	@RequestMapping(value= "all-clinic/{id_doctor}/{id_clinic}",method = RequestMethod.GET, produces = "application/json")
-	public DataResponse registerDoctor(@PathVariable("id_doctor") String id_doctor,@PathVariable("id_clinic") String id_clinic){
+	public DataResponse registerDoctor(@CurrentUser UserPrincipal currentUser, @PathVariable("id_doctor") String id_doctor,@PathVariable("id_clinic") String id_clinic){
 		  ClinicsRequest clinicsRequest = new ClinicsRequest(id_clinic, id_doctor);
 		  return ClinicService.getDoctorInClinic(clinicsRequest);
 	}

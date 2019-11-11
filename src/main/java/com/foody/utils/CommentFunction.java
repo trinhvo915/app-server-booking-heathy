@@ -1,16 +1,15 @@
 package com.foody.utils;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.List;
 import com.foody.dto.CommentResponse;
 import com.foody.entities.Attachment;
 import com.foody.entities.Comment;
 
 public class CommentFunction {
 
-	public static Set<CommentResponse> getCommentDoctor(Set<Comment> commentExperts) {
-		Set<CommentResponse> commentResponses = new HashSet<CommentResponse>();
+	public static List<CommentResponse> getCommentDoctor(List<Comment> commentExperts) {
+		List<CommentResponse> commentResponses =new ArrayList<CommentResponse>();
 		
 		for (Comment item : commentExperts) {
 			CommentResponse response = new CommentResponse();

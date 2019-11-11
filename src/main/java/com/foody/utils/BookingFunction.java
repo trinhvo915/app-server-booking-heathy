@@ -1,13 +1,13 @@
 package com.foody.utils;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import com.foody.dto.BookingResponse;
 import com.foody.entities.Booking;
 
 public class BookingFunction {
-	public static Set<BookingResponse> getBookingDoctor(Set<Booking> bookingExperts) {
-		Set<BookingResponse> bookingResponses = new HashSet<BookingResponse>();
+	public static List<BookingResponse> getBookingDoctor(List<Booking> bookingExperts) {
+		List<BookingResponse> bookingResponses = new ArrayList<BookingResponse>();
 		
 		for (Booking item : bookingExperts) {
 			BookingResponse response = new BookingResponse();

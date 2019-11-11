@@ -215,9 +215,9 @@ public class UserServiceImpl implements UserService {
 						}
 					}
 				}
-				Set<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),item.getId());
+				List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),item.getId());
 				
-				Set<Booking> bookingExperts = bookingRepository.getBookedsByIdClincAndIdExpert(clinic.getId(),item.getId(),true);
+				List<Booking> bookingExperts = bookingRepository.getBookedsByIdClincAndIdExpert(clinic.getId(),item.getId(),true);
 				
 				Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),item.getId());
 				Double countRate = RateFunction.getRateDoctor(rateExperts);
