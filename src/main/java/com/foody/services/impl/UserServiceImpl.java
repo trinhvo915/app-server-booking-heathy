@@ -215,6 +215,7 @@ public class UserServiceImpl implements UserService {
 						}
 					}
 				}
+				
 				List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),item.getId());
 				
 				List<Booking> bookingExperts = bookingRepository.getBookedsByIdClincAndIdExpert(clinic.getId(),item.getId(),true);

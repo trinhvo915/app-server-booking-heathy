@@ -1,22 +1,34 @@
 package com.foody.services.impl;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.ClinicsRequest;
 import com.foody.dto.RateRequest;
+import com.foody.dto.UserResponceClinic;
+import com.foody.entities.Attachment;
+import com.foody.entities.Booking;
 import com.foody.entities.Clinic;
+import com.foody.entities.Comment;
 import com.foody.entities.Rate;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.repository.RateRepository;
 import com.foody.repository.UserRepository;
+import com.foody.repository.BookingRepository;
 import com.foody.repository.ClinicRepository;
+import com.foody.repository.CommentRepositiry;
 import com.foody.security.UserPrincipal;
 import com.foody.services.RateService;
+import com.foody.utils.AttacchmetFunction;
 import com.foody.utils.Constant;
+import com.foody.utils.RateFunction;
+import com.foody.utils.UserResponceClinicFunction;
 
 @Service
 public class RateServiceImpl implements RateService{
@@ -25,13 +37,18 @@ public class RateServiceImpl implements RateService{
 	UserRepository userRepository;
 	
 	@Autowired
-	RateRepository rateRepository;
-	
-	@Autowired
 	ClinicRepository clinicRepository;
 	
 	@Autowired
 	ClinicServiceImpl clinicServiceImpl;
+	@Autowired
+	CommentRepositiry commentRepositiry;
+	
+	@Autowired
+	BookingRepository bookingRepository;
+	
+	@Autowired
+	RateRepository rateRepository;
 	
 	@Override
 	public DataResponse addRate(UserPrincipal currentUser, RateRequest rateRequest) {
@@ -55,12 +72,19 @@ public class RateServiceImpl implements RateService{
 				
 				Rate ratedata =  rateRepository.save(rate);
 				
-				DataResponse responsedata = new DataResponse();
 				if(ratedata != null) {
-					ClinicsRequest clinicsRequest = new ClinicsRequest(rateRequest.getClinic().getId(), rateRequest.getExpert().getId());
-					responsedata = clinicServiceImpl.getDoctorInClinic(clinicsRequest);
+					List<Comment> commentExpertsList = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),expert.getId());
+					
+					List<Booking> bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),expert.getId());
+					
+					Set<Rate> rateExpertsList = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),expert.getId());
+					
+					Attachment attachmentpList = AttacchmetFunction.getAttachmentPerson(expert.getAttachments(), "DAIDIEN");
+					
+					UserResponceClinic userResponceClinic = UserResponceClinicFunction.setUserResponceClinic(expert, clinic.getId(),commentExpertsList,bookingExpertsList,rateExpertsList,attachmentpList);
+					
+					return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),userResponceClinic));
 				}
-				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),responsedata));
 			}
 		}else {
 			if(user != null) {
@@ -76,19 +100,31 @@ public class RateServiceImpl implements RateService{
 				rate.setClinic(clinic);
 				
 				Rate ratedata =rateRepository.save(rate);
-				DataResponse responsedata = new DataResponse();
 				
 				if(ratedata != null) {
-					ClinicsRequest clinicsRequest = new ClinicsRequest(rateRequest.getClinic().getId(), rateRequest.getExpert().getId());
-					responsedata = clinicServiceImpl.getDoctorInClinic(clinicsRequest);
+					List<Comment> commentExpertsList = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),expert.getId());
+					
+					List<Booking> bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),expert.getId());
+					
+					Set<Rate> rateExpertsList = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),expert.getId());
+					
+					Attachment attachmentpList = AttacchmetFunction.getAttachmentPerson(expert.getAttachments(), "DAIDIEN");
+					
+					UserResponceClinic userResponceClinic = UserResponceClinicFunction.setUserResponceClinic(expert, clinic.getId(),commentExpertsList,bookingExpertsList,rateExpertsList,attachmentpList);
+					
+					return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),userResponceClinic));
 				}
-				
-				return new DataResponse(true, new Data(Constant.ADD_RATE_SUCCESS,HttpStatus.OK.value(),responsedata.getData().getObject()));
 			}
 		}
 		
 		return new DataResponse(false, new Data(Constant.ADD_RATE_UNSUCCESS,HttpStatus.BAD_REQUEST.value()));
 		
 	}
-
+	
+	@Override
+	public DataResponse getRatetDoctor(ClinicsRequest clinicsRequest) {
+		Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinicsRequest.getIdClinic(),clinicsRequest.getIdDoctor());
+		Double countRate = RateFunction.getRateDoctor(rateExperts);
+		return new DataResponse(true, new Data("get rate success !",HttpStatus.OK.value(),countRate));
+	}
 }
