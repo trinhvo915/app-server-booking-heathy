@@ -11,5 +11,5 @@ public interface ClinicService {
 
 	DataResponse addDoctorIntoClinic(UserPrincipal currentUser, String idClinic, String usernameOrEmail);
 	
-	DataResponse getDoctorInClinic(ClinicsRequest clinicsRequest);
+	DataResponse getDoctorInClinic(ClinicsRequest clinicsRequest) ;
 }

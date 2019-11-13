@@ -1,15 +1,11 @@
 package com.foody.services.impl;
-
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import com.foody.dto.ClinicRequest;
 import com.foody.dto.ClinicResponceDoctors;
 import com.foody.dto.ClinicResponse;
@@ -122,28 +118,31 @@ public class ClinicServiceImpl implements ClinicService{
 		
 		List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),user.getId());
 		
-		List<Booking> bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId());
+		List<Booking> bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateQurey());
+		
+		List<Booking> bookingDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateCurrent());
 		
 		Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),user.getId());
 		
 		Attachment attachmentp = AttacchmetFunction.getAttachmentPerson(user.getAttachments(), "DAIDIEN");
 		
-		UserResponceClinic userClinic = UserResponceClinicFunction.setUserResponceClinic(user, clinic.getId(),commentExperts,bookingExperts,rateExperts,attachmentp);
+		UserResponceClinic userClinic = UserResponceClinicFunction.setUserResponceClinic(user, clinic.getId(),commentExperts,bookingExperts,bookingDates,rateExperts,attachmentp);
 		
 		userResponceClinics.add(userClinic);
 		
 		for (User userItem : clinic.getUsers()) {
 			if(!userItem.getId().equals(user.getId())) {
 				
-				List<Comment> commentExpertsList = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),userItem.getId());
+				List<Comment> commentExpertsList =  commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),userItem.getId());				
+				List<Booking> bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateQurey());
 				
-				List<Booking> bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId());
+				List<Booking> bookingExpertDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateCurrent());
 				
 				Set<Rate> rateExpertsList = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),userItem.getId());
 				
 				Attachment attachmentpList = AttacchmetFunction.getAttachmentPerson(userItem.getAttachments(), "DAIDIEN");
 				
-				UserResponceClinic userResponceClinic = UserResponceClinicFunction.setUserResponceClinic(userItem, clinic.getId(),commentExpertsList,bookingExpertsList,rateExpertsList,attachmentpList);
+				UserResponceClinic userResponceClinic = UserResponceClinicFunction.setUserResponceClinic(userItem, clinic.getId(),commentExpertsList,bookingExpertsList,bookingExpertDates,rateExpertsList,attachmentpList);
 				
 				userResponceClinics.add(userResponceClinic);
 			}

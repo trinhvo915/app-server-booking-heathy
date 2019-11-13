@@ -60,6 +60,8 @@ public class UserResponceClinic {
 	
 	private List<RateResponse> rateResponses = new ArrayList<RateResponse>();
 	
+	private List<String> dateBookingDoctors = new ArrayList<String>();
+	
 	private Double countRate;
 	
 	public UserResponceClinic() {
@@ -68,6 +70,14 @@ public class UserResponceClinic {
 
 	public String getId() {
 		return id;
+	}
+
+	public List<String> getDateBookingDoctors() {
+		return dateBookingDoctors;
+	}
+
+	public void setDateBookingDoctors(List<String> dateBookingDoctors) {
+		this.dateBookingDoctors = dateBookingDoctors;
 	}
 
 	public List<RateResponse> getRateResponses() {

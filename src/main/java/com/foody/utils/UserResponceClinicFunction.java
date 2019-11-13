@@ -1,5 +1,6 @@
 package com.foody.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import com.foody.dto.BookingResponse;
@@ -14,7 +15,7 @@ import com.foody.entities.User;
 
 public class UserResponceClinicFunction {
 	
-	public static UserResponceClinic setUserResponceClinic(User user,String clinicId,List<Comment> commentExperts, List<Booking> bookingExperts,Set<Rate> rateExperts ,Attachment attachmentp) {
+	public static UserResponceClinic setUserResponceClinic(User user,String clinicId,List<Comment> commentExperts, List<Booking> bookingExperts, List<Booking> bookingDates,Set<Rate> rateExperts ,Attachment attachmentp) {
 		UserResponceClinic userClinic = new UserResponceClinic();
 		
 		userClinic.setId(user.getId()); userClinic.setCreateAt(user.getCreateAt());
@@ -31,8 +32,15 @@ public class UserResponceClinicFunction {
 		List<RateResponse> rateResponses = RateFunction.getRateResponses(rateExperts);
 		userClinic.setRateResponses(rateResponses);
 		
+		List<String> dateBookingDoctors = DateBookingsFunction.getListDateBookings(bookingDates);
+		userClinic.setDateBookingDoctors(dateBookingDoctors);	
+		
+		List<CommentResponse> commentResponsList = new ArrayList<CommentResponse>();
 		List<CommentResponse> commentResponses = CommentFunction.getCommentDoctor(commentExperts);
-		userClinic.setCommentExperts(commentResponses);
+		for (int i = commentResponses.size()-1; i >=0 ; i--) {
+			commentResponsList.add(commentResponses.get(i));
+		}
+		userClinic.setCommentExperts(commentResponsList);
 		
 		List<BookingResponse> bookingResponses = BookingFunction.getBookingDoctor(bookingExperts);
 		userClinic.setBookingExperts(bookingResponses);

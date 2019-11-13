@@ -36,13 +36,12 @@ public class BookingServiceImpl implements BookingService{
 	public DataResponse createBooking(BookingRequest bookingRequest) {
 		Clinic clinic = clinicRepository.findByIdClinicAndIdUser(bookingRequest.getIdClinic(), bookingRequest.getIdDoctor());
 		List<Booking> bookings = new ArrayList<Booking>();
-		System.out.println(bookingRequest.toString());
 		if(clinic !=null) {
 			if(!"".equals(bookingRequest.getStartTimeMorning()) && !"".equals(bookingRequest.getEndTimeMorning())) {
 				LocalTime timeStart = LocalTime.parse(bookingRequest.getStartTimeMorning(),
-			            DateTimeFormatter.ofPattern("KK:mm:ss a"));
+			            DateTimeFormatter.ofPattern("KK:mm a"));
 				LocalTime timeEnd = LocalTime.parse(bookingRequest.getEndTimeMorning(),
-			            DateTimeFormatter.ofPattern("KK:mm:ss a"));
+			            DateTimeFormatter.ofPattern("KK:mm a"));
 				 
 				if (timeEnd.isAfter(timeStart)) {
 					 	Booking bookingStart = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
@@ -72,9 +71,9 @@ public class BookingServiceImpl implements BookingService{
 			
 			if(!"".equals(bookingRequest.getStartTimeAfternoon()) && !"".equals(bookingRequest.getEndTimeAfternoon())) {
 				LocalTime timeStart = LocalTime.parse(bookingRequest.getStartTimeAfternoon(),
-			            DateTimeFormatter.ofPattern("KK:mm:ss a"));
+			            DateTimeFormatter.ofPattern("HH:mm a"));
 				LocalTime timeEnd = LocalTime.parse(bookingRequest.getEndTimeAfternoon(),
-			            DateTimeFormatter.ofPattern("KK:mm:ss a"));
+			            DateTimeFormatter.ofPattern("HH:mm a"));
 				 
 				if (timeEnd.isAfter(timeStart)) {
 					 	Booking bookingStart = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
@@ -88,7 +87,7 @@ public class BookingServiceImpl implements BookingService{
 						
 						boolean flag = true;
 						while (flag) {
-							timeStart =  timeStart.plusMinutes(Integer.parseInt(bookingRequest.getDistanceMorning()));
+							timeStart =  timeStart.plusMinutes(Integer.parseInt(bookingRequest.getDistanceAfternoon()));
 							Booking booking = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
 							booking.setExpert(userStart);
 							booking.setClinic(clinicStart);
@@ -104,9 +103,9 @@ public class BookingServiceImpl implements BookingService{
 			
 			if(!"".equals(bookingRequest.getStartTimeEverning()) && !"".equals(bookingRequest.getEndTimeEverning())) {
 				LocalTime timeStart = LocalTime.parse(bookingRequest.getStartTimeEverning(),
-			            DateTimeFormatter.ofPattern("KK:mm:ss a"));
+			            DateTimeFormatter.ofPattern("HH:mm a"));
 				LocalTime timeEnd = LocalTime.parse(bookingRequest.getEndTimeEverning(),
-			            DateTimeFormatter.ofPattern("KK:mm:ss a"));
+			            DateTimeFormatter.ofPattern("HH:mm a"));
 				 
 				if (timeEnd.isAfter(timeStart)) {
 					 	Booking bookingStart = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
@@ -119,7 +118,7 @@ public class BookingServiceImpl implements BookingService{
 						
 						boolean flag = true;
 						while (flag) {
-							timeStart =  timeStart.plusMinutes(Integer.parseInt(bookingRequest.getDistanceMorning()));
+							timeStart =  timeStart.plusMinutes(Integer.parseInt(bookingRequest.getDistanceEverning()));
 							
 							Booking booking = new Booking(bookingRequest.getDateBooking(),timeStart.toString());
 							booking.setExpert(userStart);

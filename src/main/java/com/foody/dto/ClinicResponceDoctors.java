@@ -32,7 +32,7 @@ public class ClinicResponceDoctors {
 	private Set<Attachment> photoClinics = new HashSet<>();
 	
 	private List<UserResponceClinic> userResponceClinics = new ArrayList<UserResponceClinic>();
-
+	
 	public ClinicResponceDoctors() {
 		
 	}

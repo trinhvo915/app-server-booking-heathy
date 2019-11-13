@@ -55,6 +55,11 @@ public class Booking extends AuditEntity implements Serializable{
 		
 	}
 
+	public Booking(Date dateBooking) {
+		super();
+		this.dateBooking = dateBooking;
+	}
+
 	public Booking(Date dateBooking, String timeBooking) {
 		this.dateBooking = dateBooking;
 		this.timeBooking = timeBooking;

@@ -1,4 +1,7 @@
 package com.foody.controller;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,7 @@ import com.foody.payload.DataResponse;
 import com.foody.repository.AttachmentTypeRepository;
 import com.foody.security.CurrentUser;
 import com.foody.security.UserPrincipal;
+import com.foody.services.BookingService;
 import com.foody.services.ClinicService;
 import com.foody.services.UserService;
 
@@ -26,14 +30,21 @@ public class DoctorController {
 	@Autowired
 	ClinicService ClinicService;
 	
+	@Autowired
+	BookingService BookingService;
+	
 	@RequestMapping(value= "all", method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllDoctor(){
 		return userservice.getAllDoctor();
 	}
 	
-	@RequestMapping(value= "all-clinic/{id_doctor}/{id_clinic}",method = RequestMethod.GET, produces = "application/json")
-	public DataResponse registerDoctor(@CurrentUser UserPrincipal currentUser, @PathVariable("id_doctor") String id_doctor,@PathVariable("id_clinic") String id_clinic){
-		  ClinicsRequest clinicsRequest = new ClinicsRequest(id_clinic, id_doctor);
+	@RequestMapping(value= "all-clinic/{id_doctor}/{id_clinic}/{date_qurrey}/{date_current}",method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getDoctor(@CurrentUser UserPrincipal currentUser, @PathVariable("id_doctor") String id_doctor,@PathVariable("id_clinic") String id_clinic,@PathVariable("date_qurrey") String date_qurrey, @PathVariable("date_current") String date_current) throws ParseException{
+		Date dateQurey =new SimpleDateFormat("yyyy-MM-dd").parse(date_qurrey); 
+		
+		Date date_currentRequest =new SimpleDateFormat("yyyy-MM-dd").parse(date_current); 
+		
+		ClinicsRequest clinicsRequest = new ClinicsRequest(id_clinic, id_doctor,dateQurey, date_currentRequest);
 		  return ClinicService.getDoctorInClinic(clinicsRequest);
 	}
 	
