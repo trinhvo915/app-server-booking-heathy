@@ -20,4 +20,7 @@ public interface BookingRepository extends JpaRepository<Booking, String>, CrudR
 	
 	@Query(value ="Select * from booking where  booking.id_clinic = :id_clinic and booking.id_expert = :id_expert and booking.is_exit = :is_exit", nativeQuery=true)
 	List<Booking> getBookedsByIdClincAndIdExpert(@Param("id_clinic") String id_clinic, @Param("id_expert") String id_expert,@Param("is_exit") boolean is_exit);
+
+	@Query(value ="Select * from booking where  booking.id_clinic = :id_clinic and booking.id_expert = :id_expert and booking.date_booking = :date_booking", nativeQuery=true)
+	List<Booking> getBookingStringDatesByIdClincAndIdExpert(@Param("id_clinic") String id_clinic, @Param("id_expert") String id_expert, @Param("date_booking") String date_booking);
 }

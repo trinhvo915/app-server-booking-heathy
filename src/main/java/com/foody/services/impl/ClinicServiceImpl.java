@@ -1,5 +1,6 @@
 package com.foody.services.impl;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,6 +30,7 @@ import com.foody.security.UserPrincipal;
 import com.foody.services.ClinicService;
 import com.foody.utils.AttacchmetFunction;
 import com.foody.utils.Constant;
+import com.foody.utils.DateBookingsFunction;
 import com.foody.utils.UserResponceClinicFunction;
 
 @Service
@@ -117,10 +119,18 @@ public class ClinicServiceImpl implements ClinicService{
 		clinicResponceDoctors.setPrices(clinic.getPrices()); clinicResponceDoctors.setPhotoClinics(attachmentClinics);
 		
 		List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),user.getId());
-		
-		List<Booking> bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateQurey());
-		
+
 		List<Booking> bookingDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateCurrent());
+		
+		List<Booking> bookingExperts = new ArrayList<Booking>();
+		List<Date> listdate= DateBookingsFunction.getListDateBookings(bookingDates);
+		
+		boolean checkDateContain = DateBookingsFunction.checkDayQureyContaninDates(listdate, clinicsRequest.getDateQurey());
+		if(checkDateContain == false && !listdate.isEmpty()) {
+			bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),listdate.get(0));
+		}else {
+			bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateQurey());
+		}
 		
 		Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),user.getId());
 		
@@ -134,10 +144,17 @@ public class ClinicServiceImpl implements ClinicService{
 			if(!userItem.getId().equals(user.getId())) {
 				
 				List<Comment> commentExpertsList =  commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),userItem.getId());				
-				List<Booking> bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateQurey());
-				
 				List<Booking> bookingExpertDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateCurrent());
 				
+				List<Booking> bookingExpertsList = new ArrayList<Booking>();
+				List<Date> listExpertdate= DateBookingsFunction.getListDateBookings(bookingExpertDates);
+				boolean checkDateExpertContain = DateBookingsFunction.checkDayQureyContaninDates(listExpertdate, clinicsRequest.getDateQurey());
+				if(checkDateExpertContain == false && !listExpertdate.isEmpty()) {
+					bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),listExpertdate.get(0));
+				}else {
+					bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateQurey());
+				}
+
 				Set<Rate> rateExpertsList = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),userItem.getId());
 				
 				Attachment attachmentpList = AttacchmetFunction.getAttachmentPerson(userItem.getAttachments(), "DAIDIEN");

@@ -32,7 +32,7 @@ public class UserResponceClinicFunction {
 		List<RateResponse> rateResponses = RateFunction.getRateResponses(rateExperts);
 		userClinic.setRateResponses(rateResponses);
 		
-		List<String> dateBookingDoctors = DateBookingsFunction.getListDateBookings(bookingDates);
+		List<String> dateBookingDoctors = DateBookingsFunction.getListDateStringBookings(bookingDates);
 		userClinic.setDateBookingDoctors(dateBookingDoctors);	
 		
 		List<CommentResponse> commentResponsList = new ArrayList<CommentResponse>();
