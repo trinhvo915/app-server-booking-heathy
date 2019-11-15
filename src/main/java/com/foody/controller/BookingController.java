@@ -12,9 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.foody.dto.BookingRequest;
+import com.foody.dto.BookingRequestUpdate;
 import com.foody.payload.ApiResponse;
 import com.foody.payload.DataResponse;
+import com.foody.security.CurrentUser;
+import com.foody.security.UserPrincipal;
 import com.foody.services.BookingService;
+import com.foody.services.impl.EmailServiceImpl;
 
 @RestController
 @RequestMapping("/api/booking")
@@ -22,6 +26,9 @@ public class BookingController {
 	
 	@Autowired
 	BookingService bookingService;
+	
+	@Autowired
+	EmailServiceImpl emailService;
 	
 	@RequestMapping(value="/create", method = RequestMethod.POST)
 	public ResponseEntity<?> createBooking(@Valid @RequestBody BookingRequest bookingRequest){
@@ -35,4 +42,27 @@ public class BookingController {
                 .buildAndExpand(data.getData().getObject()).toUri();
 		return ResponseEntity.created(location).body(new ApiResponse(true, data.getData().getMessage()));
 	}
+	
+	
+	@RequestMapping(value="/update", method = RequestMethod.PUT)
+	public ResponseEntity<?> updateBooking(@CurrentUser UserPrincipal currentUser,@Valid @RequestBody BookingRequestUpdate bookingRequestUpdate){
+		DataResponse data = bookingService.updateBooking(bookingRequestUpdate, currentUser);
+		if(data.getSuccess() == false) {
+			return ResponseEntity.badRequest().body(new ApiResponse(false, data.getData().getMessage()));
+		}
+		
+		URI location = ServletUriComponentsBuilder
+                .fromCurrentContextPath().path("/create/booking")
+                .buildAndExpand(data.getData().getObject()).toUri();
+		return ResponseEntity.created(location).body(new ApiResponse(true, data.getData().getMessage()));
+	}
+	
+	@RequestMapping(value="/send-email", method = RequestMethod.POST)
+	public ResponseEntity<?> sendMailBooking(@CurrentUser UserPrincipal currentUser,@Valid @RequestBody BookingRequestUpdate bookingRequestUpdate){
+		emailService.sendEmailBookingClient(bookingRequestUpdate);
+		
+		emailService.sendEmailBookingDoctor(bookingRequestUpdate);
+		return ResponseEntity.ok().body(new ApiResponse(true, "send mail success !!"));
+	}
+	
 }

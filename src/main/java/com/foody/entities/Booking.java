@@ -19,6 +19,8 @@ public class Booking extends AuditEntity implements Serializable{
 	
 	private String namePatient;
 	
+	private String namePersonBooking;
+	
 	private Date dateBooking;
 	
 	private String numberPhone;
@@ -69,6 +71,14 @@ public class Booking extends AuditEntity implements Serializable{
 		this.clinic = clinic;
 	}
 	
+	public String getNamePersonBooking() {
+		return namePersonBooking;
+	}
+
+	public void setNamePersonBooking(String namePersonBooking) {
+		this.namePersonBooking = namePersonBooking;
+	}
+
 	public User getExpert() {
 		return expert;
 	}

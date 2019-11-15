@@ -4,12 +4,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import com.foody.dto.BookingRequest;
+import com.foody.dto.BookingRequestUpdate;
 import com.foody.entities.Booking;
 import com.foody.entities.Clinic;
 import com.foody.entities.User;
@@ -18,6 +17,7 @@ import com.foody.payload.DataResponse;
 import com.foody.repository.BookingRepository;
 import com.foody.repository.ClinicRepository;
 import com.foody.repository.UserRepository;
+import com.foody.security.UserPrincipal;
 import com.foody.services.BookingService;
 
 @Service
@@ -142,8 +142,32 @@ public class BookingServiceImpl implements BookingService{
 			}
 			return new DataResponse(true, new Data("Tạo Lịch thành công !",HttpStatus.OK.value(),dataBookings));
 		}
-		return new DataResponse(true, new Data("Bác sỹ hoặc phòng khám không tồn tại !",HttpStatus.BAD_REQUEST.value()));
+		return new DataResponse(false, new Data("Bác sỹ hoặc phòng khám không tồn tại !",HttpStatus.BAD_REQUEST.value()));
 		
+	}
+
+	@Override
+	public DataResponse updateBooking(BookingRequestUpdate bookingUpdate, UserPrincipal currentUser) {
+		Booking booking = bookingRepository.checkBookingWithIdBookingAnIdDoctor(bookingUpdate.getIdBooking(), bookingUpdate.getIdDoctor(), false);
+		
+		if(booking != null) {
+			User user = userRepository.getOne(currentUser.getId());
+			booking.setNamePatient(bookingUpdate.getNamePatient());
+			booking.setNumberPhone(bookingUpdate.getNumberPhone());
+			booking.setAddress(bookingUpdate.getAddress());
+			booking.setBirthdayYear(bookingUpdate.getBirthdayYear());
+			booking.setPathology(bookingUpdate.getPathology());
+			booking.setEmail(bookingUpdate.getEmail());
+			booking.setGender(bookingUpdate.getGender());
+			booking.setUser(user);
+			booking.setNamePersonBooking(bookingUpdate.getNamePersinBooking());
+			booking.setIsExit(true);
+			
+			bookingRepository.save(booking);
+			return new DataResponse(true, new Data("Đặt Lịch thành công !",HttpStatus.OK.value(),booking));
+		}
+		
+		return new DataResponse(false, new Data("Lịch không tồn tại hoặc đã có người đặc !",HttpStatus.BAD_REQUEST.value()));
 	}
 
 }

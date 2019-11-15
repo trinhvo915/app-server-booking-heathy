@@ -110,7 +110,11 @@
 		   <groupId>org.springframework.boot</groupId>
 		   <artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-		
+		<dependency>
+		    <groupId>it.ozimov</groupId>
+		    <artifactId>spring-boot-email-core</artifactId>
+		    <version>0.6.3</version>
+		</dependency>
 		<dependency>
 	        <groupId>org.hibernate</groupId>
 	        <artifactId>hibernate-core</artifactId>
@@ -153,6 +157,7 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
+		
 	</dependencies>
 
 	<build>
