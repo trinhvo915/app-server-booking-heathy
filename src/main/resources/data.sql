@@ -16,3 +16,8 @@ INSERT INTO `faculty` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES 
 INSERT INTO `attachmentt_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','DAIDIEN');
 INSERT INTO `attachmentt_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','POST');
 INSERT INTO `attachmentt_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','CLINIC');
+
+INSERT INTO `post_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','THÔNG TIN PHÒNG KHÁM');
+INSERT INTO `post_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','TRANG THIẾT BỊ');
+INSERT INTO `post_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','QUY TRÌNH KHÁM BỆNH');
+INSERT INTO `post_type` (`id`,`created_at`,`update_at`,`is_active`,`name`) VALUES (UUID(),CURDATE(),CURDATE(),'1','NORMAR');

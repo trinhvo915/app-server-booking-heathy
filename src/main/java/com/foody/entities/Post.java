@@ -33,10 +33,9 @@ public class Post extends AuditEntity implements Serializable{
             mappedBy = "post")
     private Set<Attachment> attachments = new HashSet<>();
 	
-	@OneToMany(cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY,
-            mappedBy = "post")
-    private Set<PostType> postTypes = new HashSet<>();
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_post_type")
+    private PostType postTypes ;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
@@ -44,6 +43,38 @@ public class Post extends AuditEntity implements Serializable{
 	
 	public Post() {
 		
+	}
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
+	public Set<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	public PostType getPostTypes() {
+		return postTypes;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
+	public void setAttachments(Set<Attachment> attachments) {
+		this.attachments = attachments;
+	}
+
+	public void setPostTypes(PostType postTypes) {
+		this.postTypes = postTypes;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getContent() {

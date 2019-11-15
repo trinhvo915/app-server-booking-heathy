@@ -1,12 +1,14 @@
 package com.foody.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,9 +19,10 @@ public class PostType extends AuditEntity implements Serializable{
 	
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_post")
-    private Post post;
+	@OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "postTypes")
+    private Set<Post> posts = new HashSet<Post>();
 	
 	public PostType() {
 		
