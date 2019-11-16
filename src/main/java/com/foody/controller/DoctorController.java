@@ -16,6 +16,7 @@ import com.foody.security.CurrentUser;
 import com.foody.security.UserPrincipal;
 import com.foody.services.BookingService;
 import com.foody.services.ClinicService;
+import com.foody.services.PostService;
 import com.foody.services.UserService;
 
 @RestController
@@ -33,6 +34,9 @@ public class DoctorController {
 	@Autowired
 	BookingService BookingService;
 	
+	@Autowired
+	PostService postService;
+	
 	@RequestMapping(value= "all", method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllDoctor(){
 		return userservice.getAllDoctor();
@@ -47,7 +51,10 @@ public class DoctorController {
 		ClinicsRequest clinicsRequest = new ClinicsRequest(id_clinic, id_doctor,dateQurey, date_currentRequest);
 		  return ClinicService.getDoctorInClinic(clinicsRequest);
 	}
-	
+	@RequestMapping(value= "posts/{id_clinic}/{id_post_type}",method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getCommentDoctor(@CurrentUser UserPrincipal currentUser, @PathVariable("id_clinic") String id_clinic,@PathVariable("id_post_type") String id_post_type){
+		  return postService.getPostTypePostForClinic(id_clinic, id_post_type);
+	}
 //	@RequestMapping(value= "img/{id_user}/{name}", method = RequestMethod.GET, produces = "application/json")
 //	public AttachmentType getAllDoctora(@PathVariable("id_user") String id_user,@PathVariable("name") String name){
 //		return attachmentTypeResponsitory.getAttachmentTypeDoctorPersonal(id_user, true, name);

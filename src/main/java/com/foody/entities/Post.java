@@ -45,20 +45,8 @@ public class Post extends AuditEntity implements Serializable{
 		
 	}
 
-	public Clinic getClinic() {
-		return clinic;
-	}
-
 	public Set<Attachment> getAttachments() {
 		return attachments;
-	}
-
-	public PostType getPostTypes() {
-		return postTypes;
-	}
-
-	public User getUser() {
-		return user;
 	}
 
 	public void setClinic(Clinic clinic) {

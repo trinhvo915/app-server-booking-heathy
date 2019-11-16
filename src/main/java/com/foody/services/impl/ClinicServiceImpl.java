@@ -104,70 +104,74 @@ public class ClinicServiceImpl implements ClinicService{
 	public DataResponse getDoctorInClinic(ClinicsRequest clinicsRequest) {
 		User user = userRepository.findByIdAndCheckRole(clinicsRequest.getIdDoctor(), true, "EXPERT");
 		Clinic clinic = clinicRepository.findByIdClinicAndIdUser(clinicsRequest.getIdClinic(),clinicsRequest.getIdDoctor());
-		
-		ClinicResponceDoctors clinicResponceDoctors = new ClinicResponceDoctors();
-		List<UserResponceClinic> userResponceClinics = new ArrayList<UserResponceClinic>();
-		
-		List<User> users = new ArrayList<> (clinic.getUsers());
-		User userOwner = users.get(users.size()-1);
-		Set<Attachment> attachmentClinics = AttacchmetFunction.getAttachmentClinicPhotos(userOwner.getAttachments(), "CLINIC");
-		
-		clinicResponceDoctors.setId(clinic.getId()); clinicResponceDoctors.setName(clinic.getName());
-		clinicResponceDoctors.setAddress(clinic.getAddress()); clinicResponceDoctors.setLatitude(clinic.getLatitude());
-		clinicResponceDoctors.setLongitude(clinic.getLongitude()); clinicResponceDoctors.setCreatedBy(clinic.getCreatedBy());
-		clinicResponceDoctors.setCreateAt(clinic.getCreateAt()); clinicResponceDoctors.setFaculties(clinic.getFaculties());
-		clinicResponceDoctors.setPrices(clinic.getPrices()); clinicResponceDoctors.setPhotoClinics(attachmentClinics);
-		
-		List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),user.getId());
+		if(user != null || clinic != null) {
+			ClinicResponceDoctors clinicResponceDoctors = new ClinicResponceDoctors();
+			List<UserResponceClinic> userResponceClinics = new ArrayList<UserResponceClinic>();
+			
+			List<User> users = new ArrayList<> (clinic.getUsers());
+			User userOwner = users.get(users.size()-1);
+			Set<Attachment> attachmentClinics = AttacchmetFunction.getAttachmentClinicPhotos(userOwner.getAttachments(), "CLINIC");
+			
+			clinicResponceDoctors.setId(clinic.getId()); clinicResponceDoctors.setName(clinic.getName());
+			clinicResponceDoctors.setAddress(clinic.getAddress()); clinicResponceDoctors.setLatitude(clinic.getLatitude());
+			clinicResponceDoctors.setLongitude(clinic.getLongitude()); clinicResponceDoctors.setCreatedBy(clinic.getCreatedBy());
+			clinicResponceDoctors.setCreateAt(clinic.getCreateAt()); clinicResponceDoctors.setFaculties(clinic.getFaculties());
+			clinicResponceDoctors.setPrices(clinic.getPrices()); clinicResponceDoctors.setPhotoClinics(attachmentClinics);
+			
+			List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),user.getId());
 
-		List<Booking> bookingDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateCurrent());
-		
-		List<Booking> bookingExperts = new ArrayList<Booking>();
-		List<Date> listdate= DateBookingsFunction.getListDateBookings(bookingDates);
-		
-		boolean checkDateContain = DateBookingsFunction.checkDayQureyContaninDates(listdate, clinicsRequest.getDateQurey());
-		if(checkDateContain == false && !listdate.isEmpty()) {
-			bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),listdate.get(0));
-		}else {
-			bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateQurey());
-		}
-		
-		Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),user.getId());
-		
-		Attachment attachmentp = AttacchmetFunction.getAttachmentPerson(user.getAttachments(), "DAIDIEN");
-		
-		UserResponceClinic userClinic = UserResponceClinicFunction.setUserResponceClinic(user, clinic.getId(),commentExperts,bookingExperts,bookingDates,rateExperts,attachmentp);
-		
-		userResponceClinics.add(userClinic);
-		
-		for (User userItem : clinic.getUsers()) {
-			if(!userItem.getId().equals(user.getId())) {
-				
-				List<Comment> commentExpertsList =  commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),userItem.getId());				
-				List<Booking> bookingExpertDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateCurrent());
-				
-				List<Booking> bookingExpertsList = new ArrayList<Booking>();
-				List<Date> listExpertdate= DateBookingsFunction.getListDateBookings(bookingExpertDates);
-				boolean checkDateExpertContain = DateBookingsFunction.checkDayQureyContaninDates(listExpertdate, clinicsRequest.getDateQurey());
-				if(checkDateExpertContain == false && !listExpertdate.isEmpty()) {
-					bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),listExpertdate.get(0));
-				}else {
-					bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateQurey());
-				}
-
-				Set<Rate> rateExpertsList = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),userItem.getId());
-				
-				Attachment attachmentpList = AttacchmetFunction.getAttachmentPerson(userItem.getAttachments(), "DAIDIEN");
-				
-				UserResponceClinic userResponceClinic = UserResponceClinicFunction.setUserResponceClinic(userItem, clinic.getId(),commentExpertsList,bookingExpertsList,bookingExpertDates,rateExpertsList,attachmentpList);
-				
-				userResponceClinics.add(userResponceClinic);
+			List<Booking> bookingDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateCurrent());
+			
+			List<Booking> bookingExperts = new ArrayList<Booking>();
+			List<Date> listdate= DateBookingsFunction.getListDateBookings(bookingDates);
+			
+			boolean checkDateContain = DateBookingsFunction.checkDayQureyContaninDates(listdate, clinicsRequest.getDateQurey());
+			if(checkDateContain == false && !listdate.isEmpty()) {
+				bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),listdate.get(0));
+			}else {
+				bookingExperts = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),user.getId(),clinicsRequest.getDateQurey());
 			}
+			
+			Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),user.getId());
+			
+			Attachment attachmentp = AttacchmetFunction.getAttachmentPerson(user.getAttachments(), "DAIDIEN");
+			
+			UserResponceClinic userClinic = UserResponceClinicFunction.setUserResponceClinic(user, clinic.getId(),commentExperts,bookingExperts,bookingDates,rateExperts,attachmentp);
+			
+			userResponceClinics.add(userClinic);
+			
+			for (User userItem : clinic.getUsers()) {
+				if(!userItem.getId().equals(user.getId())) {
+					
+					List<Comment> commentExpertsList =  commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),userItem.getId());
+					
+					List<Booking> bookingExpertDates = bookingRepository.getBookingsAllByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateCurrent());
+					
+					List<Booking> bookingExpertsList = new ArrayList<Booking>();
+					List<Date> listExpertdate= DateBookingsFunction.getListDateBookings(bookingExpertDates);
+					boolean checkDateExpertContain = DateBookingsFunction.checkDayQureyContaninDates(listExpertdate, clinicsRequest.getDateQurey());
+					if(checkDateExpertContain == false && !listExpertdate.isEmpty()) {
+						bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),listExpertdate.get(0));
+					}else {
+						bookingExpertsList = bookingRepository.getBookingsByIdClincAndIdExpert(clinic.getId(),userItem.getId(),clinicsRequest.getDateQurey());
+					}
+
+					Set<Rate> rateExpertsList = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),userItem.getId());
+					
+					Attachment attachmentpList = AttacchmetFunction.getAttachmentPerson(userItem.getAttachments(), "DAIDIEN");
+					
+					UserResponceClinic userResponceClinic = UserResponceClinicFunction.setUserResponceClinic(userItem, clinic.getId(),commentExpertsList,bookingExpertsList,bookingExpertDates,rateExpertsList,attachmentpList);
+					
+					userResponceClinics.add(userResponceClinic);
+				}
+			}
+			
+			clinicResponceDoctors.setUserResponceClinics(userResponceClinics);
+			return new DataResponse(true, new Data("Lấy danh sách bác sỹ trong phòng khám thành công !",HttpStatus.OK.value(),clinicResponceDoctors));
 		}
 		
-		clinicResponceDoctors.setUserResponceClinics(userResponceClinics);
+		return new DataResponse(true, new Data("Lấy danh sách bác sỹ thất bại !",HttpStatus.BAD_REQUEST.value()));
 		
-		return new DataResponse(true, new Data("Lấy danh sách bác sỹ trong phòng khám thành công !",HttpStatus.OK.value(),clinicResponceDoctors));
 	}
 	
 }
