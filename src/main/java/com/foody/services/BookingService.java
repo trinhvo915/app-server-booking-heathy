@@ -9,4 +9,7 @@ public interface BookingService {
 	DataResponse createBooking(BookingRequest bookingRequest);
 	
 	DataResponse updateBooking(BookingRequestUpdate bookingRequestUpdate, UserPrincipal currentUser);
+	
+	DataResponse getBookedBooking(UserPrincipal currentUser,String idClinic);
+	
 }

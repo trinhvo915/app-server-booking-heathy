@@ -79,10 +79,6 @@ public class Booking extends AuditEntity implements Serializable{
 		this.namePersonBooking = namePersonBooking;
 	}
 
-	public User getExpert() {
-		return expert;
-	}
-
 	public User getUser() {
 		return user;
 	}

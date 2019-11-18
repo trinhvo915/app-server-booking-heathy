@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.foody.dto.BookingRequest;
 import com.foody.dto.BookingRequestUpdate;
+import com.foody.dto.BookingResponseBooked;
+import com.foody.dto.UserResponse;
 import com.foody.entities.Booking;
 import com.foody.entities.Clinic;
 import com.foody.entities.User;
@@ -168,6 +170,31 @@ public class BookingServiceImpl implements BookingService{
 		}
 		
 		return new DataResponse(false, new Data("Lịch không tồn tại hoặc đã có người đặc !",HttpStatus.BAD_REQUEST.value()));
+	}
+
+	@Override
+	public DataResponse getBookedBooking(UserPrincipal currentUser, String idClinic) {
+		Clinic clinic = clinicRepository.findByIdClinicAndIdUser(idClinic, currentUser.getId());
+		if(clinic != null) {
+			List<Booking> bookings = bookingRepository.getBookedsByIdClincAndIdExpert(idClinic, currentUser.getId(), true);
+			
+			List<BookingResponseBooked> bookeds = new ArrayList<BookingResponseBooked>();
+			for (Booking booking : bookings) {
+				BookingResponseBooked booked = new BookingResponseBooked();
+				
+				booked.setNamePatient(booking.getNamePatient());   booked.setNamePersonBooking(booking.getNamePersonBooking());
+				booked.setDateBooking(booking.getDateBooking());   booked.setNumberPhone(booking.getNumberPhone());
+				booked.setPathology(booking.getPathology());   booked.setAddress(booking.getAddress()); 
+				booked.setBirthdayYear(booking.getBirthdayYear());  booked.setEmail(booking.getEmail());
+				booked.setGender(booking.getGender());    booked.setIsActive(booking.getIsActive());
+				booked.setIsExit(booking.getIsExit());    booked.setTimeBooking(booking.getTimeBooking());
+				booked.setUserBooked(new UserResponse(booking.getUser()));
+				
+				bookeds.add(booked);
+			}
+			return new DataResponse(true, new Data("Lấy thành công danh sách đã đặt lịch !",HttpStatus.OK.value(),bookeds));
+		}
+		return new DataResponse(false, new Data("Không phải bác sỹ hoặc phòng khám không tồn tại !",HttpStatus.BAD_REQUEST.value()));
 	}
 
 }
