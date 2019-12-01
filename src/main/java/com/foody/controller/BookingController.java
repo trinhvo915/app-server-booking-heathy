@@ -70,4 +70,9 @@ public class BookingController {
 	public DataResponse getListBookeds(@CurrentUser UserPrincipal currentUser,@PathVariable("id_clinic") String id_clinic){
 		return bookingService.getBookedBooking(currentUser, id_clinic);
 	}
+	
+	@RequestMapping(value="/bookeds/user", method = RequestMethod.GET)
+	public DataResponse getListBookedsForUser(@CurrentUser UserPrincipal currentUser){
+		return bookingService.getBookedBooking(currentUser);
+	}
 }

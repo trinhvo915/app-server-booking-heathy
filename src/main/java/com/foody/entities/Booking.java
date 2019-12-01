@@ -70,7 +70,11 @@ public class Booking extends AuditEntity implements Serializable{
 	public void setClinic(Clinic clinic) {
 		this.clinic = clinic;
 	}
-	
+
+	public Clinic getClinic() {
+		return clinic;
+	}
+
 	public String getNamePersonBooking() {
 		return namePersonBooking;
 	}

@@ -4,23 +4,34 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import com.foody.dto.BookingRequest;
 import com.foody.dto.BookingRequestUpdate;
 import com.foody.dto.BookingResponseBooked;
+import com.foody.dto.ClinicResponse;
+import com.foody.dto.DoctorResponse;
 import com.foody.dto.UserResponse;
+import com.foody.entities.Attachment;
 import com.foody.entities.Booking;
 import com.foody.entities.Clinic;
+import com.foody.entities.Comment;
+import com.foody.entities.Rate;
 import com.foody.entities.User;
 import com.foody.payload.Data;
 import com.foody.payload.DataResponse;
 import com.foody.repository.BookingRepository;
 import com.foody.repository.ClinicRepository;
+import com.foody.repository.CommentRepositiry;
+import com.foody.repository.RateRepository;
 import com.foody.repository.UserRepository;
 import com.foody.security.UserPrincipal;
 import com.foody.services.BookingService;
+import com.foody.utils.AttacchmetFunction;
+import com.foody.utils.RateFunction;
 
 @Service
 public class BookingServiceImpl implements BookingService{
@@ -33,6 +44,12 @@ public class BookingServiceImpl implements BookingService{
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	CommentRepositiry commentRepositiry;
+	
+	@Autowired
+	RateRepository rateRepository;
 	
 	@Override
 	public DataResponse createBooking(BookingRequest bookingRequest) {
@@ -195,6 +212,38 @@ public class BookingServiceImpl implements BookingService{
 			return new DataResponse(true, new Data("Lấy thành công danh sách đã đặt lịch !",HttpStatus.OK.value(),bookeds));
 		}
 		return new DataResponse(false, new Data("Không phải bác sỹ hoặc phòng khám không tồn tại !",HttpStatus.BAD_REQUEST.value()));
+	}
+
+	@Override
+	public DataResponse getBookedBooking(UserPrincipal currentUser) {
+		
+		List<Booking> bookings = bookingRepository.getBookedsByIdClinForUser(currentUser.getId(), true);
+		System.out.println("lenght : 0"+bookings.size());
+		if(bookings != null) {
+			List<DoctorResponse> doctorResponses = new ArrayList<DoctorResponse>();
+			for (Booking booking : bookings) {
+				User doctor = userRepository.getOne(booking.getCreatedBy());
+				Clinic clinic = booking.getClinic();
+				Attachment attachment =   AttacchmetFunction.getAttachmentPerson(doctor.getAttachments(), "DAIDIEN");
+		
+				
+				List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),doctor.getId());
+				
+				List<Booking> bookingExperts = bookingRepository.getBookedsByIdClincAndIdExpert(clinic.getId(),doctor.getId(),true);
+				
+				Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),doctor.getId());
+				Double countRate = RateFunction.getRateDoctor(rateExperts);
+				
+				DoctorResponse doctorResponse = new DoctorResponse(doctor.getId(), doctor.getCreateAt(), 
+						doctor.getUpdateAt(), doctor.getCreatedBy(), doctor.getUpdatedBy(), doctor.getDeletedBy(),
+						doctor.getFullName(), doctor.getBirthday(), doctor.getGender(), doctor.getAge(), 
+						doctor.getEmail(), doctor.getAddress(), doctor.getMobile(), doctor.getAbout(), 
+						doctor.getFacebook(), new ClinicResponse(clinic), doctor.getFaculties(), doctor.getDegrees(),attachment,commentExperts.size(),bookingExperts.size(),countRate);
+				doctorResponses.add(doctorResponse);
+			}
+			return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));
+		}
+		return null;
 	}
 
 }

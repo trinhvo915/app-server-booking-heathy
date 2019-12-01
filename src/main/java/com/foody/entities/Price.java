@@ -46,6 +46,10 @@ public class Price extends AuditEntity implements Serializable{
 		this.description = description;
 	}
 	
+	public void setClinic(Clinic clinic) {
+		this.clinic = clinic;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;

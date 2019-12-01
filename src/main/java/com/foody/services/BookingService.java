@@ -12,4 +12,5 @@ public interface BookingService {
 	
 	DataResponse getBookedBooking(UserPrincipal currentUser,String idClinic);
 	
+	DataResponse getBookedBooking(UserPrincipal currentUser);
 }
