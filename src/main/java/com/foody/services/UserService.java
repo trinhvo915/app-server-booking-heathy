@@ -32,4 +32,6 @@ public interface UserService{
 	UserResponse getUserByIdAndCheckRole(String id_user);
 	
 	DataResponse getAllDoctor();
+	
+	DataResponse reportUser(String idUser, String idDoctor,String idBooked);
 }

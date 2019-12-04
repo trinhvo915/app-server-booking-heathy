@@ -12,4 +12,6 @@ public interface EmailService {
 	void sendEmailBookingClient(BookingRequestUpdate bookingUpdate);
 	
 	void sendEmailBookingDoctor(BookingRequestUpdate bookingUpdate);
+	
+	void sendEmailBookingBussy(String idDoctor, String idBooked);
 }

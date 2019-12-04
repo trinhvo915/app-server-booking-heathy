@@ -6,6 +6,8 @@ import com.foody.entities.enums.UserGender;
 
 public class BookingResponseBooked {
 	
+	private String id;
+	
 	private String namePatient;
 	
 	private String namePersonBooking;
@@ -33,6 +35,14 @@ public class BookingResponseBooked {
 	private UserResponse userBooked;
 	
 	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public UserResponse getUserBooked() {
 		return userBooked;
 	}

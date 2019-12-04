@@ -198,12 +198,12 @@ public class BookingServiceImpl implements BookingService{
 			List<BookingResponseBooked> bookeds = new ArrayList<BookingResponseBooked>();
 			for (Booking booking : bookings) {
 				BookingResponseBooked booked = new BookingResponseBooked();
-				
+				booked.setId(booking.getId());
 				booked.setNamePatient(booking.getNamePatient());   booked.setNamePersonBooking(booking.getNamePersonBooking());
 				booked.setDateBooking(booking.getDateBooking());   booked.setNumberPhone(booking.getNumberPhone());
 				booked.setPathology(booking.getPathology());   booked.setAddress(booking.getAddress()); 
 				booked.setBirthdayYear(booking.getBirthdayYear());  booked.setEmail(booking.getEmail());
-				booked.setGender(booking.getGender());    booked.setIsActive(booking.getIsActive());
+				booked.setGender(booking.getGender());    booked.setIsActive(booking.isActive());
 				booked.setIsExit(booking.getIsExit());    booked.setTimeBooking(booking.getTimeBooking());
 				booked.setUserBooked(new UserResponse(booking.getUser()));
 				
@@ -218,7 +218,6 @@ public class BookingServiceImpl implements BookingService{
 	public DataResponse getBookedBooking(UserPrincipal currentUser) {
 		
 		List<Booking> bookings = bookingRepository.getBookedsByIdClinForUser(currentUser.getId(), true);
-		System.out.println("lenght : 0"+bookings.size());
 		if(bookings != null) {
 			List<DoctorResponse> doctorResponses = new ArrayList<DoctorResponse>();
 			for (Booking booking : bookings) {
@@ -243,7 +242,7 @@ public class BookingServiceImpl implements BookingService{
 			}
 			return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));
 		}
-		return null;
+		return new DataResponse(false, new Data("Không phải bác sỹ hoặc phòng khám không tồn tại !",HttpStatus.BAD_REQUEST.value()));
 	}
 
 }

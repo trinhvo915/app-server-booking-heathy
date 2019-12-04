@@ -37,8 +37,6 @@ public class Booking extends AuditEntity implements Serializable{
 	
 	private Boolean isExit = false;
 	
-	private Boolean isActive = false;
-
 	private String timeBooking;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -133,14 +131,6 @@ public class Booking extends AuditEntity implements Serializable{
 
 	public void setIsExit(Boolean isExit) {
 		this.isExit = isExit;
-	}
-
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
 	}
 
 	public String getPathology() {

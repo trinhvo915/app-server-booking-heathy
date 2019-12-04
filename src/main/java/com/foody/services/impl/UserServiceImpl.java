@@ -237,4 +237,32 @@ public class UserServiceImpl implements UserService {
 		}
 		return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));
 	}
+
+	@Override
+	public DataResponse reportUser(String idUser, String idDoctor,String idBooked) {
+		Booking booking  = bookingRepository.getOne(idBooked);
+		if(booking.isActive() == true) {
+			User doctor = userRepository.getOne(idDoctor);
+			int countRole = doctor.getRoles().size();
+			if(countRole > 1) {
+				User user =  userRepository.getOne(idUser);
+				Integer point = user.getBadPoint();
+				if(point == null) {
+					point = 0;
+				}
+				Integer pointAfter = point + 1;
+				user.setBadPoint(pointAfter);
+				booking.setActive(false);
+				if(pointAfter >=3) {
+					user.setActive(false);
+				}
+				userRepository.save(user);
+				bookingRepository.save(booking);
+				return new DataResponse(true, new Data("Report thành công !!",HttpStatus.OK.value()));
+			}
+			return new DataResponse(false, new Data("Bạn không phải bác sỹ !!",HttpStatus.BAD_REQUEST.value()));
+		}
+		
+		return new DataResponse(false, new Data("Bạn đã report rồi !!",HttpStatus.BAD_REQUEST.value()));
+	}
 }

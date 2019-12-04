@@ -10,7 +10,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.foody.dto.BookingRequestUpdate;
+import com.foody.entities.Booking;
 import com.foody.entities.User;
+import com.foody.repository.BookingRepository;
 import com.foody.repository.UserRepository;
 import com.foody.services.EmailService;
 import com.foody.services.UserService;
@@ -28,6 +30,9 @@ public class EmailServiceImpl implements EmailService{
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	BookingRepository bookingRepository;
 	
 	@Override
 	public void sendEmail(String email, HttpServletRequest httpRequest, User user) {
@@ -79,6 +84,25 @@ public class EmailServiceImpl implements EmailService{
 						+ ".\nThời gian khám bệnh : Ngày "+bookingUpdate.getDateBooking()+", Giờ "+bookingUpdate.getTimeBooking()+".\n");
 	
 		mailSender.send(mailMessageDoctor);
+	}
+
+	@Override
+	public void sendEmailBookingBussy(String idDoctor, String idBooked) {
+		SimpleMailMessage mailMessageClient = new SimpleMailMessage();
+		Booking booked = bookingRepository.getOne(idBooked);
+		User doctor = userRepository.getOne(idDoctor);
+		if(doctor.getRoles().size() > 1 && !booked.getEmail().equals("")) {
+			mailMessageClient.setSubject("[ ĐẶT LỊCH KHÁM BỆNH TỪ ỨNG DỤNG BOOKING CLINIC ]");
+			mailMessageClient.setFrom(Constant.EMAIL);
+			mailMessageClient.setTo(booked.getEmail());
+			
+			mailMessageClient.setText("Chào bạn "+booked.getNamePersonBooking()+".\n Chúng tôi từ ứng dụng Booking Clinic.\nThông báo đến bạn lịch bạn đặt, đã hủy vì bác sĩ có lịch bận ! \n"
+					+ "Thông báo bạn đã đặt lịch tại phòng khám "+ booked.getClinic().getName()+" với Bác Sỹ "+ doctor.getFullName() +".\n"
+							+ "Thời gian khám bệnh : Ngày "+booked.getDateBooking()+", Giờ "+booked.getTimeBooking()+".\n"
+									+ "Địa chỉ phòng khám : "+booked.getClinic().getAddress()+".\nThật sự xin lỗi cho bất tiện này !");
+			
+			mailSender.send(mailMessageClient);
+		}
 	}
 	
 }

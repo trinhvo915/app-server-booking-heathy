@@ -75,4 +75,10 @@ public class BookingController {
 	public DataResponse getListBookedsForUser(@CurrentUser UserPrincipal currentUser){
 		return bookingService.getBookedBooking(currentUser);
 	}
+	
+	@RequestMapping(value="/send-email/busyy/{id_booked}", method = RequestMethod.GET)
+	public ResponseEntity<?> sendMailBusyy(@CurrentUser UserPrincipal currentUser,@PathVariable("id_booked") String id_booked ){
+		emailService.sendEmailBookingBussy(currentUser.getId(), id_booked);;
+		return ResponseEntity.ok().body(new ApiResponse(true, "Đã gửi mail !!"));
+	}
 }

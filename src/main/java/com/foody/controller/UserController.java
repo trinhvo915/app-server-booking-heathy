@@ -121,6 +121,11 @@ public class UserController {
 		return userResponse;
 	}
 	
+	@RequestMapping(value= "report/{id_user}/{id_expert}/{id_booked}", method = RequestMethod.GET, produces = "application/json")
+	public DataResponse reportUser(@PathVariable("id_user") String id_user, @PathVariable("id_expert") String id_expert, @PathVariable("id_booked") String id_booked){
+		return userservice.reportUser(id_user, id_expert, id_booked);
+	}
+	
 //	@RequestMapping(value= "expertclinic/{id_user}", method = RequestMethod.GET, produces = "application/json")
 //	public UserResponse Checkexpertclinic(@PathVariable("id_user") String id_user){
 //		String check ="";
