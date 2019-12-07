@@ -233,11 +233,13 @@ public class BookingServiceImpl implements BookingService{
 				Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),doctor.getId());
 				Double countRate = RateFunction.getRateDoctor(rateExperts);
 				
+				String timeBooked = booking.getTimeBooking()+" "+booking.getDateBooking().toString();
 				DoctorResponse doctorResponse = new DoctorResponse(doctor.getId(), doctor.getCreateAt(), 
 						doctor.getUpdateAt(), doctor.getCreatedBy(), doctor.getUpdatedBy(), doctor.getDeletedBy(),
 						doctor.getFullName(), doctor.getBirthday(), doctor.getGender(), doctor.getAge(), 
 						doctor.getEmail(), doctor.getAddress(), doctor.getMobile(), doctor.getAbout(), 
-						doctor.getFacebook(), new ClinicResponse(clinic), doctor.getFaculties(), doctor.getDegrees(),attachment,commentExperts.size(),bookingExperts.size(),countRate);
+						doctor.getFacebook(), new ClinicResponse(clinic), doctor.getFaculties(), doctor.getDegrees(),
+						attachment,commentExperts.size(),bookingExperts.size(),countRate,timeBooked);
 				doctorResponses.add(doctorResponse);
 			}
 			return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));

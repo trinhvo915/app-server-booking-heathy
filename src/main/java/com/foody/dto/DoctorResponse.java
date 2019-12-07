@@ -61,6 +61,8 @@ public class DoctorResponse {
 	
 	private Double countRate;
 	
+	private String timeBooked;
+	
 	public DoctorResponse(String id, Date createAt, Date updateAt, String createdBy, String updatedBy, String deletedBy, 
 			String fullName, Date birthday, UserGender gender, Integer age,
 			String email, @Size(max = 100) String address, @Size(max = 20) String mobile, String about,
@@ -91,12 +93,51 @@ public class DoctorResponse {
 		this.countRate = countRate;
 	}
 
+	public DoctorResponse(String id, Date createAt, Date updateAt, String createdBy, String updatedBy, String deletedBy, 
+			String fullName, Date birthday, UserGender gender, Integer age,
+			String email, @Size(max = 100) String address, @Size(max = 20) String mobile, String about,
+			@Size(max = 100) String facebook, ClinicResponse clinicResponse, 
+			Set<Faculty> faculties, Set<Degree> degrees, Attachment attachment,Integer countComment,Integer countBooking,Double countRate,String timeBooked) {
+		super();
+		this.id = id;
+		this.createAt = createAt;
+		this.updateAt = updateAt;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+		this.deletedBy = deletedBy;
+		this.fullName = fullName;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.age = age;
+		this.email = email;
+		this.address = address;
+		this.mobile = mobile;
+		this.about = about;
+		this.facebook = facebook;
+		this.clinicResponse = clinicResponse;
+		this.faculties = faculties;
+		this.degrees = degrees;
+		this.attachment = attachment;
+		this.countComment= countComment;
+		this.countBooking=countBooking;
+		this.countRate = countRate;
+		this.timeBooked = timeBooked;
+	}
+	
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getTimeBooked() {
+		return timeBooked;
+	}
+
+	public void setTimeBooked(String timeBooked) {
+		this.timeBooked = timeBooked;
 	}
 
 	public Double getCountRate() {
