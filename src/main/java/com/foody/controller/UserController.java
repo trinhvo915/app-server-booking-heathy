@@ -9,9 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +23,7 @@ import com.foody.dto.EmailRequest;
 import com.foody.dto.UserRequestChangePassword;
 import com.foody.dto.UserResponse;
 import com.foody.dto.UserSummary;
+import com.foody.dto.UserUpdate;
 import com.foody.entities.User;
 import com.foody.payload.ApiResponse;
 import com.foody.payload.Data;
@@ -46,8 +45,7 @@ public class UserController {
 	@Autowired
 	EmailService emailService;
 	
-	@GetMapping("/me")
-    @PreAuthorize("hasRole('USER')")
+	@RequestMapping(value= "/me", method = RequestMethod.GET, produces = "application/json")
     public UserSummary getCurrentUser(@CurrentUser UserPrincipal currentUser) {
         UserSummary userSummary = new UserSummary(currentUser.getId(), currentUser.getUsername(), currentUser.getFullName());
         return userSummary;
@@ -124,6 +122,26 @@ public class UserController {
 	@RequestMapping(value= "report/{id_user}/{id_expert}/{id_booked}", method = RequestMethod.GET, produces = "application/json")
 	public DataResponse reportUser(@PathVariable("id_user") String id_user, @PathVariable("id_expert") String id_expert, @PathVariable("id_booked") String id_booked){
 		return userservice.reportUser(id_user, id_expert, id_booked);
+	}
+	
+	@RequestMapping(value= "profiles", method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getProfile(@CurrentUser UserPrincipal currentUser){
+		System.out.println("kakak");
+		return userservice.geUserprofile(currentUser.getId());
+	}
+	
+	@RequestMapping(value= "update", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<?> updateUserUpdate(@Valid @RequestBody UserUpdate userUpdate){
+		DataResponse data =  userservice.updateUserUpdate(userUpdate);
+		
+		if(data.getSuccess() == false) {
+			return ResponseEntity.badRequest().body(new ApiResponse(false, data.getData().getMessage()));
+		}
+		
+		URI location = ServletUriComponentsBuilder
+	                .fromCurrentContextPath().path("/users")
+	                .buildAndExpand(data.getData().getObject()).toUri();
+		return ResponseEntity.created(location).body(new ApiResponse(true, data.getData().getMessage()));
 	}
 	
 //	@RequestMapping(value= "expertclinic/{id_user}", method = RequestMethod.GET, produces = "application/json")

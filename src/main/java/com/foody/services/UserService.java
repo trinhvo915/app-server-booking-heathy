@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.UserResponse;
+import com.foody.dto.UserUpdate;
 import com.foody.entities.User;
 import com.foody.payload.DataResponse;
 
@@ -29,9 +30,13 @@ public interface UserService{
 	
 	DataResponse updateUser(String id, DoctorRegisterRequest doctorRegisterRequest);
 	
+	DataResponse updateUserUpdate(UserUpdate userUpdate);
+	
 	UserResponse getUserByIdAndCheckRole(String id_user);
 	
 	DataResponse getAllDoctor();
 	
 	DataResponse reportUser(String idUser, String idDoctor,String idBooked);
+	
+	DataResponse geUserprofile(String idUser);
 }

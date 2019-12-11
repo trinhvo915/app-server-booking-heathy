@@ -13,6 +13,7 @@ import com.foody.dto.ClinicResponse;
 import com.foody.dto.DoctorRegisterRequest;
 import com.foody.dto.DoctorResponse;
 import com.foody.dto.UserResponse;
+import com.foody.dto.UserUpdate;
 import com.foody.entities.Attachment;
 import com.foody.entities.AttachmentType;
 import com.foody.entities.Booking;
@@ -36,6 +37,7 @@ import com.foody.repository.CommentRepositiry;
 import com.foody.repository.BookingRepository;
 import com.foody.services.RoleService;
 import com.foody.services.UserService;
+import com.foody.utils.AttacchmetFunction;
 import com.foody.utils.Constant;
 import com.foody.utils.RateFunction;
 
@@ -264,5 +266,33 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		return new DataResponse(false, new Data("Bạn đã report rồi !!",HttpStatus.BAD_REQUEST.value()));
+	}
+
+	@Override
+	public DataResponse geUserprofile(String idUser) {
+		User user = userRepository.getOne(idUser);
+		if(user != null) {
+			Attachment attachment = AttacchmetFunction.getAttachmentPerson(user.getAttachments(), "DAIDIEN");
+			DoctorResponse doctorResponse = new DoctorResponse(user.getId(),user.getCreateAt(),user.getUpdateAt(),user.getCreatedBy(),user.getUpdatedBy(),user.getDeletedBy(),user.getFullName(),user.getBirthday(),user.getGender(),user.getEmail(),user.getAddress(),user.getMobile(),user.getAbout(),user.getFacebook(),attachment);
+			return new DataResponse(true, new Data("Lấy Thông tin thành công !!",HttpStatus.OK.value(),doctorResponse));
+		}
+		return new DataResponse(false, new Data("Lấy Thông tin không thành công !!",HttpStatus.BAD_REQUEST.value()));
+	}
+
+	@Override
+	public DataResponse updateUserUpdate(UserUpdate userUpdate) {
+		User user = userRepository.getOne(userUpdate.getId());
+		
+		if(user != null) {
+			user.setAbout(userUpdate.getAbout());
+			user.setAddress(userUpdate.getAddress());
+			user.setBirthday(userUpdate.getBirthday());
+			user.setFacebook(userUpdate.getFacebook());
+			user.setFullName(userUpdate.getFullName());
+			user.setMobile(userUpdate.getMobile());
+			userRepository.save(user);
+			return new DataResponse(true, new Data("Cập nhật thông tin thành công !!",HttpStatus.OK.value(),user));
+		}
+		return new DataResponse(false, new Data("Cập nhật thông tin không thành công !!",HttpStatus.BAD_REQUEST.value()));
 	}
 }

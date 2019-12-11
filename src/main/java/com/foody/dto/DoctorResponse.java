@@ -63,6 +63,10 @@ public class DoctorResponse {
 	
 	private String timeBooked;
 	
+	public DoctorResponse() {
+		super();
+	}
+
 	public DoctorResponse(String id, Date createAt, Date updateAt, String createdBy, String updatedBy, String deletedBy, 
 			String fullName, Date birthday, UserGender gender, Integer age,
 			String email, @Size(max = 100) String address, @Size(max = 20) String mobile, String about,
@@ -124,6 +128,28 @@ public class DoctorResponse {
 		this.timeBooked = timeBooked;
 	}
 	
+	
+	public DoctorResponse(String id, Date createAt, Date updateAt, String createdBy, String updatedBy, String deletedBy,
+			String fullName, Date birthday, UserGender gender, String email, @Size(max = 100) String address,
+			@Size(max = 20) String mobile, String about, @Size(max = 100) String facebook, Attachment attachment) {
+		super();
+		this.id = id;
+		this.createAt = createAt;
+		this.updateAt = updateAt;
+		this.createdBy = createdBy;
+		this.updatedBy = updatedBy;
+		this.deletedBy = deletedBy;
+		this.fullName = fullName;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.email = email;
+		this.address = address;
+		this.mobile = mobile;
+		this.about = about;
+		this.facebook = facebook;
+		this.attachment = attachment;
+	}
+
 	public String getId() {
 		return id;
 	}
