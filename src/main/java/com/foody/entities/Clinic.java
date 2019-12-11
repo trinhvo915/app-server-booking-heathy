@@ -24,6 +24,8 @@ public class Clinic extends AuditEntity implements Serializable{
 	
 	private String address;
 	
+	private String addressQuery ;
+	
 	private String latitude;
 	
 	private String longitude;
@@ -85,6 +87,14 @@ public class Clinic extends AuditEntity implements Serializable{
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
+	}
+
+	public String getAddressQuery() {
+		return addressQuery;
+	}
+
+	public void setAddressQuery(String addressQuery) {
+		this.addressQuery = addressQuery;
 	}
 
 	public String getName() {
