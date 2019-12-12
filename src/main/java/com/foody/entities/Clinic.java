@@ -81,12 +81,13 @@ public class Clinic extends AuditEntity implements Serializable{
 		
 	}
 
-	public Clinic(String name, String address, String latitude, String longitude) {
+	public Clinic(String name, String address, String latitude, String longitude, String addressQuery) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.addressQuery = addressQuery;
 	}
 
 	public String getAddressQuery() {

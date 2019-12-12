@@ -1,14 +1,8 @@
 package com.foody.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,15 +17,16 @@ public class Province  implements Serializable{
 	private String _name;
 	
 	private String _code;
-
-	 @OneToMany(cascade = CascadeType.ALL,
-	            fetch = FetchType.LAZY,
-	            mappedBy = "province")
-	 private Set<District> districts = new HashSet<>();
-	 
 	
 	public Province() {
 		super();
+	}
+
+	public Province(String id, String _name, String _code) {
+		super();
+		this.id = id;
+		this._name = _name;
+		this._code = _code;
 	}
 
 	public String getId() {

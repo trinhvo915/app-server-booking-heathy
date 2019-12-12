@@ -62,7 +62,7 @@ public class ClinicServiceImpl implements ClinicService{
 		}
 		
 		if(!"".equals(currentUser.getId())) {
-			Clinic clinic = new Clinic(clinicRequest.getName(), clinicRequest.getAddress(), clinicRequest.getLatitude(), clinicRequest.getLongitude());
+			Clinic clinic = new Clinic(clinicRequest.getName(), clinicRequest.getAddress(), clinicRequest.getLatitude(), clinicRequest.getLongitude(),clinicRequest.getAddressQuery());
 			
 			List<String> idFaculties = new ArrayList<String>();
 			clinicRequest.getFaculties().stream().forEach( x -> idFaculties.add(x.getId()));
@@ -112,11 +112,14 @@ public class ClinicServiceImpl implements ClinicService{
 			User userOwner = users.get(users.size()-1);
 			Set<Attachment> attachmentClinics = AttacchmetFunction.getAttachmentClinicPhotos(userOwner.getAttachments(), "CLINIC");
 			
+			Attachment photoClinicLogo = AttacchmetFunction.getAttachmentPerson(userOwner.getAttachments(), "DAIDIENCLINIC");
+			
 			clinicResponceDoctors.setId(clinic.getId()); clinicResponceDoctors.setName(clinic.getName());
 			clinicResponceDoctors.setAddress(clinic.getAddress()); clinicResponceDoctors.setLatitude(clinic.getLatitude());
 			clinicResponceDoctors.setLongitude(clinic.getLongitude()); clinicResponceDoctors.setCreatedBy(clinic.getCreatedBy());
 			clinicResponceDoctors.setCreateAt(clinic.getCreateAt()); clinicResponceDoctors.setFaculties(clinic.getFaculties());
 			clinicResponceDoctors.setPrices(clinic.getPrices()); clinicResponceDoctors.setPhotoClinics(attachmentClinics);
+			clinicResponceDoctors.setPhotoClinicLogo(photoClinicLogo);
 			
 			List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),user.getId());
 

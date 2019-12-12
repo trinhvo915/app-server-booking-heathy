@@ -3,6 +3,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +17,10 @@ import com.foody.security.CurrentUser;
 import com.foody.security.UserPrincipal;
 import com.foody.services.BookingService;
 import com.foody.services.ClinicService;
+import com.foody.services.DistrictService;
 import com.foody.services.PostService;
 import com.foody.services.PriceService;
+import com.foody.services.ProvinceService;
 import com.foody.services.UserService;
 
 @RestController
@@ -40,6 +43,12 @@ public class DoctorController {
 	
 	@Autowired
 	PriceService priceService;
+	
+	@Autowired
+	ProvinceService  provinceService;
+	
+	@Autowired
+	DistrictService districtService;
 	
 	@RequestMapping(value= "all", method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getAllDoctor(){
@@ -65,4 +74,14 @@ public class DoctorController {
 		  return priceService.getPricesClinic(id_clinic);
 	}
 	
+	@RequestMapping(value= "provinces", method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getAllProvinces(){
+		
+		return provinceService.getProvinces();
+	}
+	
+	@RequestMapping(value= "district/{id_province}", method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getAllDistricts(@PathVariable("id_province") String id_province){
+		return districtService.getDistricts(id_province);
+	}
 }

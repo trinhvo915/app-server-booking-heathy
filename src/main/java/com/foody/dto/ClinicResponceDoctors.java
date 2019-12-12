@@ -31,6 +31,8 @@ public class ClinicResponceDoctors {
 	
 	private Set<Attachment> photoClinics = new HashSet<>();
 	
+	private Attachment photoClinicLogo  ;
+	
 	private List<UserResponceClinic> userResponceClinics = new ArrayList<UserResponceClinic>();
 	
 	public ClinicResponceDoctors() {
@@ -59,6 +61,14 @@ public class ClinicResponceDoctors {
 
 	public String getName() {
 		return name;
+	}
+
+	public Attachment getPhotoClinicLogo() {
+		return photoClinicLogo;
+	}
+
+	public void setPhotoClinicLogo(Attachment photoClinicLogo) {
+		this.photoClinicLogo = photoClinicLogo;
 	}
 
 	public String getAddress() {

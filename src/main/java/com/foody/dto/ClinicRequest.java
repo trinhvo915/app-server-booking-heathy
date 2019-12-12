@@ -19,6 +19,8 @@ public class ClinicRequest {
 	
 	private String longitude;
 
+	private String addressQuery ;
+	
 	private Set<Faculty> faculties = new HashSet<>();
 	
 	public String getName() {
@@ -31,6 +33,14 @@ public class ClinicRequest {
 
 	public String getAddress() {
 		return address;
+	}
+
+	public String getAddressQuery() {
+		return addressQuery;
+	}
+
+	public void setAddressQuery(String addressQuery) {
+		this.addressQuery = addressQuery;
 	}
 
 	public void setAddress(String address) {
