@@ -55,6 +55,12 @@ public class DoctorController {
 		return userservice.getAllDoctor();
 	}
 	
+	@RequestMapping(value= "search/{addressQuery}", method = RequestMethod.GET, produces = "application/json")
+	public DataResponse searchClinicDoctor( @PathVariable("addressQuery") String addressQuery){
+		System.out.println("mam : "+ addressQuery);
+		return userservice.searchClinic(addressQuery);
+	}
+	
 	@RequestMapping(value= "all-clinic/{id_doctor}/{id_clinic}/{date_qurrey}/{date_current}",method = RequestMethod.GET, produces = "application/json")
 	public DataResponse getDoctor(@CurrentUser UserPrincipal currentUser, @PathVariable("id_doctor") String id_doctor,@PathVariable("id_clinic") String id_clinic,@PathVariable("date_qurrey") String date_qurrey, @PathVariable("date_current") String date_current) throws ParseException{
 		Date dateQurey =new SimpleDateFormat("yyyy-MM-dd").parse(date_qurrey); 

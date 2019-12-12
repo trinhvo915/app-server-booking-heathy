@@ -295,4 +295,51 @@ public class UserServiceImpl implements UserService {
 		}
 		return new DataResponse(false, new Data("Cập nhật thông tin không thành công !!",HttpStatus.BAD_REQUEST.value()));
 	}
+
+	@Override
+	public DataResponse searchClinic(String addressQuery) {
+		List<DoctorResponse> doctorResponses = new ArrayList<DoctorResponse>();
+		List<Clinic> clinics = clinicRepository.searchClinic(addressQuery);
+		for (Clinic clinic : clinics) {
+			for (User item : clinic.getUsers()) {
+				Attachment attachmentp = new Attachment();
+				int flag = 0;
+				for (Attachment attachment : item.getAttachments()) {
+					for (AttachmentType attachmentType : attachment.getAttachmentTypes()) {
+						if(attachmentType.getName().equals("DAIDIEN")) {
+							attachmentp.setId(attachment.getId());
+							attachmentp.setData(attachment.getData());
+							attachmentp.setCreatedBy(attachment.getCreatedBy());
+							attachmentp.setFileName(attachment.getFileName());
+							attachmentp.setAttachmentTypes(attachment.getAttachmentTypes());
+							flag++;
+							break;
+						}
+						if(flag>0) {
+							break;
+						}
+					}
+				}
+				
+				List<Comment> commentExperts = commentRepositiry.getCommnetsByIdClincAndIdExpert(clinic.getId(),item.getId());
+				
+				List<Booking> bookingExperts = bookingRepository.getBookedsByIdClincAndIdExpert(clinic.getId(),item.getId(),true);
+				
+				Set<Rate> rateExperts = rateRepository.getRatesByIdClincAndIdExpert(clinic.getId(),item.getId());
+				Double countRate = RateFunction.getRateDoctor(rateExperts);
+				
+				DoctorResponse doctorResponse = new DoctorResponse(item.getId(), item.getCreateAt(), 
+						item.getUpdateAt(), item.getCreatedBy(), item.getUpdatedBy(), item.getDeletedBy(),
+						item.getFullName(), item.getBirthday(), item.getGender(), item.getAge(), 
+						item.getEmail(), item.getAddress(), item.getMobile(), item.getAbout(), 
+						item.getFacebook(), new ClinicResponse(clinic), item.getFaculties(), item.getDegrees(),attachmentp,commentExperts.size(),bookingExperts.size(),countRate);
+				doctorResponses.add(doctorResponse);
+			}
+		}
+		
+		if(clinics == null) {
+			return new DataResponse(false, new Data("Không tìm thấy bác sỹ !!",HttpStatus.BAD_REQUEST.value()));
+		}
+		return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));
+	}
 }

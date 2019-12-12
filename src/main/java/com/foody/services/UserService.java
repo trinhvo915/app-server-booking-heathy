@@ -36,6 +36,8 @@ public interface UserService{
 	
 	DataResponse getAllDoctor();
 	
+	DataResponse searchClinic(String addressQuery);
+	
 	DataResponse reportUser(String idUser, String idDoctor,String idBooked);
 	
 	DataResponse geUserprofile(String idUser);
