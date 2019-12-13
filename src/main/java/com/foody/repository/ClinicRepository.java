@@ -16,6 +16,9 @@ public interface ClinicRepository extends JpaRepository<Clinic, String>, CrudRep
 	@Query(value ="Select * from clinic LEFT JOIN user_clinic ON clinic.id = user_clinic.id_clinic where clinic.id = :id_clinic and user_clinic.id_user = :id_user", nativeQuery=true)
 	Clinic findByIdClinicAndIdUser(@Param("id_clinic") String id_clinic, @Param("id_user")String id_user);
 	
+	@Query(value ="Select * from clinic LEFT JOIN user_clinic ON clinic.id = user_clinic.id_clinic where user_clinic.id_user = :id_user", nativeQuery=true)
+	List<Clinic> showClinicWithIdUser( @Param("id_user")String id_user);
+	
 	@Query(nativeQuery=true,value="SELECT * FROM clinic WHERE address_query LIKE CONCAT('%',:addressQuery,'%')")
 	List<Clinic> searchClinic(@Param("addressQuery") String addressQuery);
 }

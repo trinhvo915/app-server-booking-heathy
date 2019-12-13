@@ -242,6 +242,16 @@ public class BookingServiceImpl implements BookingService{
 						attachment,commentExperts.size(),bookingExperts.size(),countRate,timeBooked);
 				doctorResponses.add(doctorResponse);
 			}
+			if(doctorResponses.size() == 1) {
+				doctorResponses.add(doctorResponses.get(0));
+				doctorResponses.add(doctorResponses.get(0));
+				doctorResponses.add(doctorResponses.get(0));
+			}if(doctorResponses.size() == 2) {
+				doctorResponses.add(doctorResponses.get(1));
+				doctorResponses.add(doctorResponses.get(0));
+			}if(doctorResponses.size() == 3) {
+				doctorResponses.add(doctorResponses.get(2));
+			}
 			return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));
 		}
 		return new DataResponse(false, new Data("Không phải bác sỹ hoặc phòng khám không tồn tại !",HttpStatus.BAD_REQUEST.value()));
