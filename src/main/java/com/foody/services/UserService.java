@@ -40,5 +40,7 @@ public interface UserService{
 	
 	DataResponse reportUser(String idUser, String idDoctor,String idBooked);
 	
+	DataResponse getAllUser();
+	
 	DataResponse geUserprofile(String idUser);
 }

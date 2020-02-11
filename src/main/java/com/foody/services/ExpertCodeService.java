@@ -7,4 +7,5 @@ public interface ExpertCodeService {
 	
 	DataResponse getTokenCode(String id);
 	
+	DataResponse deleteCode(String idCode);
 }

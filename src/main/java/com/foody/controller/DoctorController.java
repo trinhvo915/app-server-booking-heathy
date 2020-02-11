@@ -57,7 +57,6 @@ public class DoctorController {
 	
 	@RequestMapping(value= "search/{addressQuery}", method = RequestMethod.GET, produces = "application/json")
 	public DataResponse searchClinicDoctor( @PathVariable("addressQuery") String addressQuery){
-		System.out.println("mam : "+ addressQuery);
 		return userservice.searchClinic(addressQuery);
 	}
 	

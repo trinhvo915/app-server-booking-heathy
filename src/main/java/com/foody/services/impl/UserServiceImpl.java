@@ -343,4 +343,13 @@ public class UserServiceImpl implements UserService {
 		}
 		return new DataResponse(true, new Data("lấy danh sách bác sỹ thành công !!",HttpStatus.OK.value(),doctorResponses));
 	}
+
+	@Override
+	public DataResponse getAllUser() {
+		List<User> users = userRepository.findAll();
+		if(users.size() > 0 ) {
+			return new DataResponse(true, new Data("lấy danh sách user thành công!!",HttpStatus.OK.value(),users));
+		}
+		return new DataResponse(false, new Data("lấy danh sách user không thành công!!",HttpStatus.BAD_REQUEST.value()));
+	}
 }

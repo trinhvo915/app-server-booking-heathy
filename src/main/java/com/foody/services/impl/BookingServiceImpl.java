@@ -257,4 +257,15 @@ public class BookingServiceImpl implements BookingService{
 		return new DataResponse(false, new Data("Không phải bác sỹ hoặc phòng khám không tồn tại !",HttpStatus.BAD_REQUEST.value()));
 	}
 
+	@Override
+	public DataResponse deleteBooking(String id) {
+		Booking booking = bookingRepository.getOne(id);
+		
+		if(booking != null) {
+			bookingRepository.delete(booking);
+			return new DataResponse(true, new Data("Xóa thành công !!",HttpStatus.OK.value()));
+		}
+		return new DataResponse(false, new Data("Xóa không thành công !!",HttpStatus.BAD_REQUEST.value()));
+	}
+
 }

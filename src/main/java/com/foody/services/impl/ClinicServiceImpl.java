@@ -176,5 +176,14 @@ public class ClinicServiceImpl implements ClinicService{
 		return new DataResponse(true, new Data("Lấy danh sách bác sỹ thất bại !",HttpStatus.BAD_REQUEST.value()));
 		
 	}
+
+	@Override
+	public DataResponse getClinicAll() {
+		List<Clinic> clinics = clinicRepository.findAll();
+		if(clinics.size() >0) {
+			return new DataResponse(true, new Data("Lấy danh sách bác sỹ trong phòng khám thành công !",HttpStatus.OK.value(),clinics));
+		}
+		return new DataResponse(true, new Data("Lấy danh sách bác sỹ thất bại !",HttpStatus.BAD_REQUEST.value()));
+	}
 	
 }

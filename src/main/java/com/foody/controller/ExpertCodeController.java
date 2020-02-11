@@ -38,4 +38,9 @@ public class ExpertCodeController {
 		DataResponse token = expertCodeService.getTokenCode(tokenCode);
 		return token;
 	}
+	
+	@RequestMapping(value= "{idCode}",method = RequestMethod.PUT, produces = "application/json")
+	public DataResponse deleteExpertCode(@PathVariable("idCode") String idCode){
+		return expertCodeService.deleteCode(idCode);
+	}
 }

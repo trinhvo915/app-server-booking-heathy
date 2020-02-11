@@ -144,18 +144,9 @@ public class UserController {
 		return ResponseEntity.created(location).body(new ApiResponse(true, data.getData().getMessage()));
 	}
 	
-//	@RequestMapping(value= "expertclinic/{id_user}", method = RequestMethod.GET, produces = "application/json")
-//	public UserResponse Checkexpertclinic(@PathVariable("id_user") String id_user){
-//		String check ="";
-//		UserResponse userResponse =  userservice.getUserByIdAndCheckRole(id_user);
-//		if(userResponse.getRoles().size()==1) {
-//			check = "USER";
-//		}else if(userResponse.getRoles().size()==2 && userResponse.getClinic().size() == 0) {
-//			check = "USER_EXPERT";
-//		}else if(userResponse.getRoles().size()==2 && userResponse.getClinic().size() > 0) {
-//			check = "USER_CLINIC";
-//		}
-//		userResponse.setCheck(check);
-//		return userResponse;
-//	}
+	@RequestMapping(value= "admin/all", method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getAllUserForAdmin(){
+		return userservice.getAllUser();
+	}
+	
 }

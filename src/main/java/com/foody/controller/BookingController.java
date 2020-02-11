@@ -81,4 +81,18 @@ public class BookingController {
 		emailService.sendEmailBookingBussy(currentUser.getId(), id_booked);;
 		return ResponseEntity.ok().body(new ApiResponse(true, "Đã gửi mail !!"));
 	}
+	
+	@RequestMapping(value="/delete/{id_booking}", method = RequestMethod.POST)
+	public ResponseEntity<?> deleteBookeds(@PathVariable("id_booking") String id_booking){
+		DataResponse data = bookingService.deleteBooking(id_booking);
+		
+		if(data.getSuccess() == false) {
+			return ResponseEntity.badRequest().body(new ApiResponse(false, data.getData().getMessage()));
+		}
+		
+		URI location = ServletUriComponentsBuilder
+	                .fromCurrentContextPath().path("/users")
+	                .buildAndExpand(data.getData().getObject()).toUri();
+		return ResponseEntity.created(location).body(new ApiResponse(true, data.getData().getMessage()));
+	}
 }

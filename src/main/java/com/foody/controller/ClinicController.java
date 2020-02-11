@@ -34,4 +34,9 @@ public class ClinicController {
 	public DataResponse addDoctorIntoClinic(@CurrentUser UserPrincipal currentUser,@PathVariable("idClinic") String idClinic, @PathVariable("usernameOrEmail") String usernameOrEmail ){
 		return ClinicService.addDoctorIntoClinic(currentUser, idClinic,usernameOrEmail);
 	}
+	
+	@RequestMapping(value= "all",method = RequestMethod.GET, produces = "application/json")
+	public DataResponse getAllClinics(){
+		return ClinicService.getClinicAll();
+	}
 }

@@ -40,4 +40,14 @@ public class ExpertCodeServiceImpl implements ExpertCodeService{
 		}
 		return new DataResponse(false, new Data(Constant.GET_TOKEN_CODE_UNSUCCESS,HttpStatus.BAD_REQUEST.value(),expertCode));
 	}
+
+	@Override
+	public DataResponse deleteCode(String idCode) {
+		ExpertCode code = expertCodeRepository.getOne(idCode);
+		if(code != null) {
+			expertCodeRepository.delete(code);
+			return new DataResponse(true, new Data("Xóa thành công !",HttpStatus.OK.value()));
+		}
+		return new DataResponse(false, new Data("Xóa không thành công !",HttpStatus.BAD_REQUEST.value()));
+	}
 }
