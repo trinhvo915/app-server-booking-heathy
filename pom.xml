@@ -157,7 +157,11 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
-		
+		<dependency>
+		  <groupId>com.google.cloud</groupId>
+		  <artifactId>google-cloud-storage</artifactId>
+		  <version>1.22.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
