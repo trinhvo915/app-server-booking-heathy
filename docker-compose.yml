@@ -1,0 +1,40 @@
+version: '3'
+
+#Define services
+services:
+ #MySQL Database for the application
+  clinic-mysql:
+    image: "mysql:5.7"
+    container_name: clinic-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - clinic-data:/var/lib/mysql
+      - ./clinic-data/init:/docker-entrypoint-initdb.d/:ro 
+    ports:
+      - 3307:3306  # Forward the exposed port 5432 on the container to port 5432 on the host machine
+    #Environment variable for DB name, user and password
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ClinicDB
+      - MYSQL_USER=Admin
+      - MYSQL_PASSWORD=Aa123456
+  #Back-end Spring Boot Application
+  clinic-app:
+    #The docker file in clinic-app build the jar and provides the docker image with the following name.
+    build: ./  # Get DockerFile to build image
+    container_name: clinic-app
+    environment:
+      - DB_SERVER=clinic-mysql
+      - MYSQL_DATABASE=ClinicDB
+      - MYSQL_USER=Admin
+      - MYSQL_PASSWORD=Aa123456
+    ports:
+      - 8080:8080 # Forward the exposed port 8080 on the container to port 8080 on the host machine 
+    depends_on: 
+      - clinic-mysql
+    # command: sh -c './wait-for clinic-mysql:3306 -- npm start'
+
+volumes:
+  clinic-data:
+
